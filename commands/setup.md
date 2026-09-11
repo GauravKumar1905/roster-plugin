@@ -20,10 +20,10 @@ carries only the connection to it.
 2. **Report where they are**, using what `list_workspaces` returned:
 
    - **No workspaces yet** — they need to create one in the dashboard first, since a workspace is
-     where a Google Ads connection lives. Point them at the Roster dashboard and stop here.
+     where a Google Ads connection lives. Give them the link — https://roster-1035727789436.asia-southeast1.run.app — and stop here.
    - **Workspaces exist but none has accounts** — they have created a client but not attached any
      Google Ads accounts. Tell them which workspace, and that it happens in that workspace's
-     Settings in the dashboard.
+     Settings at https://roster-1035727789436.asia-southeast1.run.app.
    - **Workspaces with accounts** — they are ready. List the client names and how many accounts
      each has, then tell them they can ask for a report in plain language, giving one concrete
      example using one of their actual client names.

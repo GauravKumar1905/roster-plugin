@@ -16,4 +16,4 @@ which and why in one line each — a skipped widget almost always means the acco
 capability that widget needs, not that anything is broken.
 
 If the account's Google connection has expired, say so plainly and tell them to reconnect that
-workspace in the Roster dashboard. Do not retry.
+workspace at https://roster-1035727789436.asia-southeast1.run.app. Do not retry.
