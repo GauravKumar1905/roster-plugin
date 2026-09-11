@@ -45,10 +45,20 @@ Roster only ever reads. It never changes a bid, a budget or a campaign.
 | `/roster:edit <report>` | Change a report you already have |
 | `/roster:status` | Your clients, their accounts, and existing reports |
 | `/roster:refresh <report>` | Re-render a report against today's numbers |
+| `/roster:queue` | Work through reports queued in the dashboard |
 
 You don't have to use the commands. Once connected, asking in plain language works:
 
 > Build a monthly performance report for Northside Coffee.
+
+## The report queue
+
+You can't start Claude from the Roster dashboard, and Claude can't see the dashboard. So the
+dashboard has a **report queue**: note down what you want while you're looking at your clients,
+then later tell Claude to *work my report queue*. It picks them up one at a time, shows you each
+report before saving it, and ticks the task off once it's done.
+
+Workspace IDs are copyable on that same page, for when you'd rather point Claude at one directly.
 
 ## What's in here
 
