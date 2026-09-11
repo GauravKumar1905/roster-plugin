@@ -13,6 +13,32 @@ That changes what "good" means here. A report you'd write once for today's data 
 output. Design something that will still be right in six weeks, on a month where spend
 tripled, or a week where one campaign was paused.
 
+## Show it before you save it
+
+A saved report is what an agency sends their client. So the order is: propose in words, preview
+with real figures, ask, then save.
+
+`preview_report` renders a draft against the real account and stores nothing. Use it every time,
+for new reports and for edits. Show the tables it returns and ask whether the sections, metrics
+and breakdowns are right. Previewing costs a few seconds; a wrong report in a client's inbox
+costs more.
+
+Do not describe the report you are about to build and then build it in the same breath. Stop and
+let them answer.
+
+## Tables bring their own chart
+
+A table widget draws a chart of the same figures directly beneath it — a timeline gets a line, a
+category gets a bar. It comes from the table's own query, so it cannot drift out of step with the
+numbers above it.
+
+This means **do not add a separate chart widget for data a table already shows**. Two widgets for
+one set of numbers is two queries and two things to disagree. Set `pairedChart` to `none` only if
+the table genuinely should stand alone.
+
+A pie is never paired, deliberately. A pie divides a whole into parts, which is meaningless for a
+ratio — and these tables are mostly ratios beside totals.
+
 ## The workflow
 
 Follow this order. Skipping the inspection step is the most common way to produce a report

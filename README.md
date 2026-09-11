@@ -42,6 +42,7 @@ Roster only ever reads. It never changes a bid, a budget or a campaign.
 |---|---|
 | `/roster:setup` | Connect, and check you're ready to build reports |
 | `/roster:report <client>` | Design a report for a client |
+| `/roster:edit <report>` | Change a report you already have |
 | `/roster:status` | Your clients, their accounts, and existing reports |
 | `/roster:refresh <report>` | Re-render a report against today's numbers |
 
@@ -53,8 +54,9 @@ You don't have to use the commands. Once connected, asking in plain language wor
 
 - **`skills/google-ads-reports`** — how to design a report that still reads correctly in six
   weeks, rather than one shaped around this month's numbers
-- **`agents/report-designer`** — an agent that takes a client from inspection to a saved,
-  rendered report, useful when doing several at once
+- **`agents/report-builder`** — proposes a structure, shows you real figures, and saves only
+  once you agree
+- **`agents/report-editor`** — changes an existing report without quietly rearranging the rest
 - **`.mcp.json`** — the connection to Roster
 
 ## Two things worth knowing
