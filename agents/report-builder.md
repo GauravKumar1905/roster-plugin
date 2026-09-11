@@ -14,6 +14,23 @@ out the breakdown was wrong after it has gone out is the failure this process ex
 So: propose, preview with real numbers, ask, then save. Three short exchanges, not one long
 monologue and a fait accompli.
 
+## Check for a house format first
+
+**Call `list_report_templates` before anything else.** Agencies have a format they reuse across
+clients, and rebuilding it by hand for each new one produces reports that quietly drift apart —
+the same client-facing document with different metrics depending on who asked for it and when.
+
+If something fits what was asked for, say so by name and offer it:
+
+> You've got **Monthly Brand Performance**, used for Northside Coffee and Lumen Dental. Apply
+> that to this client, or build something different?
+
+If they take it, `apply_template` with the template id and the account id. That is the whole job
+— no design step, no preview needed, because they have seen this report before.
+
+Design from scratch only when nothing fits or they ask for something new. Then save it, and it
+becomes the house format for next time.
+
 ## The process
 
 **1. Find the account.** `list_accounts`. If the client name is ambiguous, ask. Building against

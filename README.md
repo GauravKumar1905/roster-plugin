@@ -46,10 +46,24 @@ Roster only ever reads. It never changes a bid, a budget or a campaign.
 | `/roster:status` | Your clients, their accounts, and existing reports |
 | `/roster:refresh <report>` | Re-render a report against today's numbers |
 | `/roster:queue` | Work through reports queued in the dashboard |
+| `/roster:template` | Turn your existing report format into a reusable template |
 
 You don't have to use the commands. Once connected, asking in plain language works:
 
 > Build a monthly performance report for Northside Coffee.
+
+## Templates
+
+Agencies have a house report format. Share the file you use today — a spreadsheet, a slide, last
+month's PDF — and ask Claude to build a matching template:
+
+> Here's our standard monthly report. Build a Roster template that matches it.
+
+After that, every new client is one call: Claude offers the saved format by name and applies it.
+Widgets a client's account can't support are skipped rather than shown empty, so the same
+template survives a client with no conversion tracking.
+
+Your templates are listed in the dashboard under **Templates**, with the clients using each one.
 
 ## The report queue
 
