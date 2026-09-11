@@ -23,14 +23,16 @@ Code terminal** — `/plugin` does not exist in Claude Desktop or on the web.
 
 ## Install (Claude Code only)
 
-In the Claude Code terminal:
+In the Claude Code terminal, **one at a time** — the first opens a prompt asking for the
+source, and it wants only `GauravKumar1905/roster-plugin`, not the whole block:
 
 ```
 /plugin marketplace add GauravKumar1905/roster-plugin
-/plugin install roster@roster
 ```
 
-Then:
+```
+/plugin install roster@roster
+```
 
 ```
 /roster:setup
