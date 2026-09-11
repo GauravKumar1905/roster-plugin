@@ -1,0 +1,8 @@
+{
+  "name": "roster",
+  "displayName": "Roster — Google Ads reporting",
+  "description": "Design Google Ads client reports once, then let them refresh themselves. Connects to your Roster account.",
+  "version": "0.1.0",
+  "author": { "name": "Roster Pvt Ltd" },
+  "mcpServers": "./.mcp.json"
+}

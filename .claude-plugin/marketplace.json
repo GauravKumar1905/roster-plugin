@@ -1,0 +1,12 @@
+{
+  "name": "roster",
+  "owner": { "name": "Roster Pvt Ltd" },
+  "plugins": [
+    {
+      "name": "roster",
+      "source": "./",
+      "description": "Design Google Ads client reports once, then let them refresh themselves.",
+      "version": "0.1.0"
+    }
+  ]
+}

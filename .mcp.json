@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "roster": {
+      "type": "http",
+      "url": "https://roster-1035727789436.asia-southeast1.run.app/api/mcp"
+    }
+  }
+}
