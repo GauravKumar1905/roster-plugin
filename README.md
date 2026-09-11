@@ -7,9 +7,23 @@ This plugin connects Claude to your Roster account. It contains no application c
 run on Roster's servers, and this package is the connection plus the instructions Claude needs
 to use it well.
 
-## Install
+## Which one do you need?
 
-In Claude Code:
+**Most people want the connector, not this plugin.** In Claude Desktop or on claude.ai, go to
+Settings → Connectors → Add custom connector and paste:
+
+```
+https://roster-1035727789436.asia-southeast1.run.app/api/mcp
+```
+
+That is the whole setup, and it gives you every Roster tool.
+
+This plugin adds commands and report-building agents on top, and it works **only in the Claude
+Code terminal** — `/plugin` does not exist in Claude Desktop or on the web.
+
+## Install (Claude Code only)
+
+In the Claude Code terminal:
 
 ```
 /plugin marketplace add GauravKumar1905/roster-plugin
