@@ -147,6 +147,32 @@ So `"title": "{{month}} Performance"` stays correct forever.
 The older string ranges (`last_30_days`, `this_month`, …) still work and existing reports use
 them, but they cannot express whole calendar periods. Prefer the object.
 
+## Breakdowns that live on their own resource
+
+`gender`, `age_range`, `audience` and `asset_type` each come from a different Google Ads
+resource, and GAQL has no joins. **At most one of them per widget.** Gender crossed with age, or
+gender crossed with creative type, is not a query that exists — you get a design-time error
+naming both. Use one widget each.
+
+They also depend on the account's campaign mix. Demographic and audience rows only exist where an
+ad-group criterion does, so **Performance Max, Smart and Shopping campaigns contribute nothing**
+to them. On a Performance-Max-heavy account a gender table returns rows that look perfectly
+reasonable and account for a fraction of the spend — which the client will notice when they
+reconcile it against their invoice.
+
+`describe_account` returns `breakdownCoverage` saying exactly which breakdowns that account's mix
+can account for, and what share of spend each covers. **Read it before designing.** If a breakdown
+covers 20% of spend, either leave it out or say so in the widget title.
+
+## Splitting conversions into actions
+
+`conversion_action` (the name in the account) and `conversion_category` (Google's own grouping —
+Purchase, Add To Cart, Begin Checkout) turn one conversions number into the actions behind it.
+
+Spend cannot appear beside them. Google refuses `cost_micros` alongside a conversion-action
+segment outright, so a widget asking for both is rejected at design time. Build two widgets: one
+for spend and delivery, one for conversions split by action.
+
 ## Editing an existing report
 
 Always check `list_report_templates` first when someone asks to change a report. Then
