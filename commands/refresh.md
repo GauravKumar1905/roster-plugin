@@ -15,5 +15,5 @@ Return the dashboard URL and when it was refreshed. If the render reports skippe
 which and why in one line each — a skipped widget almost always means the account lacks the
 capability that widget needs, not that anything is broken.
 
-If the account's Google connection has expired, say so plainly and tell them to reconnect that
+If Google refuses the account's stored connection, say so plainly and tell them to reconnect that
 workspace at https://roster-1035727789436.asia-southeast1.run.app. Do not retry.

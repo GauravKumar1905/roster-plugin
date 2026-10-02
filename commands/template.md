@@ -29,8 +29,10 @@ time than asking.
 ## Then
 
 1. `list_report_templates` — they may already have this saved.
-2. `describe_account` on the client you will test against, so the design fits real capabilities.
-3. `preview_report` — show the figures and ask whether it matches their existing report.
+2. Test it against a real campaign: ask them to paste a queued task, and `get_task` gives you its
+   `ids` and what that campaign can report on (`canReport`).
+3. `preview_report` with those ids — show the figures and ask whether it matches their existing
+   report.
 4. Iterate until they say it does.
 5. `save_report_template` with a clear name. Give it a description saying what it is for, because
    that description is what tells the next person which template to reach for.

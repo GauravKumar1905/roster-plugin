@@ -41,6 +41,10 @@ source, and it wants only `GauravKumar1905/roster-plugin`, not the whole block:
 The first time Claude uses a Roster tool it opens a browser so you can sign in and approve the
 connection. That happens once.
 
+**Turn on auto-update** so new versions reach you without asking: run `/plugin`, open
+**Marketplaces**, select **roster**, then **Enable auto-update**. Without it, update by hand with
+`/plugin marketplace update roster`.
+
 ## You need a Roster account first
 
 Sign up at **https://roster-1035727789436.asia-southeast1.run.app/signup**, then in the
@@ -57,16 +61,23 @@ Roster only ever reads. It never changes a bid, a budget or a campaign.
 | | |
 |---|---|
 | `/roster:setup` | Connect, and check you're ready to build reports |
-| `/roster:report <client>` | Design a report for a client |
+| `/roster:report` | Start a report — from a task you queued in the dashboard |
 | `/roster:edit <report>` | Change a report you already have |
 | `/roster:status` | Your clients, their accounts, and existing reports |
 | `/roster:refresh <report>` | Re-render a report against today's numbers |
-| `/roster:queue` | Work through reports queued in the dashboard |
+| `/roster:queue` | Work on a queued task, or see what is waiting |
 | `/roster:template` | Turn your existing report format into a reusable template |
 
-You don't have to use the commands. Once connected, asking in plain language works:
+You don't have to use the commands. Every report starts as a task in the dashboard: on a
+client's **Reports** page, choose one campaign, say what you need, press **Copy for Claude**, and
+paste it into Claude:
 
-> Build a monthly performance report for Northside Coffee.
+> Work on my Roster report task.
+> Workspace: ws_… (Northside Coffee)
+> Task: task_… — "Monthly report for the brand campaign"
+
+Claude reads the brief, asks what report you want for that campaign, and shows you the figures
+before anything is saved.
 
 ## Templates
 
@@ -84,11 +95,10 @@ Your templates are listed in the dashboard under **Templates**, with the clients
 ## The report queue
 
 You can't start Claude from the Roster dashboard, and Claude can't see the dashboard. So the
-dashboard has a **report queue**: note down what you want while you're looking at your clients,
-then later tell Claude to *work my report queue*. It picks them up one at a time, shows you each
-report before saving it, and ticks the task off once it's done.
-
-Workspace IDs are copyable on that same page, for when you'd rather point Claude at one directly.
+dashboard has a **report queue**: note down each report you want while you're looking at your
+clients — one campaign each — and copy each task into Claude when you're ready. Ask Claude *what's
+in my queue* to see everything waiting. Each report is shown to you before it's saved, and its task
+is ticked off once it's done.
 
 ## What's in here
 

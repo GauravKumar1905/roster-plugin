@@ -2,22 +2,30 @@
 description: Work through the reports queued up in your Roster dashboard
 ---
 
-Work the report queue.
+Work on a queued report task.
 
-1. `list_tasks` — what is waiting, and which client each belongs to.
+1. **Find the task.** If the user pasted one — "Work on my Roster report task" with `Workspace:`
+   and `Task:` lines — you already have both ids; go to step 2. Do not call `list_tasks` to find
+   it.
 
-2. **Show the list and ask which to start with.** If they all sit in one workspace, say so and
-   offer to begin at the top. Do not start work on your own initiative.
+   Otherwise call `list_tasks`, show what is waiting grouped by client, and ask which to start
+   with. Do not start one on your own initiative.
 
-3. **Take one task.** Use the `report-builder` agent, or follow its process yourself: inspect the
-   account, propose the structure in words, `preview_report`, get agreement, then save.
+2. **`get_task` with the workspaceId and taskId.** One call returns the whole brief: their
+   instruction, the campaign and its last-30-day delivery, `canReport`, existing reports, saved
+   templates, the `ids` to use, and `nextSteps`. Do not call other tools to rediscover any of it.
+   If it returns an `error` or a legacy note, tell the user what it says and stop.
 
-4. `complete_task` with the task id and the report id, **after** the report is saved and seen.
-   Marking a task done before the work exists makes the queue lie.
+3. **Follow `nextSteps`.** Use the `report-builder` agent, or follow its process yourself:
+   summarise the campaign in two lines, ask what report they want with two or three options,
+   design it, `preview_report` with `ids.accountId` and `ids.campaignIds`, and save only once
+   they agree.
 
-5. **Stop and check in before the next one.** One report per exchange. Working through five in
-   silence produces five reports nobody approved, which is the failure this queue exists to
-   avoid.
+4. **`complete_task`** with `ids.taskId` and the report id, **after** the report is saved and
+   seen. Marking a task done before the work exists makes the queue lie.
 
-If a task is too vague to act on — "monthly report" with no hint of what it should cover — ask
-rather than guessing. The person who wrote it is the one who knows.
+5. **One task per exchange.** If there are more, stop and ask before starting the next. Working
+   through five in silence produces five reports nobody approved.
+
+If their instruction is too vague to act on, the question in step 3 is where it gets settled —
+ask, rather than guessing. The person who wrote it is the one who knows.

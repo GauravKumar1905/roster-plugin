@@ -41,19 +41,37 @@ ratio — and these tables are mostly ratios beside totals.
 
 ## The workflow
 
-Follow this order. Skipping the inspection step is the most common way to produce a report
-full of empty charts.
+Every report starts as a task queued in the dashboard: one campaign, and the user's instruction.
+The user pastes it here with a workspace id and a task id.
 
-1. **`list_accounts`** — find the account. Pass `search` with part of the client's name.
-2. **`describe_account`** — read what this account actually is. Look hard at `capabilities`.
-3. **`get_catalog`** — the only vocabulary you may use. Never invent ids.
+1. **`get_task`** with both ids — the whole brief in one call. Read `campaign`, `canReport`,
+   `existingReports` and `savedTemplates`. Do not call other tools to rediscover any of it.
+2. **Ask what report they want** — see *From brief to options* below.
+3. **`get_catalog`** — chart rules and slot constraints. Never invent ids.
 4. **`preview_metric`** — check anything you're unsure about *before* committing it.
-5. **`save_report_template`** — with `applyToAccountId` so it renders immediately and returns a URL.
-6. Give the user the URL.
+5. **`preview_report`** with `ids.accountId` and `ids.campaignIds` — show real figures, get a yes.
+6. **`save_report_template`** with `applyToAccountId`, `campaignIds` and `workspaceId` from `ids`,
+   so it renders immediately and returns a URL.
+7. **`complete_task`** with `ids.taskId` and the report id. Give the user the URL.
+
+## From brief to options
+
+The instruction in a task is a starting point, written in a hurry on a dashboard — "monthly
+report for this campaign". Turn it into a choice before designing anything:
+
+- Say what the campaign is in two lines: type, status, last-30-day spend and delivery.
+- Offer two or three reports that suit **this campaign type**, built only from `canReport`. A
+  video campaign is about reach and views; a search campaign about clicks, cost and, where it
+  converts, conversions; Performance Max about outcomes, because its breakdowns are thin.
+- Lead with a `savedTemplates` entry where `fits` is true — it is the agency's house format.
+- Mention `existingReports` first if there are any. They may want a change, not a new report.
+- Then stop and wait. One question, short options, no preamble.
 
 ## The rule that matters most
 
-**`capabilities` from `describe_account` decides the whole shape of the report.**
+**What the campaign can report on decides the whole shape of the report.** `get_task` works it
+out for you as `canReport`, from whether conversion data actually arrives for this campaign. The
+capabilities behind it:
 
 - `[]` — no conversion data. Build a **reach and efficiency** report: spend, impressions,
   clicks, CTR, CPC, CPM, and video metrics if the account runs video. Do **not** include
@@ -160,9 +178,9 @@ to them. On a Performance-Max-heavy account a gender table returns rows that loo
 reasonable and account for a fraction of the spend — which the client will notice when they
 reconcile it against their invoice.
 
-`describe_account` returns `breakdownCoverage` saying exactly which breakdowns that account's mix
-can account for, and what share of spend each covers. **Read it before designing.** If a breakdown
-covers 20% of spend, either leave it out or say so in the widget title.
+`get_task` sorts this out for the task's campaign: `canReport.breakdowns` cover its whole spend,
+and `canReport.partialBreakdowns` return real rows that do not add up to it. **Read it before
+designing.** Use a partial breakdown only with a widget title that says so, and never total it.
 
 ## Splitting conversions into actions
 
