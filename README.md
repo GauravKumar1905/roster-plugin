@@ -7,60 +7,35 @@ This plugin connects Claude to your Roster account. It contains no application c
 run on Roster's servers, and this package is the connection plus the instructions Claude needs
 to use it well.
 
-## Which one do you need?
+## Start in the dashboard
 
-**Most people want the connector, not this plugin.** In Claude Desktop or on claude.ai, go to
-Settings → Connectors → Add custom connector and paste:
+Sign up at **https://roster-1035727789436.asia-southeast1.run.app/signup**. The dashboard walks
+you through the rest in order, and stays on its setup screen until Claude is set up:
 
-```
-https://roster-1035727789436.asia-southeast1.run.app/api/mcp
-```
-
-That is the whole setup, and it gives you every Roster tool.
-
-This plugin adds commands and report-building agents on top, and it works **only in the Claude
-Code terminal** — `/plugin` does not exist in Claude Desktop or on the web.
-
-## Install (Claude Code only)
-
-In the Claude Code terminal, **one at a time** — the first opens a prompt asking for the
-source, and it wants only `GauravKumar1905/roster-plugin`, not the whole block:
-
-```
-/plugin marketplace add GauravKumar1905/roster-plugin
-```
-
-```
-/plugin install roster@roster
-```
-
-```
-/roster:setup
-```
-
-The first time Claude uses a Roster tool it opens a browser so you can sign in and approve the
-connection. That happens once.
-
-**Turn on auto-update** so new versions reach you without asking: run `/plugin`, open
-**Marketplaces**, select **roster**, then **Enable auto-update**. Without it, update by hand with
-`/plugin marketplace update roster`.
-
-## You need a Roster account first
-
-Sign up at **https://roster-1035727789436.asia-southeast1.run.app/signup**, then in the
-dashboard:
-
-1. Create a workspace for a client
-2. Connect the Google account that can reach that client's Google Ads
-3. Choose which of its accounts that client advertises under
+1. **Install this plugin** in the Claude desktop app: Settings → Plugins → Add → Add marketplace,
+   paste `https://github.com/GauravKumar1905/roster-plugin`, press Sync, then Add
+   **Roster — Google Ads reporting**.
+2. **Connect it**: Your plugins → Roster → Connectors → roster → Connect, then sign in to Roster
+   and approve in the browser tab that opens. Once only.
+3. **Run `/roster:setup`** in the Code tab. Claude checks your account, offers to create your
+   first client, sets up a `Roster` folder on your Desktop, and tells the dashboard you're done.
+4. Back in the dashboard, press **Done**, then connect Google Ads in the client's Settings and
+   choose which of its accounts that client advertises under.
 
 Roster only ever reads. It never changes a bid, a budget or a campaign.
+
+Roster is built for the Claude desktop app, where the plugin brings its commands, agents and
+skill along. The connector on its own (claude.ai → Settings → Connectors) reaches the same tools
+but cannot run `/roster:setup`, so it cannot finish onboarding.
+
+**Turn on auto-update** so new versions reach you without asking, from the marketplace's settings
+in the same Plugins screen.
 
 ## Commands
 
 | | |
 |---|---|
-| `/roster:setup` | Connect, and check you're ready to build reports |
+| `/roster:setup` | Connect, create your first client, set up your folder, and finish onboarding |
 | `/roster:report` | Start a report — from a task you queued in the dashboard |
 | `/roster:edit <report>` | Change a report you already have |
 | `/roster:status` | Your clients, their accounts, and existing reports |
