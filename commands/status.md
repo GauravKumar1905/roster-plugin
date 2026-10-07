@@ -8,7 +8,7 @@ Give the user a short picture of their Roster account.
    `list_workspaces` cannot see a missing connection, so it alone would report a dead client as
    healthy.
 2. `list_reports` for each client — the reports that exist
-3. `list_report_templates` — the template library, agency-wide and per client
+3. `list_templates` — the template library, agency-wide and per client
 
 Present it as one compact list per client: the client name, its accounts, and any reports. Plain
 text, not a wall of JSON.

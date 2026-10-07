@@ -87,7 +87,6 @@ is ticked off once it's done.
 - **`agents/report-builder`** — builds and saves a report once you have agreed its structure,
   fixing whatever Roster's checks flag without changing what you agreed
 - **`agents/report-reviewer`** — reviews a saved report against what you asked for, while you do
-- **`agents/report-editor`** — changes an existing report without quietly rearranging the rest
 - **`.mcp.json`** — the connection to Roster
 
 ## Two things worth knowing

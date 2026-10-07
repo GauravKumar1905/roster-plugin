@@ -68,7 +68,7 @@ Then build `~/Desktop/Roster`:
 ~/Desktop/Roster/
 ├── CLAUDE.md
 ├── .roster/version.json
-├── .claude/agents/         copies of report-builder.md, report-reviewer.md, report-editor.md
+├── .claude/agents/         copies of report-builder.md, report-reviewer.md
 ├── .claude/skills/         copy of google-ads-reports/
 └── exports/
 ```
@@ -79,7 +79,7 @@ entry, then copy that directory's `agents/` and `skills/`. Write the entry's `ve
 `gitCommitSha` into `.roster/version.json` with today's date:
 
 ```json
-{ "pluginVersion": "0.4.0", "gitCommitSha": "...", "syncedAt": "2026-10-07" }
+{ "pluginVersion": "0.5.0", "gitCommitSha": "...", "syncedAt": "2026-10-07" }
 ```
 
 That stamp is what lets a later session notice the copies are out of date. Without it they rot
@@ -120,7 +120,8 @@ Settings in the dashboard.
 Clients, accounts, campaigns and queued reports all change without this file changing. Never
 answer from what is written here — call `check_setup` for readiness, `list_workspaces` for
 clients, `list_tasks` with the default workspace above for the queue (no default: ask which
-client first), `get_task` with a taskId for one task's brief, `list_reports` for a client's reports.
+client first), `get_task` with a taskId for one task's brief, `list_reports` and `list_templates`
+for a client's reports and templates.
 
 ## How reports get built
 
@@ -182,7 +183,9 @@ already known. If they declined it: they can run `/roster:setup` again any time 
 
 If they already had the folder and the installed plugin is newer than `.roster/version.json`,
 offer to refresh the copies — saying first that any edits they made to the local agents will be
-replaced.
+replaced. A refresh also deletes any file in `.claude/agents/` that the installed plugin no longer
+ships (for example `report-editor.md`, retired in 0.5.0): a stale agent calls tools that no longer
+exist.
 
 ## Tone
 

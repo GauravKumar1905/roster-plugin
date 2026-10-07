@@ -9,8 +9,8 @@ rather than waiting.
 
 1. Find the report: a pasted `/r/rep_…` link carries its id; otherwise `list_reports` for the
    client (the default workspace in `CLAUDE.md`, or ask which).
-2. `get_report` for its spec, then `save_report_template` with that spec unchanged and the same
-   `reportId`. That re-renders it in place — never `apply_template`, which makes a second report.
+2. `get_report` for its spec, then `save_report` with that spec unchanged and the same `reportId`.
+   That re-renders it in place, and it keeps its link.
 
 Return the dashboard URL and when it was refreshed. If the save returns warnings or skipped widgets, say
 which and why in one line each — a skipped widget almost always means the account lacks the

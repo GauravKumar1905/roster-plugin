@@ -52,8 +52,9 @@ The user pastes it here, or picks it from `list_tasks` for one client.
 5. **`preview_report`** with `ids.accountId` and `ids.campaignIds` — show real figures, iterate
    until the user agrees on the structure.
 6. **The `report-builder` agent builds it** from the agreed spec and the `ids`. Its
-   `save_report_template` renders the report and checks the real figures before anything is
-   written; a widget that fails or comes back empty stops the save until it is fixed.
+   `save_report` (no `reportId` — a new report) renders the report and checks the real figures
+   before anything is written; a widget that fails or comes back empty stops the save until it is
+   fixed.
 7. **Review at the same time:** give the user the URL, and run the `report-reviewer` agent in the
    background with the reportId and the agreed spec. Agreed fixes go back to `report-builder`
    with the reportId.
@@ -61,7 +62,7 @@ The user pastes it here, or picks it from `list_tasks` for one client.
 
 **One task, one report.** A follow-up in the same conversation — another section, a new
 breakdown, even after the task is complete — changes that report: preview the full updated spec,
-then `report-builder` saves it with the same `reportId`. Saving it with `applyToAccountId` is
+then `report-builder` saves it with the same `reportId`. Saving it as a new report (no `reportId`) is
 refused when those campaigns already have a report, because the client would be left holding
 several links, each frozen at a different stage.
 
@@ -207,12 +208,21 @@ for spend and delivery, one for conversions split by action.
 A report and a template are different things. Each report owns its own design; a template is a
 design someone chose to reuse, and applying one gives the new report its own copy.
 
-To change a report: `list_reports` for the client, `get_report` for its spec and figures, modify
-the spec, and save it back with `save_report_template` and **the same `reportId`**. Passing
-`applyToAccountId` instead creates a duplicate.
+Reports and templates have the same three tools, and the save tools work the same way: a blank
+id creates, an id updates in place.
 
-To change a template: `list_report_templates`, `get_report_template`, then `save_report_template`
-with `saveAsTemplate` and the same `templateId`. Reports already made from it do not change.
+| | Report | Template |
+|---|---|---|
+| Find | `list_reports` | `list_templates` |
+| Read | `get_report` | `get_template` |
+| Save | `save_report` — blank `reportId` = new | `save_template` — blank `templateId` = new |
+
+To change a report: `get_report`, modify the spec, `preview_report`, then `save_report` with **the
+same `reportId`** — it keeps its link. A new report for campaigns that already have one is refused.
+
+To change a template: `get_template`, modify the spec, then `save_template` with the same
+`templateId`. Reports already made from it do not change. A new report from a template is
+`save_report` with its `templateId` (preview it first with `preview_report` and the `templateId`).
 
 ## A worked example
 
