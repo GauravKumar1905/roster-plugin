@@ -7,11 +7,12 @@ Re-render a report: **$ARGUMENTS**
 Reports refresh on their own, so this is for when someone wants the latest figures immediately
 rather than waiting.
 
-1. `list_report_templates` to find the template. If `$ARGUMENTS` names a client rather than a
-   report, use `list_workspaces` to work out which account they mean.
-2. `apply_template` with that template and the account id.
+1. Find the report: a pasted `/r/rep_…` link carries its id; otherwise `list_reports` for the
+   client (the default workspace in `CLAUDE.md`, or ask which).
+2. `get_report` for its spec, then `save_report_template` with that spec unchanged and the same
+   `reportId`. That re-renders it in place — never `apply_template`, which makes a second report.
 
-Return the dashboard URL and when it was refreshed. If the render reports skipped widgets, say
+Return the dashboard URL and when it was refreshed. If the save returns warnings or skipped widgets, say
 which and why in one line each — a skipped widget almost always means the account lacks the
 capability that widget needs, not that anything is broken.
 

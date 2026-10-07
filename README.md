@@ -52,7 +52,9 @@ paste it into Claude:
 > Task: task_… — "Monthly report for the brand campaign"
 
 Claude reads the brief, asks what report you want for that campaign, and shows you the figures
-before anything is saved.
+before anything is saved. Once you agree, a builder agent saves it — Roster checks the real
+figures and refuses a report with a broken or empty widget — and a reviewer agent looks it over
+while you do.
 
 ## Templates
 
@@ -65,22 +67,26 @@ After that, every new client is one call: Claude offers the saved format by name
 Widgets a client's account can't support are skipped rather than shown empty, so the same
 template survives a client with no conversion tracking.
 
-Your templates are listed in the dashboard under **Templates**, with the clients using each one.
+A report is not a template until you make it one. A template is either for one client or for
+every client, and each report made from it gets its own copy — improving a template later changes
+new reports, never ones you have already sent. On a client's **Templates** page you can turn one of
+their reports into a template, or copy an instruction that has Claude design a new one.
 
 ## The report queue
 
 You can't start Claude from the Roster dashboard, and Claude can't see the dashboard. So the
 dashboard has a **report queue**: note down each report you want while you're looking at your
 clients — one campaign each — and copy each task into Claude when you're ready. Ask Claude *what's
-in my queue* to see everything waiting. Each report is shown to you before it's saved, and its task
+in my queue* to see what is waiting for a client. Each report is shown to you before it's saved, and its task
 is ticked off once it's done.
 
 ## What's in here
 
 - **`skills/google-ads-reports`** — how to design a report that still reads correctly in six
   weeks, rather than one shaped around this month's numbers
-- **`agents/report-builder`** — proposes a structure, shows you real figures, and saves only
-  once you agree
+- **`agents/report-builder`** — builds and saves a report once you have agreed its structure,
+  fixing whatever Roster's checks flag without changing what you agreed
+- **`agents/report-reviewer`** — reviews a saved report against what you asked for, while you do
 - **`agents/report-editor`** — changes an existing report without quietly rearranging the rest
 - **`.mcp.json`** — the connection to Roster
 

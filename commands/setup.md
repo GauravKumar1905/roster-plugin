@@ -68,7 +68,7 @@ Then build `~/Desktop/Roster`:
 ~/Desktop/Roster/
 ├── CLAUDE.md
 ├── .roster/version.json
-├── .claude/agents/         copies of report-builder.md, report-editor.md
+├── .claude/agents/         copies of report-builder.md, report-reviewer.md, report-editor.md
 ├── .claude/skills/         copy of google-ads-reports/
 └── exports/
 ```
@@ -79,7 +79,7 @@ entry, then copy that directory's `agents/` and `skills/`. Write the entry's `ve
 `gitCommitSha` into `.roster/version.json` with today's date:
 
 ```json
-{ "pluginVersion": "0.3.0", "gitCommitSha": "...", "syncedAt": "2026-10-07" }
+{ "pluginVersion": "0.4.0", "gitCommitSha": "...", "syncedAt": "2026-10-07" }
 ```
 
 That stamp is what lets a later session notice the copies are out of date. Without it they rot
@@ -119,14 +119,21 @@ Settings in the dashboard.
 
 Clients, accounts, campaigns and queued reports all change without this file changing. Never
 answer from what is written here — call `check_setup` for readiness, `list_workspaces` for
-clients, `list_tasks` for the queue, `get_task` for one task's brief.
+clients, `list_tasks` with the default workspace above for the queue (no default: ask which
+client first), `get_task` with a taskId for one task's brief, `list_reports` for a client's reports.
 
 ## How reports get built
 
-- Preview with real figures and get agreement before saving. Never save one they have not seen.
-- One report per approval. Do not work through a queue silently.
-- Every report starts from a task's brief: `get_task` with the workspace and task ids. Use its
-  `ids` for every later call, and design only from its `canReport`.
+- Every report starts from a task's brief: `get_task` with the taskId. Use its `ids` for every
+  later call, and design only from its `canReport`.
+- You design it with the user: options, then `preview_report` with real figures, until they agree
+  on the structure. Never save one they have not seen.
+- The `report-builder` agent builds the agreed structure. The save checks the real figures and
+  refuses a report with a broken or empty widget.
+- Then two reviews at once: give the user the link, and run the `report-reviewer` agent in the
+  background. Agreed fixes go back to `report-builder` with the reportId.
+- `complete_task` only once the user is happy. One report per approval — do not work through a
+  queue silently.
 
 ## How to ask for a report
 

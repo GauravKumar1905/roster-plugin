@@ -42,17 +42,22 @@ ratio — and these tables are mostly ratios beside totals.
 ## The workflow
 
 Every report starts as a task queued in the dashboard: one campaign, and the user's instruction.
-The user pastes it here with a workspace id and a task id.
+The user pastes it here, or picks it from `list_tasks` for one client.
 
-1. **`get_task`** with both ids — the whole brief in one call. Read `campaign`, `canReport`,
+1. **`get_task`** with the taskId — the whole brief in one call. Read `campaign`, `canReport`,
    `existingReports` and `savedTemplates`. Do not call other tools to rediscover any of it.
 2. **Ask what report they want** — see *From brief to options* below.
 3. **`get_catalog`** — chart rules and slot constraints. Never invent ids.
 4. **`preview_metric`** — check anything you're unsure about *before* committing it.
-5. **`preview_report`** with `ids.accountId` and `ids.campaignIds` — show real figures, get a yes.
-6. **`save_report_template`** with `applyToAccountId`, `campaignIds` and `workspaceId` from `ids`,
-   so it renders immediately and returns a URL.
-7. **`complete_task`** with `ids.taskId` and the report id. Give the user the URL.
+5. **`preview_report`** with `ids.accountId` and `ids.campaignIds` — show real figures, iterate
+   until the user agrees on the structure.
+6. **The `report-builder` agent builds it** from the agreed spec and the `ids`. Its
+   `save_report_template` renders the report and checks the real figures before anything is
+   written; a widget that fails or comes back empty stops the save until it is fixed.
+7. **Review at the same time:** give the user the URL, and run the `report-reviewer` agent in the
+   background with the reportId and the agreed spec. Agreed fixes go back to `report-builder`
+   with the reportId.
+8. **`complete_task`** with `ids.taskId` and the reportId, once the user is happy.
 
 ## From brief to options
 
@@ -193,9 +198,15 @@ for spend and delivery, one for conversions split by action.
 
 ## Editing an existing report
 
-Always check `list_report_templates` first when someone asks to change a report. Then
-`get_report_template`, modify the spec, and save it back **with the same `templateId`**.
-Saving without it creates a duplicate.
+A report and a template are different things. Each report owns its own design; a template is a
+design someone chose to reuse, and applying one gives the new report its own copy.
+
+To change a report: `list_reports` for the client, `get_report` for its spec and figures, modify
+the spec, and save it back with `save_report_template` and **the same `reportId`**. Passing
+`applyToAccountId` instead creates a duplicate.
+
+To change a template: `list_report_templates`, `get_report_template`, then `save_report_template`
+with `saveAsTemplate` and the same `templateId`. Reports already made from it do not change.
 
 ## A worked example
 
