@@ -36,16 +36,14 @@ in the same Plugins screen.
 | | |
 |---|---|
 | `/roster:setup` | Connect, create your first client, set up your folder, and finish onboarding |
-| `/roster:report` | Start a report — from a task you queued in the dashboard |
-| `/roster:edit <report>` | Change a report you already have |
-| `/roster:status` | Your clients, their accounts, and existing reports |
-| `/roster:refresh <report>` | Re-render a report against today's numbers |
-| `/roster:queue` | Work on a queued task, or see what is waiting |
-| `/roster:template` | Turn your existing report format into a reusable template |
+| `/roster:queue` | Work on a queued task, or see what is waiting for a client |
 
-You don't have to use the commands. Every report starts as a task in the dashboard: on a
-client's **Reports** page, choose one campaign, say what you need, press **Copy for Claude**, and
-paste it into Claude:
+Everything else is plain language: "change this report to add ad groups", "build a template from
+our monthly PDF", "what reports does Otago have?".
+
+You don't need a command to start a report either. Every report starts as a task in the
+dashboard: on a client's **Reports** page, choose one campaign, say what you need, press **Copy
+for Claude**, and paste it into Claude:
 
 > Work on my Roster report task.
 > Workspace: ws_… (Northside Coffee)

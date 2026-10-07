@@ -224,6 +224,42 @@ To change a template: `get_template`, modify the spec, then `save_template` with
 `templateId`. Reports already made from it do not change. A new report from a template is
 `save_report` with its `templateId` (preview it first with `preview_report` and the `templateId`).
 
+## Building a template from an agency's own format
+
+Agencies almost always have a house report already — a spreadsheet, a slide deck, a PDF they send
+every month. When they share one, or ask for a template that matches it, reproduce that structure
+in Roster so it renders itself from then on.
+
+**If they shared a file,** read it and work out:
+
+- what sections it has, and in what order
+- which numbers appear, and which are headline figures versus detail
+- what each table breaks down by — campaign, device, day, network
+- which charts appear, and what they plot
+- what date range it covers, and whether it compares against a previous period
+
+Then map every number onto the catalogue with `get_catalog`. **Anything not in the catalogue
+cannot be included** — say so plainly rather than substituting something similar. A report that
+silently swaps cost-per-acquisition for cost-per-click is worse than one that admits a gap.
+
+**If they only described it,** ask for the file, or for the section headings. Guessing at an
+agency's house format wastes more time than asking.
+
+Then:
+
+1. `list_templates` — they may already have this saved. If so, changing it is `get_template`,
+   then `save_template` with that `templateId`.
+2. Ask whether it is for **one client** or **every client**.
+3. Test it on a real campaign — a queued task's `ids` from `get_task`, or one of the client's
+   accounts from `list_workspaces` — with `preview_report`, and ask whether it matches their
+   existing report. Iterate until they say it does.
+4. `save_template` with no `templateId`, the `spec`, the `scope`, a clear name, and a description
+   saying what it is for — that description is what tells the next person which template to
+   reach for. If they already have a report in this shape, `fromReportId` copies its design.
+
+A report that already exists can also be turned into a template from the client's **Templates**
+page in the dashboard.
+
 ## A worked example
 
 For a video brand account with no conversion tracking:

@@ -79,7 +79,7 @@ entry, then copy that directory's `agents/` and `skills/`. Write the entry's `ve
 `gitCommitSha` into `.roster/version.json` with today's date:
 
 ```json
-{ "pluginVersion": "0.5.0", "gitCommitSha": "...", "syncedAt": "2026-10-07" }
+{ "pluginVersion": "0.6.0", "gitCommitSha": "...", "syncedAt": "2026-10-07" }
 ```
 
 That stamp is what lets a later session notice the copies are out of date. Without it they rot
