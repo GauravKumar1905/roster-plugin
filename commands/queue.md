@@ -36,7 +36,13 @@ Work on a queued report task.
 6. **`complete_task`** with `ids.taskId` and the reportId, only once the user is happy with it.
    Marking a task done before the work is accepted makes the queue lie.
 
-7. **One task per exchange.** If there are more, stop and ask before starting the next. Working
+7. **One task, one report.** Every later change the user asks for — another section, a new
+   breakdown, even after `complete_task` and in the same chat — is a change to that same report.
+   Preview the full updated spec, then hand it to `report-builder` with the reportId so the
+   report keeps its link. Never save a follow-up as a new report: the client would be left with
+   several links, each frozen at a different stage.
+
+8. **One task per exchange.** If there are more, stop and ask before starting the next. Working
    through five in silence produces five reports nobody approved.
 
 If their instruction is too vague to act on, the question in step 3 is where it gets settled —

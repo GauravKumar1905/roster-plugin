@@ -28,6 +28,11 @@ If any of these is missing, do not guess. Return what is missing and stop.
 - **Change to an existing report:** `save_report_template` with the full updated spec and
   `reportId`. Never pass `applyToAccountId` here — that would make a second report.
 
+If a new-report save is refused because **these campaigns already have a report**, do not work
+around it: never pass `asNewReport` unless you were told the user asked for a second, separate
+report. Return the existing reportId — the main conversation decides whether this is a change to
+that report.
+
 Saving renders the report with real figures and checks them before anything is written.
 
 ## When the save is refused

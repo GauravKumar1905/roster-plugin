@@ -59,6 +59,12 @@ The user pastes it here, or picks it from `list_tasks` for one client.
    with the reportId.
 8. **`complete_task`** with `ids.taskId` and the reportId, once the user is happy.
 
+**One task, one report.** A follow-up in the same conversation — another section, a new
+breakdown, even after the task is complete — changes that report: preview the full updated spec,
+then `report-builder` saves it with the same `reportId`. Saving it with `applyToAccountId` is
+refused when those campaigns already have a report, because the client would be left holding
+several links, each frozen at a different stage.
+
 ## From brief to options
 
 The instruction in a task is a starting point, written in a hurry on a dashboard — "monthly

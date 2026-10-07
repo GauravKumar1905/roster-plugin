@@ -134,6 +134,8 @@ client first), `get_task` with a taskId for one task's brief, `list_reports` for
   background. Agreed fixes go back to `report-builder` with the reportId.
 - `complete_task` only once the user is happy. One report per approval — do not work through a
   queue silently.
+- One task, one report. A later change ("add ad groups", "add demographics") — even after
+  `complete_task` — updates that report by its reportId. Never save it as a second report.
 
 ## How to ask for a report
 
