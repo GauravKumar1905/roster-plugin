@@ -31,15 +31,17 @@ but cannot run `/roster:setup`, so it cannot finish onboarding.
 **Turn on auto-update** so new versions reach you without asking, from the marketplace's settings
 in the same Plugins screen.
 
-## Commands
+## Skills
 
 | | |
 |---|---|
 | `/roster:setup` | Connect, create your first client, set up your folder, and finish onboarding |
-| `/roster:queue` | Work on a queued task, or see what is waiting for a client |
+| `/roster:report` | Work on a queued task, or see what is waiting for a client |
+| `/roster:edit-report` | Change a report you already have, keeping its link |
+| `/roster:template` | Turn your agency's own report format into a reusable template |
 
-Everything else is plain language: "change this report to add ad groups", "build a template from
-our monthly PDF", "what reports does Otago have?".
+You rarely need to type these. Plain language finds the right one: "change this report to add ad
+groups", "build a template from our monthly PDF", "what reports does Otago have?".
 
 You don't need a command to start a report either. Every report starts as a task in the
 dashboard: on a client's **Reports** page, choose one campaign, say what you need, press **Copy
@@ -50,9 +52,8 @@ for Claude**, and paste it into Claude:
 > Task: task_… — "Monthly report for the brand campaign"
 
 Claude reads the brief, asks what report you want for that campaign, and shows you the figures
-before anything is saved. Once you agree, a builder agent saves it — Roster checks the real
-figures and refuses a report with a broken or empty widget — and a reviewer agent looks it over
-while you do.
+before anything is saved. Once you agree, Claude saves it — Roster checks the real figures and
+refuses a report with a broken or empty widget — and a reviewer agent looks it over while you do.
 
 ## Templates
 
@@ -80,10 +81,10 @@ is ticked off once it's done.
 
 ## What's in here
 
-- **`skills/google-ads-reports`** — how to design a report that still reads correctly in six
-  weeks, rather than one shaped around this month's numbers
-- **`agents/report-builder`** — builds and saves a report once you have agreed its structure,
-  fixing whatever Roster's checks flag without changing what you agreed
+- **`skills/report`, `skills/edit-report`, `skills/template`, `skills/setup`** — one skill per
+  thing you do. They run in your conversation, so Claude can ask you what you want at each step
+- **`skills/report-design`** — how to design a report that still reads correctly in six weeks,
+  rather than one shaped around this month's numbers. The other skills load it when designing
 - **`agents/report-reviewer`** — reviews a saved report against what you asked for, while you do
 - **`.mcp.json`** — the connection to Roster
 

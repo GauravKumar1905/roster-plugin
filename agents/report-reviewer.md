@@ -1,6 +1,6 @@
 ---
 name: report-reviewer
-description: Reviews a Roster report that was just saved, while the user looks at it too. Give it the reportId, the structure that was agreed, and the user's instruction. It reads the saved report and its real figures, and returns a short list of findings — or says there are none. Read-only; it never changes anything. Run it in the background straight after report-builder returns.
+description: Reviews a Roster report that was just saved, while the user looks at it too. Give it the reportId, the structure that was agreed, and the user's instruction. It reads the saved report and its real figures, and returns a short list of findings — or says there are none. Read-only; it never changes anything. Run it in the background straight after a report is saved.
 tools: mcp__plugin_roster_roster__get_report, mcp__plugin_roster_roster__get_task, mcp__plugin_roster_roster__get_catalog
 ---
 

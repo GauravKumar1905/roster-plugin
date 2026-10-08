@@ -1,4 +1,5 @@
 ---
+name: setup
 description: Connect this Claude to your Roster account, set up your first client and your reporting folder
 ---
 
@@ -55,8 +56,8 @@ Otherwise ask once, in one line: a folder on their Desktop so you already know t
 time.
 
 If they decline, say in one line that a dedicated folder is recommended to get everything Roster
-offers — it is what remembers their default client and carries the report-building agents and
-skill — and that they can run `/roster:setup` again whenever they want it. Then go to step 5 and do
+offers — it is what remembers their default client and carries Roster's skills and review agent
+— and that they can run `/roster:setup` again whenever they want it. Then go to step 5 and do
 not raise it again.
 
 If they accept, warn them an approval prompt is about to appear for writing to their Desktop. An
@@ -68,18 +69,19 @@ Then build `~/Desktop/Roster`:
 ~/Desktop/Roster/
 ├── CLAUDE.md
 ├── .roster/version.json
-├── .claude/agents/         copies of report-builder.md, report-reviewer.md
-├── .claude/skills/         copy of google-ads-reports/
+├── .claude/agents/         copy of report-reviewer.md
+├── .claude/skills/         copies of report/, edit-report/, template/, report-design/
 └── exports/
 ```
 
-The agents and skill are copied out of the installed plugin. Find it by reading
+The agent and skills are copied out of the installed plugin. Find it by reading
 `~/.claude/plugins/installed_plugins.json` and taking `installPath` from the `roster@roster`
-entry, then copy that directory's `agents/` and `skills/`. Write the entry's `version` and
+entry, then copy that directory's `agents/` and every folder in its `skills/` except `setup/` —
+setup runs from the plugin, never from a copy. Write the entry's `version` and
 `gitCommitSha` into `.roster/version.json` with today's date:
 
 ```json
-{ "pluginVersion": "0.6.0", "gitCommitSha": "...", "syncedAt": "2026-10-07" }
+{ "pluginVersion": "0.7.0", "gitCommitSha": "...", "syncedAt": "2026-10-08" }
 ```
 
 That stamp is what lets a later session notice the copies are out of date. Without it they rot
@@ -127,12 +129,12 @@ for a client's reports and templates.
 
 - Every report starts from a task's brief: `get_task` with the taskId. Use its `ids` for every
   later call, and design only from its `canReport`.
-- You design it with the user: options, then `preview_report` with real figures, until they agree
-  on the structure. Never save one they have not seen.
-- The `report-builder` agent builds the agreed structure. The save checks the real figures and
-  refuses a report with a broken or empty widget.
+- The `report` skill runs it: options, then `preview_report` with real figures, until the user
+  agrees on the structure. Never save one they have not seen.
+- Save the agreed structure here with `save_report`. The save checks the real figures and refuses
+  a report with a broken or empty widget.
 - Then two reviews at once: give the user the link, and run the `report-reviewer` agent in the
-  background. Agreed fixes go back to `report-builder` with the reportId.
+  background. Agreed fixes are previewed, then saved with the same reportId.
 - `complete_task` only once the user is happy. One report per approval — do not work through a
   queue silently.
 - One task, one report. A later change ("add ad groups", "add demographics") — even after
@@ -145,11 +147,11 @@ should show — then press **Copy for Claude** and paste it here.
 
 ## Local copies
 
-`.claude/agents/` and `.claude/skills/` hold copies of the Roster plugin's agents and skill,
+`.claude/agents/` and `.claude/skills/` hold copies of the Roster plugin's agent and skills,
 synced from the version recorded in `.roster/version.json`. They are yours to edit — changes here
 apply to this folder only.
 
-The plugin's own `roster:`-prefixed agents take precedence when both are present. Early in a
+The plugin's own `roster:`-prefixed agent and skills take precedence when both are present. Early in a
 session, compare that stamp against `~/.claude/plugins/installed_plugins.json`; if the installed
 plugin is newer, say so in one line and offer `/roster:setup` to refresh. Stale copies keep fixed
 bugs alive.
@@ -182,10 +184,11 @@ One line. If they have the folder: next time, open it and their setup and defaul
 already known. If they declined it: they can run `/roster:setup` again any time to create it.
 
 If they already had the folder and the installed plugin is newer than `.roster/version.json`,
-offer to refresh the copies — saying first that any edits they made to the local agents will be
-replaced. A refresh also deletes any file in `.claude/agents/` that the installed plugin no longer
-ships (for example `report-editor.md`, retired in 0.5.0): a stale agent calls tools that no longer
-exist.
+offer to refresh the copies — saying first that any edits they made to the local copies will be
+replaced. A refresh also deletes anything in `.claude/agents/` or `.claude/skills/` that the
+installed plugin no longer ships — for example `report-builder.md` and `google-ads-reports/`, both
+retired in 0.7.0, and `report-editor.md`, retired in 0.5.0. A stale copy tells Claude to use
+agents and tools that no longer exist.
 
 ## Tone
 
