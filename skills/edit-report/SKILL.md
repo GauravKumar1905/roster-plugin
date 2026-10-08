@@ -21,6 +21,12 @@ report they mean. Do not guess between two that could fit.
 `checks` — the warnings found when it was last drawn. Work from that spec; do not rebuild the
 report from memory.
 
+It also returns `layout`: how the user arranged the sections on the page and the notes they wrote,
+as Markdown. Both belong to the user. Keep every section's `key` in the spec you save back, so the
+arrangement and notes stay where they put them. If they ask to move sections, put two side by
+side, or write commentary, point them to **Arrange & add notes** on the report page — you do not
+change those yourself.
+
 ## 3. Agree the change
 
 Say in one or two lines what you will change, then load the `report-design` skill. If the report
