@@ -81,7 +81,7 @@ setup runs from the plugin, never from a copy. Write the entry's `version` and
 `gitCommitSha` into `.roster/version.json` with today's date:
 
 ```json
-{ "pluginVersion": "0.7.0", "gitCommitSha": "...", "syncedAt": "2026-10-08" }
+{ "pluginVersion": "0.8.0", "gitCommitSha": "...", "syncedAt": "2026-10-08" }
 ```
 
 That stamp is what lets a later session notice the copies are out of date. Without it they rot
@@ -128,7 +128,7 @@ for a client's reports and templates.
 ## How reports get built
 
 - Every report starts from a task's brief: `get_task` with the taskId. Use its `ids` for every
-  later call, and design only from its `canReport`.
+  later call, then `get_catalog` with the campaignId, and design only from what it returns.
 - The `report` skill runs it: options, then `preview_report` with real figures, until the user
   agrees on the structure. Never save one they have not seen.
 - Save the agreed structure here with `save_report`. The save checks the real figures and refuses

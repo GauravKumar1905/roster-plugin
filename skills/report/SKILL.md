@@ -23,10 +23,15 @@ Show what is waiting and ask which to start with. Do not start one on your own i
 
 `get_task` with the taskId, and the workspaceId too if the paste had one — it catches a mixed-up
 paste. One call returns their instruction, the campaign and its last-30-day delivery,
-`canReport`, `existingReports`, `savedTemplates`, the `ids` for every later call, and
-`nextSteps`. Do not call other tools to rediscover any of it.
+`existingReports`, `savedTemplates`, the `ids` for every later call, and `nextSteps`. Do not call
+other tools to rediscover any of it.
 
 If it returns an `error` or a legacy note, tell the user what it says and stop.
+
+Then `get_catalog` with `campaignId` = `ids.campaignIds[0]`. It returns only what this campaign
+can report — metrics, breakdowns, chart rules — with the reason for everything left out, and
+`preview_report` and `save_report` hold your design to exactly that list. It costs no extra
+Google query after `get_task`.
 
 ## 3. Ask what they want
 
@@ -36,7 +41,8 @@ it into a choice before designing anything:
 - Say what the campaign is in two lines: type, status, last-30-day spend and delivery.
 - If `existingReports` is not empty, mention those first. They may want a change, not a new
   report — that is the `edit-report` skill.
-- Offer two or three reports that suit **this campaign type**, built only from `canReport`. A
+- Offer two or three reports that suit **this campaign type**, built only from what `get_catalog`
+  returned. A
   video campaign is about reach and views; a search campaign about clicks, cost and, where it
   converts, conversions; Performance Max about outcomes, because its breakdowns are thin.
 - Lead with a `savedTemplates` entry where `fits` is true — it is the agency's house format.
@@ -50,6 +56,10 @@ than guess — the person who wrote it is the one who knows.
 Load the `report-design` skill before writing the spec. Then `preview_report` with the spec (or
 the chosen `templateId`), `ids.accountId` and `ids.campaignIds`. It renders against the real
 account, runs the same checks a save does, and stores nothing.
+
+A spec you write is refused if it uses anything outside the campaign's catalog, or a partial
+breakdown whose title does not say "partial". A template is treated differently: whatever the
+campaign cannot report is skipped, and the preview lists what was skipped and why — tell the user.
 
 Show them the figures and ask whether the sections, metrics and breakdowns are right. Change and
 preview again until they agree on the structure. Do not describe a report and save it in the same

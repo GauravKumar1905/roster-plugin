@@ -23,8 +23,10 @@ report from memory.
 
 ## 3. Agree the change
 
-Say in one or two lines what you will change, then load the `report-design` skill and change only
-that in the spec. Everything the user did not ask about stays as it is.
+Say in one or two lines what you will change, then load the `report-design` skill. If the report
+covers one campaign, `get_catalog` with that `campaignId` (from `get_report`'s `campaignIds`) says
+what it can report; otherwise call it without one. Change only what they asked for in the spec.
+Everything else stays as it is.
 
 `preview_report` with the full updated spec and the report's `accountId` and `campaignIds` (from
 `get_report`). Show them the figures and ask whether it is right. Iterate until they agree.

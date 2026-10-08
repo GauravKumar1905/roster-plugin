@@ -11,9 +11,10 @@ On a Performance-Max-heavy account a gender table returns rows that look perfect
 account for a fraction of the spend — which the client will notice when they reconcile it against
 their invoice.
 
-`get_task` sorts this out for the task's campaign: `canReport.breakdowns` cover its whole spend,
-and `canReport.partialBreakdowns` return real rows that do not add up to it. Use a partial
-breakdown only with a widget title that says so, and never total it.
+`get_catalog` with the campaign's id sorts this out: breakdowns that would return nothing are left
+out, and those that return real rows not adding up to the spend are marked `partial`. Use a
+partial breakdown only with "partial" in the widget title — the preview refuses it otherwise —
+and never total it.
 
 # Splitting conversions into actions
 

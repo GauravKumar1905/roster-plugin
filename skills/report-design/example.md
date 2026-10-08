@@ -1,6 +1,6 @@
 # A worked example
 
-For a video brand campaign with no conversion tracking (`canReport` capabilities `[]`):
+For a video brand campaign with no conversion tracking (no conversion metrics in its `get_catalog`):
 
 ```json
 {

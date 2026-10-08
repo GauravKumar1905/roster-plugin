@@ -24,9 +24,9 @@ More detail, read when it applies:
 
 ## What the campaign can report decides the shape
 
-`get_task` works this out as `canReport`, from whether conversion data actually arrives for this
-campaign. Design only from `canReport.metrics` and `canReport.breakdowns`. The capabilities
-behind it:
+`get_catalog` with the campaign's id returns only what it can report, worked out from its type
+and whether conversion data actually arrives, with the reason for everything left out. Design only
+from that list — preview and save refuse anything else. The capabilities behind it:
 
 - `[]` — no conversion data. Build a **reach and efficiency** report: spend, impressions,
   clicks, CTR, CPC, CPM, and video metrics where the campaign runs video. Do **not** include

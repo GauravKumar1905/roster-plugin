@@ -33,10 +33,11 @@ agency's house format wastes more time than asking.
 
 ## 3. Map it onto the catalogue
 
-Load the `report-design` skill, then map every number onto `get_catalog`. **Anything not in the
-catalogue cannot be included** — say so plainly rather than substituting something similar. A
-report that silently swaps cost-per-acquisition for cost-per-click is worse than one that admits
-a gap.
+Load the `report-design` skill, then map every number onto `get_catalog` called **without** a
+campaignId — a template is meant for any client, so it starts from the whole catalogue.
+**Anything not in the catalogue cannot be included** — say so plainly rather than substituting
+something similar. A report that silently swaps cost-per-acquisition for cost-per-click is worse
+than one that admits a gap.
 
 Widgets that need conversion data declare it in `requires`, so the template still renders for a
 client without conversion tracking — those widgets are skipped rather than shown empty.
@@ -46,7 +47,9 @@ client without conversion tracking — those widgets are skipped rather than sho
 Ask whether it is for one client or every client. Then `preview_report` with the spec and a real
 campaign — a queued task's `ids` from `get_task`, or one of the client's accounts from
 `list_workspaces` — and ask whether it matches their existing report. Iterate until they say it
-does.
+does. Preview it with the `templateId` once saved, or the spec before: a spec is held to that
+campaign's catalog, so test it on a campaign that can report everything in it, and declare
+`requires` on conversion widgets so other campaigns skip them.
 
 ## 5. Save
 
