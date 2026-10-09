@@ -109,6 +109,11 @@ Getting these right first time is faster than reading the error:
   `value` one metric. It opens as a shaded matrix or grouped bars and the reader can switch. Each
   breakdown is its own query, so it is the one widget that may offer age and gender together —
   as two choices, never combined. It is the natural heart of an `ad_groups` segment.
+- **`options.expandable`** turns a table with two row dimensions into one row per group of the
+  first (ad group, campaign, network) with its subtotal, opening to its breakdown by the second
+  (age, gender, device, ad group). Subtotals add up counts and recompute rates; the limit counts
+  groups. Neither dimension a date, and no `compareTo` yet. Where the breakdown doesn't cover the
+  whole group — ages never cover every impression — a line under the table says how much it does.
 - **Age and gender never go together.** Google does not report them in one breakdown, so a widget
   with both is refused. Put an age chart beside a gender chart, or ad group × age beside ad group ×
   gender — and never estimate the combination from the two splits: that invents figures.
