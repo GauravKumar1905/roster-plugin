@@ -5,6 +5,15 @@ resource, and GAQL has no joins. **At most one of them per widget.** Gender cros
 gender crossed with creative type, is not a query that exists — you get a design-time error
 naming both. Use one widget each.
 
+**Modelled age × gender is the exception.** `modelled_age` and `modelled_gender` are Google's
+modelled estimates for every person reached, and the one age × gender Google reports — but only
+with `reach` and `frequency` (no impressions, clicks or spend), only on campaign-level widgets
+(not beside ad groups), and only for accounts Google has approved. A `grouped_bar` of reach by
+`modelled_age` split by `modelled_gender`, or an expandable table of the two with reach and
+frequency, is the shape. Reach counts people: it adds up across age and gender but never across
+campaigns or days, so Roster leaves it blank where it would count someone twice. Check an account
+with `preview_metric` first — an unapproved one returns nothing.
+
 They also depend on the campaign mix. Demographic and audience rows only exist where an ad-group
 criterion does, so **Performance Max, Smart and Shopping campaigns contribute nothing** to them.
 On a Performance-Max-heavy account a gender table returns rows that look perfectly reasonable and
