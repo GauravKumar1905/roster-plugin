@@ -94,12 +94,14 @@ for a client's reports and templates.
 
 - Every report starts from a task's brief: `get_task` with the taskId. Use its `ids` for every
   later call, then `get_catalog` with the campaignId, and design only from what it returns.
-- The `report` skill runs it: options, then `preview_report` with real figures, until the user
-  agrees on the structure. Never save one they have not seen.
-- Save the agreed structure here with `save_report`. The save checks the real figures and refuses
-  a report with a broken or empty widget.
+- The `report` skill runs it: options, then the pages the report will have, then one page at a
+  time — Overview first — `preview_report_page` with real figures, stop for the user's yes, and
+  `save_report_page` with that preview's id. Never put a whole report in one call, and never save a
+  page in the message that shows its preview.
+- Each save checks the real figures and refuses a broken or empty widget. Until every planned page
+  is saved, the report is "being built" and cannot be shared.
 - Then two reviews at once: give the user the link, and run the `report-reviewer` agent in the
-  background. Agreed fixes are previewed, then saved with the same reportId.
+  background. Agreed fixes go through the same loop, page by page, with the same reportId.
 - `complete_task` only once the user is happy. One report per approval — do not work through a
   queue silently.
 - One task, one report. A later change ("add ad groups", "add demographics") — even after
