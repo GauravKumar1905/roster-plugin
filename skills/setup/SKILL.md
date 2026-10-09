@@ -142,7 +142,8 @@ these:
   its accounts. Claude cannot do that part.
 - A report starts as a task on the dashboard: choose one campaign, say what you need, then press
   **Copy for Claude** and paste it here.
-- Claude shows you the figures before anything is saved, and a saved report refreshes itself.
+- Claude shows you the figures before anything is saved. You refresh a saved report from the
+  dashboard whenever you want new figures, and each link you send keeps the figures you checked.
 
 ## 5. Close
 

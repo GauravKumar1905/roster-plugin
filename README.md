@@ -1,7 +1,7 @@
 # Roster for Claude
 
-Design a Google Ads client report once, in plain language. Roster refreshes it every month and
-gives you a link to send.
+Design a Google Ads client report once, in plain language. Refresh it from live data whenever
+you're ready, and send your client a link to the figures you've checked.
 
 This plugin connects Claude to your Roster account. It contains no application code — the tools
 run on Roster's servers, and this package is the connection plus the instructions Claude needs
