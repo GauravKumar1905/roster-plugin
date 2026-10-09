@@ -51,6 +51,13 @@ the usual shape. Typical asks:
   `asset_performance` × impressions, CTR. Headlines are served in combination, so ad copy rows
   overlap: compare them, never total them.
 - *Cost per lead by area* — `city` or `postal_code` × spend, conversions, CPA.
+- *Where viewers are* — `region` × impressions, clicks, CTR, spend, sorted by impressions: the table
+  draws its ranked bar beneath it.
+
+Locations never add up to the campaign: Google can't place some impressions. Roster shows the gap
+as an **Unattributed** row and a line under the widget, and a location table's Total is the
+campaign's own, so it matches the headline numbers. Say so when you preview one — a client who
+adds up the regions will otherwise find the gap themselves.
 
 `search_impression_share` is reported by campaign, ad group or keyword only — never beside a
 location, demographic, search term, ad or video.
