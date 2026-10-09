@@ -24,3 +24,49 @@ Purchase, Add To Cart, Begin Checkout) turn one conversions number into the acti
 Spend cannot appear beside them. Google refuses `cost_micros` alongside a conversion-action
 segment outright, so a widget asking for both is rejected at design time. Build two widgets: one
 for spend and delivery, one for conversions split by action.
+
+# Keywords, search terms, ads, ad copy, videos and locations
+
+Each of these comes from its own Google Ads report too, so the same rule holds: **one family per
+widget** (`cannotCombineWith` in `get_catalog` names them). Each can sit beside `campaign_name`,
+and all but locations beside `ad_group_name`.
+
+| Family | Breakdowns | Where it works |
+|---|---|---|
+| Keywords | `keyword`, `match_type`, `quality_score` | Search |
+| Search terms | `search_term`, `search_term_status`, `search_term_match_type` | Search, Shopping |
+| Ads | `ad`, `ad_type` | Everything but Performance Max and Smart |
+| Ad copy | `asset_text`, `asset_field`, `asset_performance` | Search and Display ads |
+| Videos | `video` | Video, Demand Gen |
+| Locations | `country`, `region`, `city`, `postal_code` | Everywhere — where people physically were |
+
+They are high-cardinality: a **table sorted by spend or conversions, limited to 10–25 rows**, is
+the usual shape. Typical asks:
+
+- *Top keywords* — `keyword`, `match_type`, `quality_score` × spend, clicks, conversions, CPA,
+  `search_impression_share`.
+- *Search terms* — `search_term`, `search_term_status` × clicks, spend, conversions. The status
+  shows which were added as keywords or excluded as negatives.
+- *Ad copy* — `ad` × impressions, CTR, conversions; and `asset_text`, `asset_field`,
+  `asset_performance` × impressions, CTR. Headlines are served in combination, so ad copy rows
+  overlap: compare them, never total them.
+- *Cost per lead by area* — `city` or `postal_code` × spend, conversions, CPA.
+
+`search_impression_share` is reported by campaign, ad group or keyword only — never beside a
+location, demographic, search term, ad or video.
+
+# Comparing tables
+
+`compareTo` works on tables as well as headline numbers. Every row is set against the same row in
+the earlier window — Campaign A against Campaign A, an ad by its id — with the change beneath each
+figure, and rows that did not exist before marked new. Use it for "this month vs last month by
+campaign" or "keywords vs last year". A table whose rows are dates, weeks or months cannot compare;
+its rows already show change over time.
+
+# Targets
+
+Targets — "120 conversions a month", "CPA under $40" — are not part of the spec. Set them with
+`set_report_targets` on a saved report, using only numbers the user gave you. Each headline tile
+then shows % of target and hit or missed. Volumes are stated per week, month or quarter and scaled
+to the window the report shows; ratios are plain values. Make sure every metric with a target is on
+a `kpi` or `kpi_row` — a target nobody can see is reported back as a warning.

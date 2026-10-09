@@ -27,6 +27,10 @@ arrangement and notes stay where they put them. If they ask to move sections, pu
 side, or write commentary, point them to **Arrange & add notes** on the report page — you do not
 change those yourself.
 
+`targets` are what the headline numbers are measured against. If the user gives you targets
+("120 conversions a month, CPA under 40"), set them with `set_report_targets` — no preview or save
+needed, and nothing is re-rendered.
+
 ## 3. Agree the change
 
 Say in one or two lines what you will change, then load the `report-design` skill. If the report

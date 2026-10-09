@@ -18,8 +18,8 @@ More detail, read when it applies:
 
 - [date-ranges.md](date-ranges.md) — every spec has a range; read it before writing one, and for
   any widget grouped by week or month
-- [breakdowns.md](breakdowns.md) — gender, age, audience, creative type, and splitting
-  conversions by action
+- [breakdowns.md](breakdowns.md) — gender, age, audience, creative type, splitting conversions
+  by action; keywords, search terms, ads, ad copy, videos and locations; comparing tables; targets
 - [example.md](example.md) — a complete spec for a video brand campaign
 
 ## What the campaign can report decides the shape
@@ -82,7 +82,7 @@ Getting these right first time is faster than reading the error:
 - **Low-cardinality dimensions only** in pie categories and line series: `device`, `network`,
   `campaign_type`, `day_of_week`. `campaign_name` and `ad_group_name` belong in tables.
 - **Sort by a metric the widget actually displays.**
-- **`compareTo` only works on `kpi` and `kpi_row`.**
+- **`compareTo` works on `kpi`, `kpi_row` and `table`** — not on a table whose rows are dates.
 
 Unsure whether a metric has data for this campaign? `preview_metric` checks one cheaply before
 you commit it to the design.
