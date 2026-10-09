@@ -57,6 +57,22 @@ A good report has 3–5 sections and reads top-down from summary to detail:
    `grouped_bar` to compare groups across one — ad group × age, network × device.
 4. **Detail** — a `table`. Agencies live in tables; make it substantial, 5–8 metric columns.
 
+A longer report — a campaign report covering ad groups, creative, audiences and locations — is
+split into **segments**, set with each section's `segment`. The page shows a menu of them, Overview
+first, and a PDF starts each on a new page:
+
+| `segment` | Answers | Typical sections |
+| --- | --- | --- |
+| `overview` | How is the campaign doing overall? | Headline numbers, trend, split by campaign |
+| `ad_groups` | Which ad groups work best? | Ad group table, ad group × age grouped bar, keywords |
+| `creative` | Which ads work best? | Ads, ad copy, videos |
+| `demographics` | Who is watching? | Age, gender, audience |
+| `platform` | Where did the ads run? | Network (YouTube, Display, Search) |
+| `geo_device` | Where are viewers, and on what devices? | Regions, cities, devices |
+
+Leave out a segment the campaign has no data for (no demographics on Performance Max). A short
+report of three or four sections needs no segments.
+
 Give every widget a title a client would understand. "Spend by Campaign Type", not
 "campaign_type × cost_micros". Never write a date into a title — see
 [date-ranges.md](date-ranges.md).
