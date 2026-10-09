@@ -1,67 +1,37 @@
 ---
 name: setup
-description: Connect this Claude to your Roster account, set up your first client and your reporting folder
+description: Connect this Claude to your Roster account and set up your reporting folder
 ---
 
 This is the last step of Roster's onboarding. The user has just come from the Roster dashboard,
-which stays locked until this command records that it finished. Get them connected, settle their
-default client, give them a folder that remembers it, and record completion.
+which stays locked until this command records that it finished. Get them connected, give them a
+folder, and record completion. Nothing else: clients, their Google Ads and their reports are the
+dashboard's next steps, and every report request from the dashboard names its client and campaign.
 
 **Keep what they read short.** Aim for under a dozen lines across the whole command. Someone
-handed three paragraphs skims all of them, and the line that mattered — which client is the
-default, or that Google Ads still needs connecting — is the one they miss. Say the state, ask
-the question, stop.
+handed three paragraphs skims all of them, and the line that mattered is the one they miss. Say
+what you are doing, do it, stop.
 
-## 1. Check
+## 1. Connect
 
-Call `check_setup`. One call answers everything below; do not call `list_workspaces`,
-`list_tasks` or `get_catalog` here. Anything slower belongs to the moment someone actually asks
-for a report.
+Call `check_setup`. It is here to confirm the connection works; do not report what it says about
+clients, Google Ads or queued reports, and do not call `list_workspaces`, `list_tasks` or
+`get_catalog`. Setup does not look at clients at all.
 
 If it fails with an authorization error, tell them a browser will open to sign in to Roster, then
 try once more. If two attempts fail, stop and say what the error was — setup cannot be recorded
 without a connection, so the dashboard will stay locked until this works.
 
-## 2. Say where they stand — one line
-
-- **No workspaces** (`workspaceCount` is 0) — say they have no clients yet and offer to create
-  the first one: ask what the client is called. If they give a name, call `create_workspace` with
-  it and follow the `next` it returns. If they would rather not now, say they can ask for one any
-  time ("add a client called …"), and carry on without one.
-- **Workspaces exist** — one line: how many clients, how many have Google Ads connected (the
-  `ready` flag), plus the queued-report count when `totalOpenTasks` is above zero.
-
-A client without Google Ads is normal at this point — connecting it is the dashboard step that
-comes after this command. Mention it; do not stop over it.
-
-## 3. Settle the default workspace
-
-The default is the client a request is scoped to when it does not name one. Any workspace can be
-the default, connected or not.
-
-- **None** — skip; there is nothing to choose.
-- **Just created in step 2** — `create_workspace` already told you what to ask. Ask it.
-- **Exactly one** — name it as the default and move on. Do not ask a question that has one answer.
-- **More than one** — ask which should be the default. Just the names, no preamble.
-
-The answer is stored in the folder's `CLAUDE.md` below — nowhere else. If the folder already
-exists and the default changed, rewrite the **Default workspace** section of its `CLAUDE.md`.
-
-## 4. Offer the folder
+## 2. Create the folder
 
 Skip this entire step if `.roster/version.json` already exists in the working directory — they
-have it. Say so in a few words and go to step 5.
+have it. Say so in a few words and go to step 3.
 
-Otherwise ask once, in one line: a folder on their Desktop so you already know their setup next
-time.
+Otherwise do not ask whether they want one. Say in one line what you are doing and why, before the
+permission prompt appears — an unexplained permission dialog reads as something going wrong:
 
-If they decline, say in one line that a dedicated folder is recommended to get everything Roster
-offers — it is what remembers their default client and carries Roster's skills and review agent
-— and that they can run `/roster:setup` again whenever they want it. Then go to step 5 and do
-not raise it again.
-
-If they accept, warn them an approval prompt is about to appear for writing to their Desktop. An
-unexplained permission dialog reads as something going wrong.
+> Creating a Roster folder on your Desktop so your setup and report tools are ready next time.
+> Approve the prompt that comes up.
 
 Then build `~/Desktop/Roster`:
 
@@ -87,9 +57,11 @@ setup runs from the plugin, never from a copy. Write the entry's `version` and
 That stamp is what lets a later session notice the copies are out of date. Without it they rot
 silently.
 
-Now write `CLAUDE.md` from the template below, filling in the default workspace — or, if there is
-none, replacing that section's body with "None yet." — and use `change_directory` to move the
-session into the folder. If `change_directory` is unavailable, give them the path instead.
+Now write `CLAUDE.md` from the template below and use `change_directory` to move the session into
+the folder. If `change_directory` is unavailable, give them the path instead.
+
+If they decline the prompt, setup still finishes: say in one line that they can run
+`/roster:setup` again to add the folder, then go to step 3 and do not raise it again.
 
 ### CLAUDE.md template
 
@@ -98,31 +70,24 @@ session into the folder. If `change_directory` is unavailable, give them the pat
 
 Dashboard: https://roster-1035727789436.asia-southeast1.run.app
 
-## Default workspace
+## Which client
 
-**<NAME>** (`<WORKSPACE_ID>`).
-
-This agency has other clients. When a request does not name one, scope it to this workspace — and
-say which one you used, in the same breath. "Building this for <NAME>" is enough. If they meant a
-different client they will correct you at once; scope it silently and a report can be built
-against the wrong account, with nobody finding out until it reaches the client.
-
-To change the default, say which client you want, or run `/roster:setup` again. Either way,
-rewrite this section.
+A request pasted from the dashboard (**Copy for Claude**) names its client and campaign: use those.
+When a request in chat names no client, ask which one, once, in one line, before calling anything
+scoped to a client. Never pick one yourself: a report built against the wrong account is found
+only when it reaches the client.
 
 ## Adding a client
 
-`create_workspace` with the client's name, when the user asks for one. Then ask whether it becomes
-the default or is an additional client, as the tool's response says, and update the section above
-if the default changes. Google Ads cannot be connected from Claude — send them to the workspace's
-Settings in the dashboard.
+`create_workspace` with the client's name, when the user asks for one. Google Ads cannot be
+connected from Claude — send them to the workspace's Settings in the dashboard.
 
 ## Live state is never in this file
 
 Clients, accounts, campaigns and queued reports all change without this file changing. Never
 answer from what is written here — call `check_setup` for readiness, `list_workspaces` for
-clients, `list_tasks` with the default workspace above for the queue (no default: ask which
-client first), `get_task` with a taskId for one task's brief, `list_reports` and `list_templates`
+clients, `list_tasks` for the queue of the client the request names (none named: ask which
+first), `get_task` with a taskId for one task's brief, `list_reports` and `list_templates`
 for a client's reports and templates.
 
 ## How reports get built
@@ -157,31 +122,29 @@ plugin is newer, say so in one line and offer `/roster:setup` to refresh. Stale 
 bugs alive.
 ````
 
-## 5. Record completion
+## 3. Record completion
 
-Call `complete_setup`. Always — whether or not a workspace exists, whether or not the folder was
-created, and on a re-run too. This is what unlocks the dashboard; skip it and the user is stuck on
+Call `complete_setup`. Always — whether or not the folder was created, and on a re-run too. This is what unlocks the dashboard; skip it and the user is stuck on
 the setup screen with no idea why.
 
 If it fails, say so plainly and try once more. Do not tell them setup is finished until it has
 succeeded.
 
-## 6. Orientation — first run only
+## 4. Orientation — first run only
 
 Only when `complete_setup` returned `firstTime: true`. Four lines at most, and nothing beyond
 these:
 
 - Back in the dashboard, press **Done** — it opens now.
-- Next, connect Google Ads in the client's **Settings** there, and pick its accounts. Claude
-  cannot do that part.
+- Next, the dashboard walks you through adding a client, connecting its Google Ads and picking
+  its accounts. Claude cannot do that part.
 - A report starts as a task on the dashboard: choose one campaign, say what you need, then press
   **Copy for Claude** and paste it here.
 - Claude shows you the figures before anything is saved, and a saved report refreshes itself.
 
-## 7. Close
+## 5. Close
 
-One line. If they have the folder: next time, open it and their setup and default client are
-already known. If they declined it: they can run `/roster:setup` again any time to create it.
+One line. If they have the folder: next time, open it and their setup is already known. If they declined it: they can run `/roster:setup` again any time to create it.
 
 If they already had the folder and the installed plugin is newer than `.roster/version.json`,
 offer to refresh the copies — saying first that any edits they made to the local copies will be
@@ -192,6 +155,6 @@ agents and tools that no longer exist.
 
 ## Tone
 
-Report the state, not the mechanics. "You're connected — no clients yet. What's the first one
-called?" is the right shape. Do not name tools or protocol detail unless something failed and the
+Report what happened, not the mechanics. "You're connected, and your Roster folder is on your
+Desktop." is the right shape. Do not name tools or protocol detail unless something failed and the
 detail is what fixes it.

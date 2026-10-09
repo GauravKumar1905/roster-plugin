@@ -17,10 +17,10 @@ you through the rest in order, and stays on its setup screen until Claude is set
    **Roster — Google Ads reporting**.
 2. **Connect it**: Your plugins → Roster → Connectors → roster → Connect, then sign in to Roster
    and approve in the browser tab that opens. Once only.
-3. **Run `/roster:setup`** in the Code tab. Claude checks your account, offers to create your
-   first client, sets up a `Roster` folder on your Desktop, and tells the dashboard you're done.
-4. Back in the dashboard, press **Done**, then connect Google Ads in the client's Settings and
-   choose which of its accounts that client advertises under.
+3. **Run `/roster:setup`** in the Code tab. Claude checks your account, sets up a `Roster` folder
+   on your Desktop, and tells the dashboard you're done.
+4. Back in the dashboard, press **Done**. It then walks you through adding a client, connecting
+   its Google Ads, and choosing which of its accounts that client advertises under.
 
 Roster only ever reads. It never changes a bid, a budget or a campaign.
 
@@ -35,7 +35,7 @@ in the same Plugins screen.
 
 | | |
 |---|---|
-| `/roster:setup` | Connect, create your first client, set up your folder, and finish onboarding |
+| `/roster:setup` | Connect, set up your folder, and finish onboarding |
 | `/roster:report` | Work on a queued task, or see what is waiting for a client |
 | `/roster:edit-report` | Change a report you already have, keeping its link |
 | `/roster:template` | Turn your agency's own report format into a reusable template |
