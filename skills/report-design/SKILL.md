@@ -104,6 +104,11 @@ Getting these right first time is faster than reading the error:
   can be large (ad groups). Its `value` can be a rate — CTR, view rate — which a stacked bar can't
   show. Its `limit` counts groups (default 8, ranked by the metric, or by impressions when the
   metric is a rate) and every bar of a kept group is drawn.
+- **`breakdown_picker`** shows ad groups against one breakdown at a time, picked by the reader:
+  `category` the ad groups, `series` two to five small breakdowns (age, gender, device, network),
+  `value` one metric. It opens as a shaded matrix or grouped bars and the reader can switch. Each
+  breakdown is its own query, so it is the one widget that may offer age and gender together —
+  as two choices, never combined. It is the natural heart of an `ad_groups` segment.
 - **Age and gender never go together.** Google does not report them in one breakdown, so a widget
   with both is refused. Put an age chart beside a gender chart, or ad group × age beside ad group ×
   gender — and never estimate the combination from the two splits: that invents figures.
