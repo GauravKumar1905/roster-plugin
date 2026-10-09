@@ -62,6 +62,16 @@ adds up the regions will otherwise find the gap themselves.
 `search_impression_share` is reported by campaign, ad group or keyword only — never beside a
 location, demographic, search term, ad or video.
 
+# Hour of day and ad format
+
+- `hour` — the hour an ad was shown, 00:00 to 23:00, read in the order of the day. A bar of
+  impressions or clicks by hour is the usual shape. It sits beside ad groups, campaigns, devices
+  and networks, but **not** beside age, gender, audience, an ad, a video, a location or ad format —
+  Google has no hour on those reports.
+- `ad_format` — how a video ad ran: in-stream skippable or not, bumper, in-feed, Shorts. Video and
+  Demand Gen campaigns only. It sits beside ad groups, ads and devices, but **not** beside network
+  or hour. Expect "Other" and "Unsegmented" rows; they are Google's, not an error.
+
 # Comparing tables
 
 `compareTo` works on tables as well as headline numbers. Every row is set against the same row in

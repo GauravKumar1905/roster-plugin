@@ -67,7 +67,7 @@ first, and a PDF starts each on a new page:
 | `ad_groups` | Which ad groups work best? | Ad group table, ad group × age grouped bar, keywords |
 | `creative` | Which ads work best? | Ads, ad copy, videos |
 | `demographics` | Who is watching? | Age, gender, audience |
-| `platform` | Where did the ads run? | Network (YouTube, Display, Search) |
+| `platform` | Where did the ads run? | Network (YouTube, Display, Search), ad format, hour of day |
 | `geo_device` | Where are viewers, and on what devices? | Regions, cities, devices |
 
 Leave out a segment the campaign has no data for (no demographics on Performance Max). A short
