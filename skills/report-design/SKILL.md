@@ -53,7 +53,8 @@ A good report has 3–5 sections and reads top-down from summary to detail:
 
 1. **Headline** — a `kpi_row` of the 3–5 numbers the client checks first.
 2. **Trend** — a `line` chart over `date` (or `week` for ranges longer than ~60 days).
-3. **Breakdown** — where the money went: `pie` or `bar` over a low-cardinality dimension.
+3. **Breakdown** — where the money went: `pie` or `bar` over a low-cardinality dimension, or a
+   `grouped_bar` to compare groups across one — ad group × age, network × device.
 4. **Detail** — a `table`. Agencies live in tables; make it substantial, 5–8 metric columns.
 
 Give every widget a title a client would understand. "Spend by Campaign Type", not
@@ -64,6 +65,8 @@ Give every widget a title a client would understand. "Spend by Campaign Type", n
 
 A table widget draws a chart of the same figures directly beneath it — a timeline gets a line, a
 category gets a bar — from the table's own query, so it cannot drift from the numbers above it.
+A table grouped two ways gets one too when its second column is small: a timeline × device table
+a line per device, an ad group × age or network × device table a grouped bar of its first metric.
 
 So **do not add a separate chart widget for data a table already shows**. Two widgets for one set
 of numbers is two queries and two things to disagree. Set `pairedChart` to `none` only if the
@@ -81,6 +84,13 @@ Getting these right first time is faster than reading the error:
   timeline — use a bar chart for it.
 - **Low-cardinality dimensions only** in pie categories and line series: `device`, `network`,
   `campaign_type`, `day_of_week`. `campaign_name` and `ad_group_name` belong in tables.
+- **`grouped_bar` takes a small `series`** (age, gender, device, network) inside a `category` that
+  can be large (ad groups). Its `value` can be a rate — CTR, view rate — which a stacked bar can't
+  show. Its `limit` counts groups (default 8, ranked by the metric, or by impressions when the
+  metric is a rate) and every bar of a kept group is drawn.
+- **Age and gender never go together.** Google does not report them in one breakdown, so a widget
+  with both is refused. Put an age chart beside a gender chart, or ad group × age beside ad group ×
+  gender — and never estimate the combination from the two splits: that invents figures.
 - **Sort by a metric the widget actually displays.**
 - **`compareTo` works on `kpi`, `kpi_row` and `table`** — not on a table whose rows are dates.
 
