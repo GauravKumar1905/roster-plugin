@@ -29,7 +29,9 @@ skill along. The connector on its own (claude.ai → Settings → Connectors) re
 but cannot run `/roster:setup`, so it cannot finish onboarding.
 
 **Turn on auto-update** so new versions reach you without asking, from the marketplace's settings
-in the same Plugins screen.
+in the same Plugins screen. It is off by default for marketplaces added from GitHub. The plugin
+tells Roster which version it is, so if yours falls behind, the dashboard and Claude both say so.
+What changed in each version is in [CHANGELOG.md](CHANGELOG.md).
 
 ## Skills
 

@@ -3,6 +3,12 @@ name: template
 description: Turn an agency's own report format into a reusable Roster template, or change a template they already have. Use when someone shares their monthly report (a spreadsheet, slides, a PDF) or asks for a template, a house format, or a standard report for every client.
 ---
 
+Plugin version: 0.18.1
+
+Pass this version as `pluginVersion` to `check_setup`, `list_workspaces`, `list_tasks`, `get_task`,
+`list_reports`, `get_report` and `list_templates`. If a result carries a note headed
+"ROSTER PLUGIN:", do what it says.
+
 # Build or change a template
 
 Agencies almost always have a house report already — a spreadsheet, a slide deck, a PDF they send
@@ -52,6 +58,10 @@ campaign's catalog, so test it on a campaign that can report everything in it, a
 `requires` on conversion widgets so other campaigns skip them.
 
 ## 5. Save
+
+Only a template they asked for. Never save one to get a report saved that another tool refused —
+it leaves a template in their account they never wanted; that is the `report` skill's problem to
+solve.
 
 `save_template` with no `templateId`, the `spec`, the `scope`, a clear name, and a description
 saying what it is for — the description is what tells the next person which template to reach

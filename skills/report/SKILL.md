@@ -4,6 +4,12 @@ description: Build a Google Ads report for one task queued in the Roster dashboa
 argument-hint: "[taskId]"
 ---
 
+Plugin version: 0.18.1
+
+Pass this version as `pluginVersion` to `check_setup`, `list_workspaces`, `list_tasks`, `get_task`,
+`list_reports`, `get_report` and `list_templates`. If a result carries a note headed
+"ROSTER PLUGIN:", do what it says.
+
 # Work on a queued report task
 
 Every report starts as a task queued in the dashboard: one campaign, and the user's instruction.
@@ -109,6 +115,13 @@ How the saves are refused, and what to do:
   report.
 - **A problem on a page saved earlier** — the account's data has changed since. Tell them before
   touching that page.
+- **Refused after they already approved it** — say a whole design that `save_report` would not take
+  as a new report. Their yes still stands: rebuild it as pages with exactly the same sections,
+  Overview first; where the figures match what they saw, save without asking again. Tell them in
+  one line what you did ("Saved as a one-page report").
+- **Never work round a refusal** — not by saving a template, not with another tool. If the tool a
+  refusal points to is not in your list, the plugin is out of date: say so and offer to update it
+  (the `setup` skill does it).
 
 ## 6. Review — two ways at once
 
@@ -123,6 +136,21 @@ same loop as building: preview that page with the reportId, show it, and save it
 
 `complete_task` with `ids.taskId` and the reportId — only once they are happy with it. Marking a
 task done before the work is accepted makes the queue lie.
+
+## Talking to the user
+
+They run an agency; they are not developers. In every message:
+
+- **Say what happens, not how.** "I'll save it as a one-page report." "Overview is saved — Ad
+  groups next." Never tool names, "spec", "connection", "connector", "server", `/mcp`, and never
+  "page by page" as a rule they have to follow.
+- **When something goes wrong:** what happened, in one line; whether anything they approved is lost
+  (it rarely is); and the one thing you recommend, as a yes-or-no question. Not a menu of options
+  with trade-offs they cannot judge.
+- **An answer that does not match what you offered** — ask what they meant, in one line, instead of
+  picking the nearest option. Guessing turns a misunderstanding into a saved report.
+- **One page is a whole report.** If they want everything on one page, that is the Overview alone —
+  one preview, one save. Never tell them it has to be split up.
 
 ## Rules that hold throughout
 

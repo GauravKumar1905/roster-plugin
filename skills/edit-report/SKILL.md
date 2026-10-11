@@ -4,6 +4,12 @@ description: Change a Roster report that already exists — change a page, add a
 argument-hint: "[reportId]"
 ---
 
+Plugin version: 0.18.1
+
+Pass this version as `pluginVersion` to `check_setup`, `list_workspaces`, `list_tasks`, `get_task`,
+`list_reports`, `get_report` and `list_templates`. If a result carries a note headed
+"ROSTER PLUGIN:", do what it says.
+
 # Change an existing report
 
 A saved report is something the agency has probably already sent to a client. A change updates it
@@ -68,6 +74,14 @@ every section's `key`.
 
 If a save is refused, fix exactly what it names, provided the fix leaves what they agreed the same.
 If it would not, tell them and let them decide.
+Never work round a refusal — not by saving a template, not with another tool. If the tool it points
+to is not in your list, the plugin is out of date: say so and offer to update it (the `setup` skill
+does it).
+
+**Talking to them:** say what happens, not how — no tool names, "spec" or "connection". When
+something goes wrong: what happened, whether anything they approved is lost, and the one step you
+recommend as a yes-or-no question. An answer that does not match what you offered: ask what they
+meant instead of picking the nearest option.
 
 ## 5. Review
 

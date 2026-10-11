@@ -1,7 +1,13 @@
 ---
 name: setup
-description: Connect this Claude to your Roster account and set up your reporting folder
+description: Connect this Claude to your Roster account, set up your reporting folder, and update the Roster plugin. Use for "set up Roster", "update Roster" or "is my Roster plugin up to date".
 ---
+
+Plugin version: 0.18.1
+
+Pass this version as `pluginVersion` to `check_setup`, `list_workspaces`, `list_tasks`, `get_task`,
+`list_reports`, `get_report` and `list_templates`. If a result carries a note headed
+"ROSTER PLUGIN:", do what it says.
 
 This is the last step of Roster's onboarding. The user has just come from the Roster dashboard,
 which stays locked until this command records that it finished. Get them connected, give them a
@@ -22,10 +28,34 @@ If it fails with an authorization error, tell them a browser will open to sign i
 try once more. If two attempts fail, stop and say what the error was — setup cannot be recorded
 without a connection, so the dashboard will stay locked until this works.
 
+### Update, if Roster is behind
+
+`check_setup` returns `plugin.latest`. Compare it with the version at the top of this file. When
+this one is older:
+
+1. Say it in one line and ask: "Roster has an update (<this> → <latest>). Update it now?" Wait for
+   the answer.
+2. **Yes, and you can run commands on their computer** (Claude Code): run the two commands in
+   `plugin.updateCommands`, in order, one at a time. The second finds nothing until the first has
+   run — the plugin's own Update button stays greyed out the same way until the marketplace is
+   refreshed. If either fails, say what it printed in one line and give them the steps below.
+3. **Yes, but you cannot run commands** (Cowork, claude.ai): tell them to open Settings → Plugins
+   in the Claude desktop app, refresh the roster marketplace, then press Update on Roster.
+4. **No:** carry on. Do not raise it again in this conversation.
+
+After updating, carry on with setup — step 5 offers to refresh the folder's copies from the new
+version. At the close, tell them the update takes effect in a new conversation. The fastest route to
+never seeing this again is automatic updates, so mention them once: Settings → Plugins → the roster
+marketplace → turn on automatic updates.
+
+If this file is already at `plugin.latest` or newer, or `check_setup` returned no `plugin`, say
+nothing about versions.
+
 ## 2. Create the folder
 
 Skip this entire step if `.roster/version.json` already exists in the working directory — they
-have it. Say so in a few words and go to step 3.
+have it. Say so in a few words and go to step 3. If its `pluginVersion` is older than the
+installed plugin's, step 5 offers to refresh the copies.
 
 Otherwise do not ask whether they want one. Say in one line what you are doing and why, before the
 permission prompt appears — an unexplained permission dialog reads as something going wrong:
@@ -134,7 +164,7 @@ succeeded.
 
 ## 4. Orientation — first run only
 
-Only when `complete_setup` returned `firstTime: true`. Four lines at most, and nothing beyond
+Only when `complete_setup` returned `firstTime: true`. Five lines at most, and nothing beyond
 these:
 
 - Back in the dashboard, press **Done** — it opens now.
@@ -144,6 +174,8 @@ these:
   **Copy for Claude** and paste it here.
 - Claude shows you the figures before anything is saved. You refresh a saved report from the
   dashboard whenever you want new figures, and each link you send keeps the figures you checked.
+- Turn on automatic updates for the Roster marketplace in Claude's Plugins screen, so fixes
+  reach you without asking. The dashboard says when yours is out of date.
 
 ## 5. Close
 
