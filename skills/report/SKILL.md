@@ -4,7 +4,7 @@ description: Build a Google Ads report for one task queued in the Roster dashboa
 argument-hint: "[taskId]"
 ---
 
-Plugin version: 0.18.1
+Plugin version: 0.19.0
 
 Pass this version as `pluginVersion` to `check_setup`, `list_workspaces`, `list_tasks`, `get_task`,
 `list_reports`, `get_report` and `list_templates`. If a result carries a note headed
