@@ -1,0 +1,36 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "roster",
+  "version": "0.20.0",
+  "description": "Google Ads and Meta Ads client reports, designed once and refreshed whenever you're ready, and new Google Ads and Meta campaigns, created paused after your yes. Connects to your Roster account.",
+  "author": {
+    "name": "Roster Pvt Ltd"
+  },
+  "homepage": "https://gauravkumar1905.github.io/roster-site/",
+  "repository": "https://github.com/GauravKumar1905/roster-plugin",
+  "keywords": [
+    "google-ads",
+    "reporting",
+    "agency",
+    "marketing"
+  ],
+  "extensions": {
+    "com.openai": {
+      "onboardingSkill": "./skills/setup/SKILL.md",
+      "interface": {
+        "displayName": "Roster — Google Ads and Meta Ads reporting and campaign setup",
+        "shortDescription": "Self-refreshing Ads reports",
+        "longDescription": "Design a Google Ads client report once, in plain language. Roster refreshes it from live data whenever you're ready, and you send your client a link to the figures you've checked. Roster only ever reads Google Ads.",
+        "developerName": "Roster Pvt Ltd",
+        "category": "Productivity",
+        "websiteURL": "https://gauravkumar1905.github.io/roster-site/",
+        "privacyPolicyURL": "https://gauravkumar1905.github.io/roster-site/privacy.html",
+        "termsOfServiceURL": "https://gauravkumar1905.github.io/roster-site/terms.html",
+        "defaultPrompt": [
+          "Set up Roster",
+          "What reports are waiting for a client?"
+        ]
+      }
+    }
+  }
+}
