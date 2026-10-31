@@ -21,6 +21,8 @@ More detail, read when it applies:
 - [breakdowns.md](breakdowns.md) — gender, age, audience, creative type, splitting conversions
   by action; keywords, search terms, ads, ad copy, videos and locations; comparing tables; targets
 - [example.md](example.md) — a complete spec for a video brand campaign
+- [meta.md](meta.md) — **a Meta report** (account id `act_…`): choosing its conversion, ad sets,
+  link clicks, and which breakdowns Meta reports together. Read it before any Meta page.
 
 ## What the campaign can report decides the shape
 
@@ -89,7 +91,8 @@ Run down this list. Each item is a refusal or a bad report that has actually hap
    capabilities allow them, and a widget that needs one declares `requires`.
 4. **Each widget's shape fits its chart** — the rules below: additive values in pies and stacked
    bars, a time axis on lines, small `series`, sort by a metric that is shown.
-5. **No age × gender in one widget,** and no breakdown estimated from two others.
+5. **No breakdowns the platform won't report together** — age × gender on Google; two breakdown
+   families on Meta ([meta.md](meta.md)) — and no breakdown estimated from two others.
 6. **A breakdown that doesn't cover everything says so in its title** ("partial").
 7. **No chart that repeats a table's figures** — the table draws its own.
 8. **Titles a client understands, with no dates or numbers in them.**
@@ -139,8 +142,8 @@ Getting these right first time is faster than reading the error:
   (age, gender, device, ad group). Subtotals add up counts and recompute rates; the limit counts
   groups. Neither dimension a date, and no `compareTo` yet. Where the breakdown doesn't cover the
   whole group — ages never cover every impression — a line under the table says how much it does.
-- **Age and gender never go together.** Google does not report them in one breakdown, so a widget
-  with both is refused. Put an age chart beside a gender chart, or ad group × age beside ad group ×
+- **On Google, age and gender never go together.** Google does not report them in one breakdown,
+  so a widget with both is refused (Meta does report them together — see [meta.md](meta.md)). Put an age chart beside a gender chart, or ad group × age beside ad group ×
   gender — and never estimate the combination from the two splits: that invents figures.
 - **Sort by a metric the widget actually displays.**
 - **`compareTo` works on `kpi`, `kpi_row` and `table`** — not on a table whose rows are dates.

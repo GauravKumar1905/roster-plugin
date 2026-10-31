@@ -8,6 +8,21 @@ to run without an entry here.
 **Server needed** marks a release that only works once the matching Roster server is deployed.
 Entries before 0.19.0 were rebuilt from the commit history.
 
+## 0.20.0 — Meta Ads reports
+
+- **Server needed:** the Meta steps use tools and fields the matching server adds
+  (`set_report_conversion_action`, `conversionAction`, a Meta `accountId` in `get_catalog`).
+  Google Ads reports work as before either way.
+
+- Claude builds Meta reports from Meta tasks the way it builds Google Ads ones: page by page, each
+  previewed with real figures and saved on your yes.
+- A Meta report counts one action as its conversion — purchases, leads, a custom conversion — and
+  Claude asks you which, from what the account actually records, before designing anything with
+  conversions in it. You can change it later; the report is redrawn.
+- Meta reports speak Meta: ad sets instead of ad groups ("Ad sets" page), link clicks and link CTR,
+  3-second plays and ThruPlays, placements, and age × gender together — which Google can't do.
+- The report reviewer checks a Meta report against Meta's rules, not Google's.
+
 ## 0.19.0 — Roster keeps itself up to date, and talks about outcomes
 
 - Works with the server as it is; the update notes and the setup update step need the matching

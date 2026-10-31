@@ -48,7 +48,9 @@ without saying what to do about each.
 5. **It will still read correctly in six weeks.** Titles with a hard-coded month or number, or a
    structure built around this month's figures, break the first time the numbers move.
 
-`get_catalog` has the chart rules if you need to confirm one.
+`get_catalog` has the chart rules if you need to confirm one — for a Meta report (`platform:
+"meta"` in `get_report`), with its `accountId`, so you get Meta's rules: age × gender is
+allowed there, clicks are link clicks, and conversions are the report's chosen action.
 
 ## What to return
 

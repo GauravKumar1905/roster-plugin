@@ -96,7 +96,7 @@ If they decline the prompt, setup still finishes: say in one line that they can 
 ### CLAUDE.md template
 
 ````markdown
-# Roster — Google Ads reporting
+# Roster — Google Ads and Meta reporting
 
 Dashboard: https://roster-1035727789436.asia-southeast1.run.app
 
@@ -109,8 +109,8 @@ only when it reaches the client.
 
 ## Adding a client
 
-`create_workspace` with the client's name, when the user asks for one. Google Ads cannot be
-connected from Claude — send them to the workspace's Settings in the dashboard.
+`create_workspace` with the client's name, when the user asks for one. Google Ads and Meta cannot
+be connected from Claude — send them to the workspace's Settings in the dashboard.
 
 ## Live state is never in this file
 
@@ -168,8 +168,8 @@ Only when `complete_setup` returned `firstTime: true`. Five lines at most, and n
 these:
 
 - Back in the dashboard, press **Done** — it opens now.
-- Next, the dashboard walks you through adding a client, connecting its Google Ads and picking
-  its accounts. Claude cannot do that part.
+- Next, the dashboard walks you through adding a client, connecting its Google Ads or Meta and
+  picking its accounts. Claude cannot do that part.
 - A report starts as a task on the dashboard: choose one campaign, say what you need, then press
   **Copy for Claude** and paste it here.
 - Claude shows you the figures before anything is saved. You refresh a saved report from the

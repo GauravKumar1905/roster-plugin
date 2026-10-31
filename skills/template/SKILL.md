@@ -65,7 +65,8 @@ solve.
 
 `save_template` with no `templateId`, the `spec`, the `scope`, a clear name, and a description
 saying what it is for — the description is what tells the next person which template to reach
-for. To change one, `save_template` with its `templateId`; reports already made from it do not
+for. A template for Meta reports also takes `platform: "meta"`, and is designed from Meta's catalog
+(`get_catalog` with a Meta `accountId`; see `report-design`'s `meta.md`). To change one, `save_template` with its `templateId`; reports already made from it do not
 change.
 
 If they already have a report in this shape, `save_template` with `fromReportId` copies its design

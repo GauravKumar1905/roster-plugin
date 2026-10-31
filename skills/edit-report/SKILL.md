@@ -41,11 +41,16 @@ change those yourself.
 ("120 conversions a month, CPA under 40"), set them with `set_report_targets` — no preview or save
 needed, and nothing is re-rendered.
 
+A **Meta report** (`platform: "meta"`) counts one `conversionAction`. To count a different one —
+"use leads, not purchases" — `set_report_conversion_action` with the reportId; it redraws the
+report. Name the new action in conversion titles afterwards.
+
 ## 3. Agree the change
 
 Say in one or two lines what you will change, and on which page, then load the `report-design`
 skill. If the report covers one campaign, `get_catalog` with that `campaignId` (from `get_report`'s
-`campaignIds`) says what it can report; otherwise call it without one. Change only what they asked
+`campaignIds`) says what it can report; otherwise call it without one. For a Meta report also pass
+its `accountId` and `conversionAction`, and read `report-design`'s `meta.md`. Change only what they asked
 for. Everything else stays as it is.
 
 ## 4. Preview, stop, save — one page at a time

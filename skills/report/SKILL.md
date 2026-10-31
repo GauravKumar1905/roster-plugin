@@ -1,6 +1,6 @@
 ---
 name: report
-description: Build a Google Ads report for one task queued in the Roster dashboard. Use when the user pastes "Work on my Roster report task", picks a task from their queue, or asks what reports are waiting for a client.
+description: Build a Google Ads or Meta report for one task queued in the Roster dashboard. Use when the user pastes "Work on my Roster report task", picks a task from their queue, or asks what reports are waiting for a client.
 argument-hint: "[taskId]"
 ---
 
@@ -39,6 +39,11 @@ Then `get_catalog` with `campaignId` = `ids.campaignIds[0]`. It returns only wha
 can report — metrics, breakdowns, chart rules — with the reason for everything left out, and the
 preview and save tools hold your design to exactly that list. It costs no extra Google query after
 `get_task`.
+
+**A Meta task** (`platform: "meta"`, an account id starting `act_`) has one more decision first.
+Meta has no single conversion: show the brief's `conversionActions` by label and ask which one this
+report counts — or none — and wait. Then `get_catalog` with `accountId` = `ids.accountId`, the
+`campaignId` and that `conversionAction`. Load `report-design`'s `meta.md` before designing.
 
 ## 3. Ask what they want
 
@@ -84,7 +89,8 @@ order, **Overview first**:
    `report-design` before previewing.
 2. **`preview_report_page`** with `page` and that page's `sections`.
    - **Overview, when the report does not exist yet:** also `accountId` and `campaignIds` from
-     `ids`, and the report's `name` and `dateRange` (they apply to every page).
+     `ids`, and the report's `name` and `dateRange` (they apply to every page). A Meta report also
+     takes the chosen `conversionAction`, here and in its save.
    - **Every later page:** `reportId` instead, and nothing else about the report.
 3. **Refused?** It names the exact path and the fix. Correct exactly that and preview again. A
    page that failed gets no `previewId` and is never shown to the user as if it were ready.
