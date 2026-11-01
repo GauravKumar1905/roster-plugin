@@ -2,7 +2,7 @@
   "mcpServers": {
     "roster": {
       "type": "http",
-      "url": "https://roster-1035727789436.asia-southeast1.run.app/api/mcp",
+      "url": "https://app.useroster.xyz/api/mcp",
       "headers": {
         "X-Roster-Plugin-Version": "0.19.0"
       }

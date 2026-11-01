@@ -98,7 +98,7 @@ If they decline the prompt, setup still finishes: say in one line that they can 
 ````markdown
 # Roster — Google Ads and Meta reporting
 
-Dashboard: https://roster-1035727789436.asia-southeast1.run.app
+Dashboard: https://app.useroster.xyz
 
 ## Which client
 

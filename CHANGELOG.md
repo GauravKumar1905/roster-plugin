@@ -22,6 +22,8 @@ Entries before 0.19.0 were rebuilt from the commit history.
 - Meta reports speak Meta: ad sets instead of ad groups ("Ad sets" page), link clicks and link CTR,
   3-second plays and ThruPlays, placements, and age × gender together — which Google can't do.
 - The report reviewer checks a Meta report against Meta's rules, not Google's.
+- Roster moved to **app.useroster.xyz**: the connector, the setup notes and the sign-up link point
+  there. The old `run.app` address is switched off, so earlier versions stop connecting.
 
 ## 0.19.0 — Roster keeps itself up to date, and talks about outcomes
 

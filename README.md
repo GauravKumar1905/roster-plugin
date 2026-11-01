@@ -9,7 +9,7 @@ to use it well.
 
 ## Start in the dashboard
 
-Sign up at **https://roster-1035727789436.asia-southeast1.run.app/signup**. The dashboard walks
+Sign up at **https://app.useroster.xyz/signup**. The dashboard walks
 you through the rest in order, and stays on its setup screen until Claude is set up:
 
 1. **Install this plugin** in the Claude desktop app: Settings → Plugins → Add → Add marketplace,
