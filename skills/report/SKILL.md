@@ -4,7 +4,7 @@ description: Build a Google Ads or Meta report for one task queued in the Roster
 argument-hint: "[taskId]"
 ---
 
-Plugin version: 0.19.0
+Plugin version: 0.20.0
 
 Pass this version as `pluginVersion` to `check_setup`, `list_workspaces`, `list_tasks`, `get_task`,
 `list_reports`, `get_report` and `list_templates`. If a result carries a note headed
