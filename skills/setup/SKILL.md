@@ -96,7 +96,7 @@ If they decline the prompt, setup still finishes: say in one line that they can 
 ### CLAUDE.md template
 
 ````markdown
-# Roster — Google Ads and Meta reporting
+# Roster — Google Ads and Meta Ads reporting and campaign setup
 
 Dashboard: https://app.useroster.xyz
 

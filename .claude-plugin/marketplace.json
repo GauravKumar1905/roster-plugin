@@ -1,12 +1,12 @@
 {
   "name": "roster",
-  "description": "Roster's Claude plugin for designing self-refreshing Google Ads client reports.",
+  "description": "Roster's Claude plugin for Google Ads and Meta Ads reporting and campaign setup.",
   "owner": { "name": "Roster Pvt Ltd" },
   "plugins": [
     {
       "name": "roster",
       "source": "./",
-      "description": "Design Google Ads client reports once, then let them refresh themselves."
+      "description": "Google Ads and Meta Ads client reports, designed once and refreshed whenever you're ready, and new Google Ads and Meta campaigns, created paused after your yes. Connects to your Roster account."
     }
   ]
 }

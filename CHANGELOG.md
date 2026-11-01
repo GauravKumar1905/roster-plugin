@@ -24,6 +24,10 @@ Entries before 0.19.0 were rebuilt from the commit history.
 - The report reviewer checks a Meta report against Meta's rules, not Google's.
 - Roster moved to **app.useroster.xyz**: the connector, the setup notes and the sign-up link point
   there. The old `run.app` address is switched off, so earlier versions stop connecting.
+- The plugin is now **Roster — Google Ads and Meta Ads reporting and campaign setup**, and its
+  description, README and setup notes say what Roster does: Google Ads and Meta Ads reporting, and
+  Google Ads and Meta Ads campaign creation. It no longer says Roster only reads, or that reports
+  refresh themselves.
 
 ## 0.19.0 — Roster keeps itself up to date, and talks about outcomes
 

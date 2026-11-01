@@ -1,7 +1,13 @@
 # Roster for Claude
 
-Design a Google Ads client report once, in plain language. Refresh it from live data whenever
-you're ready, and send your client a link to the figures you've checked.
+Google Ads and Meta Ads reporting and campaign setup, for freelancers and small agencies:
+
+- **Google Ads reporting** and **Meta Ads reporting**: design a client report once, in plain
+  language. Refresh it from live data whenever you're ready, and send your client a link to the
+  figures you've checked.
+- **Google Ads campaign creation** and **Meta Ads campaign creation**: describe the campaign a
+  client needs. Claude drafts it with you and shows you every ad, and Roster creates it paused,
+  only after your yes.
 
 This plugin connects Claude to your Roster account. It contains no application code — the tools
 run on Roster's servers, and this package is the connection plus the instructions Claude needs
@@ -14,15 +20,17 @@ you through the rest in order, and stays on its setup screen until Claude is set
 
 1. **Install this plugin** in the Claude desktop app: Settings → Plugins → Add → Add marketplace,
    paste `https://github.com/GauravKumar1905/roster-plugin`, press Sync, then Add
-   **Roster — Google Ads reporting**.
+   **Roster — Google Ads and Meta Ads reporting and campaign setup**.
 2. **Connect it**: Your plugins → Roster → Connectors → roster → Connect, then sign in to Roster
    and approve in the browser tab that opens. Once only.
 3. **Run `/roster:setup`** in the Code tab. Claude checks your account, sets up a `Roster` folder
    on your Desktop, and tells the dashboard you're done.
 4. Back in the dashboard, press **Done**. It then walks you through adding a client, connecting
-   its Google Ads, and choosing which of its accounts that client advertises under.
+   its Google Ads or Meta, and choosing which of its accounts that client advertises under.
 
-Roster only ever reads. It never changes a bid, a budget or a campaign.
+Roster changes an ad account only when you ask it to set up a campaign. It shows you the
+campaign and every ad first, creates it only after your yes, and creates it paused, so nothing
+runs or spends until you switch it on. It never edits, pauses or removes anything already there.
 
 Roster is built for the Claude desktop app, where the plugin brings its commands, agents and
 skill along. The connector on its own (claude.ai → Settings → Connectors) reaches the same tools
