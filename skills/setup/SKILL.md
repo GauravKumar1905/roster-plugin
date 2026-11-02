@@ -12,8 +12,8 @@ Pass this version as `pluginVersion` to `check_setup`, `list_workspaces`, `list_
 This is the last step of Roster's onboarding. The user has just come from Roster's setup page,
 usually by pasting its setup message, and the rest of the dashboard stays locked until this command
 records that it finished. Get them connected, give them a folder, and record completion. Nothing
-else: clients, their Google Ads or Meta Ads and their reports are the dashboard's next steps, and
-every report request from the dashboard names its client and campaign.
+else: connecting Google Ads or Meta Ads, adding clients and their reports are the dashboard's next
+steps, and every report request from the dashboard names its client and campaign.
 
 **Keep what they read short.** Aim for under a dozen lines across the whole command. Someone
 handed three paragraphs skims all of them, and the line that mattered is the one they miss. Say
@@ -112,7 +112,8 @@ only when it reaches the client.
 ## Adding a client
 
 `create_workspace` with the client's name, when the user asks for one, then send them to the
-client's Settings in the dashboard: Google Ads and Meta Ads cannot be connected from Claude.
+client's page in the dashboard to add its ad accounts. Google Ads and Meta Ads are connected once,
+in Settings in the dashboard, for every client — never from Claude.
 
 ## Live state is never in this file
 
@@ -173,8 +174,8 @@ this, word for word — it names the button the setup page is waiting on:
 
 Then these, and nothing beyond them:
 
-- Next, in the dashboard: add a client, connect its Google Ads or Meta Ads, and choose its ad
-  accounts. Claude cannot do that part.
+- Next, in the dashboard: connect Google Ads or Meta Ads in Settings — once, for every client —
+  then add a client and choose its ad accounts. Claude cannot do that part.
 - Then, on that client's **Reports** page, choose a campaign, say what the report should show,
   press **Copy for Claude** and paste it here.
 - Claude shows you the figures before anything is saved. You refresh a saved report from the

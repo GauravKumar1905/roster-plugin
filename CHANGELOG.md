@@ -8,6 +8,25 @@ to run without an entry here.
 **Server needed** marks a release that only works once the matching Roster server is deployed.
 Entries before 0.19.0 were rebuilt from the commit history.
 
+## 0.20.2 — Google Ads and Meta Ads are connected in Settings
+
+- Works with any server; the words match app 0.19.4. The minimum isn't raised: Roster still
+  accepts 0.20.0 and 0.20.1 and warns nobody.
+
+- Google Ads and Meta Ads are connected once, for your agency, in Settings in the dashboard, and
+  a client's ad accounts are added on its page. Setup's first-time orientation and the README now
+  say so: connect in Settings first, then add a client and choose its ad accounts.
+- Adding a client from Claude sends you to the client's page to add its ad accounts, rather than
+  to the client's Settings to connect.
+- Roster folders set up before this keep the old "Adding a client" lines in their `CLAUDE.md`
+  until `/roster:setup` runs again. A refresh (Claude offers it when the folder is behind the
+  plugin) rewrites that section, so it updates them. Until then, Roster's own instructions to
+  Claude already say Settings.
+- Setting up another computer with the message from Settings, or running `/roster:setup` again,
+  ends with "Setup is recorded. Roster is ready in this Claude." instead of sending you to a Done
+  button that isn't there. Roster (app 0.19.4) says it, so every plugin version gets it.
+- Only words change: tools, parameters and results are as they were.
+
 ## 0.20.1 — Clients, not workspaces
 
 - Works with any server, the one before this change included. The minimum isn't raised: Roster

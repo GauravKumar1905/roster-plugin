@@ -29,8 +29,8 @@ rest of the dashboard opens once Claude has finished:
    - type `/mcp`, choose `roster` and sign in with the same login
    - allow a Roster folder on your Desktop
 3. **Come back and press Done** when Claude says "Setup is recorded. Go back to Roster and press
-   Done." The dashboard then walks you through adding a client, connecting its Google Ads or Meta
-   Ads, and choosing its ad accounts.
+   Done." The dashboard then walks you through connecting Google Ads or Meta Ads in Settings —
+   once, for every client — then adding a client and choosing its ad accounts.
 
 If Claude can't run commands in the Code tab, install from Claude's menus instead: Settings →
 Plugins → Add → Add marketplace, paste `https://github.com/GauravKumar1905/roster-plugin`, press
