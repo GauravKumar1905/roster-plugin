@@ -4,7 +4,7 @@
   "description": "Google Ads and Meta Ads client reports, designed once and refreshed whenever you're ready, and new Google Ads and Meta Ads campaigns, created paused after your yes. Campaign creation opens soon. Reports work today. Connects to your Roster account.",
   "version": "0.20.0",
   "author": {
-    "name": "Roster Pvt Ltd"
+    "name": "Roster"
   },
   "mcpServers": "./.mcp.json"
 }

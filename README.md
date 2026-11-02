@@ -123,5 +123,5 @@ Roster is computed from summed totals instead.
 
 ---
 
-Roster Pvt Ltd · [Privacy](https://useroster.xyz/privacy.html) ·
+Roster · [Privacy](https://useroster.xyz/privacy.html) ·
 [Terms](https://useroster.xyz/terms.html)

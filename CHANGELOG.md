@@ -36,6 +36,7 @@ Entries before 0.19.0 were rebuilt from the commit history.
   and Google Ads and Meta Ads campaign creation. They now say campaign creation opens soon, and that
   reports work today. The README starts setup from the setup message the dashboard gives you, and
   its privacy and terms links point at useroster.xyz.
+- The plugin's author, the marketplace owner and the README footer say Roster, as the site does.
 
 ## 0.20.0 — Meta Ads reports
 
