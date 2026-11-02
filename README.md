@@ -9,31 +9,42 @@ Google Ads and Meta Ads reporting and campaign setup, for freelancers and small 
   client needs. Claude drafts it with you and shows you every ad, and Roster creates it paused,
   only after your yes.
 
+Campaign creation opens soon. Reports work today.
+
 This plugin connects Claude to your Roster account. It contains no application code — the tools
 run on Roster's servers, and this package is the connection plus the instructions Claude needs
 to use it well.
 
 ## Start in the dashboard
 
-Sign up at **https://app.useroster.xyz/signup**. The dashboard walks
-you through the rest in order, and stays on its setup screen until Claude is set up:
+Sign up at **https://app.useroster.xyz/signup**. Setting up Roster in Claude comes first, and the
+rest of the dashboard opens once Claude has finished:
 
-1. **Install this plugin** in the Claude desktop app: Settings → Plugins → Add → Add marketplace,
-   paste `https://github.com/GauravKumar1905/roster-plugin`, press Sync, then Add
-   **Roster — Google Ads and Meta Ads reporting and campaign setup**.
-2. **Connect it**: Your plugins → Roster → Connectors → roster → Connect, then sign in to Roster
-   and approve in the browser tab that opens. Once only.
-3. **Run `/roster:setup`** in the Code tab. Claude checks your account, sets up a `Roster` folder
-   on your Desktop, and tells the dashboard you're done.
-4. Back in the dashboard, press **Done**. It then walks you through adding a client, connecting
-   its Google Ads or Meta, and choosing which of its accounts that client advertises under.
+1. **Copy the setup message** on Roster's setup page.
+2. **Paste it into Claude and send**: in the Claude desktop app, open the Code tab, start a new
+   session, paste the message and send. Claude installs this plugin and runs `/roster:setup`,
+   which checks your account and sets up a `Roster` folder on your Desktop. It stops for you to:
+   - approve its install commands and the Roster steps it asks about
+   - type `/reload-plugins`
+   - type `/mcp`, choose `roster` and sign in with the same login
+   - allow a Roster folder on your Desktop
+3. **Come back and press Done** when Claude says "Setup is recorded. Go back to Roster and press
+   Done." The dashboard then walks you through adding a client, connecting its Google Ads or Meta
+   Ads, and choosing its ad accounts.
 
-Roster changes an ad account only when you ask it to set up a campaign. It shows you the
-campaign and every ad first, creates it only after your yes, and creates it paused, so nothing
-runs or spends until you switch it on. It never edits, pauses or removes anything already there.
+If Claude can't run commands in the Code tab, install from Claude's menus instead: Settings →
+Plugins → Add → Add marketplace, paste `https://github.com/GauravKumar1905/roster-plugin`, press
+Sync, then Add **Roster — Google Ads and Meta Ads reporting and campaign setup**. In Your plugins,
+open Roster → Connectors → roster, press Connect and sign in with your Roster login. Then run
+`/roster:setup` in the Code tab.
+
+Until campaign creation opens, Roster only reads your ad accounts. After that, it changes an
+account only when you ask it to set up a campaign. It shows you the campaign and every ad first,
+creates it only after your yes, and creates it paused, so nothing runs or spends until you switch
+it on. It never edits, pauses or removes anything already there.
 
 Roster is built for the Claude desktop app, where the plugin brings its commands, agents and
-skill along. The connector on its own (claude.ai → Settings → Connectors) reaches the same tools
+skills along. The connector on its own (claude.ai → Settings → Connectors) reaches the same tools
 but cannot run `/roster:setup`, so it cannot finish onboarding.
 
 **Turn on auto-update** so new versions reach you without asking, from the marketplace's settings
@@ -47,7 +58,7 @@ What changed in each version is in [CHANGELOG.md](CHANGELOG.md).
 |---|---|
 | `/roster:setup` | Connect, set up your folder, and finish onboarding |
 | `/roster:report` | Work on a queued task, or see what is waiting for a client |
-| `/roster:edit-report` | Change a report you already have, keeping its link |
+| `/roster:edit-report` | Change a report you already have, as the same report |
 | `/roster:template` | Turn your agency's own report format into a reusable template |
 
 You rarely need to type these. Plain language finds the right one: "change this report to add ad
@@ -58,8 +69,10 @@ dashboard: on a client's **Reports** page, choose one campaign, say what you nee
 for Claude**, and paste it into Claude:
 
 > Work on my Roster report task.
-> Workspace: ws_… (Northside Coffee)
+> Client: Northside Coffee (ws_…)
 > Task: task_… — "Monthly report for the brand campaign"
+> Campaign: Northside Brand (Search)
+> Start with get_task, ask me what report I want for this campaign, and show me a preview before saving.
 
 Claude reads the brief, asks what report you want for that campaign, and shows you the figures
 before anything is saved. Once you agree, Claude saves it — Roster checks the real figures and
@@ -110,5 +123,5 @@ Roster is computed from summed totals instead.
 
 ---
 
-Roster Pvt Ltd · [Privacy](https://gauravkumar1905.github.io/roster-site/privacy.html) ·
-[Terms](https://gauravkumar1905.github.io/roster-site/terms.html)
+Roster Pvt Ltd · [Privacy](https://useroster.xyz/privacy.html) ·
+[Terms](https://useroster.xyz/terms.html)

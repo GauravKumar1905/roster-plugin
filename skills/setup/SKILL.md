@@ -9,10 +9,11 @@ Pass this version as `pluginVersion` to `check_setup`, `list_workspaces`, `list_
 `list_reports`, `get_report` and `list_templates`. If a result carries a note headed
 "ROSTER PLUGIN:", do what it says.
 
-This is the last step of Roster's onboarding. The user has just come from the Roster dashboard,
-which stays locked until this command records that it finished. Get them connected, give them a
-folder, and record completion. Nothing else: clients, their Google Ads and their reports are the
-dashboard's next steps, and every report request from the dashboard names its client and campaign.
+This is the last step of Roster's onboarding. The user has just come from Roster's setup page,
+usually by pasting its setup message, and the rest of the dashboard stays locked until this command
+records that it finished. Get them connected, give them a folder, and record completion. Nothing
+else: clients, their Google Ads or Meta Ads and their reports are the dashboard's next steps, and
+every report request from the dashboard names its client and campaign.
 
 **Keep what they read short.** Aim for under a dozen lines across the whole command. Someone
 handed three paragraphs skims all of them, and the line that mattered is the one they miss. Say
@@ -21,12 +22,13 @@ what you are doing, do it, stop.
 ## 1. Connect
 
 Call `check_setup`. It is here to confirm the connection works; do not report what it says about
-clients, Google Ads or queued reports, and do not call `list_workspaces`, `list_tasks` or
+clients, Google Ads, Meta Ads or queued reports, and do not call `list_workspaces`, `list_tasks` or
 `get_catalog`. Setup does not look at clients at all.
 
-If it fails with an authorization error, tell them a browser will open to sign in to Roster, then
-try once more. If two attempts fail, stop and say what the error was — setup cannot be recorded
-without a connection, so the dashboard will stay locked until this works.
+If it fails with an authorization error, Roster isn't signed in yet. Ask them to type `/mcp`,
+choose `roster` and sign in with their Roster login, then wait for them, and try once more. If two
+attempts fail, stop and say what the error was — setup cannot be recorded without a connection, so
+the dashboard will stay locked until this works.
 
 ### Update, if Roster is behind
 
@@ -109,8 +111,8 @@ only when it reaches the client.
 
 ## Adding a client
 
-`create_workspace` with the client's name, when the user asks for one. Google Ads and Meta cannot
-be connected from Claude — send them to the workspace's Settings in the dashboard.
+`create_workspace` with the client's name, when the user asks for one, then send them to the
+client's Settings in the dashboard: Google Ads and Meta Ads cannot be connected from Claude.
 
 ## Live state is never in this file
 
@@ -129,7 +131,7 @@ for a client's reports and templates.
   `save_report_page` with that preview's id. Never put a whole report in one call, and never save a
   page in the message that shows its preview.
 - Each save checks the real figures and refuses a broken or empty widget. Until every planned page
-  is saved, the report is "being built" and cannot be shared.
+  is saved, the report shows "Claude is building it" and cannot be shared.
 - Then two reviews at once: give the user the link, and run the `report-reviewer` agent in the
   background. Agreed fixes go through the same loop, page by page, with the same reportId.
 - `complete_task` only once the user is happy. One report per approval — do not work through a
@@ -164,14 +166,17 @@ succeeded.
 
 ## 4. Orientation — first run only
 
-Only when `complete_setup` returned `firstTime: true`. Five lines at most, and nothing beyond
-these:
+Only when `complete_setup` returned `firstTime: true`. Five lines at most. The first is exactly
+this, word for word — it names the button the setup page is waiting on:
 
-- Back in the dashboard, press **Done** — it opens now.
-- Next, the dashboard walks you through adding a client, connecting its Google Ads or Meta and
-  picking its accounts. Claude cannot do that part.
-- A report starts as a task on the dashboard: choose one campaign, say what you need, then press
-  **Copy for Claude** and paste it here.
+> Setup is recorded. Go back to Roster and press **Done**.
+
+Then these, and nothing beyond them:
+
+- Next, in the dashboard: add a client, connect its Google Ads or Meta Ads, and choose its ad
+  accounts. Claude cannot do that part.
+- Then, on that client's **Reports** page, choose a campaign, say what the report should show,
+  press **Copy for Claude** and paste it here.
 - Claude shows you the figures before anything is saved. You refresh a saved report from the
   dashboard whenever you want new figures, and each link you send keeps the figures you checked.
 - Turn on automatic updates for the Roster marketplace in Claude's Plugins screen, so fixes
@@ -182,11 +187,19 @@ these:
 One line. If they have the folder: next time, open it and their setup is already known. If they declined it: they can run `/roster:setup` again any time to create it.
 
 If they already had the folder and the installed plugin is newer than `.roster/version.json`,
-offer to refresh the copies — saying first that any edits they made to the local copies will be
-replaced. A refresh also deletes anything in `.claude/agents/` or `.claude/skills/` that the
-installed plugin no longer ships — for example `report-builder.md` and `google-ads-reports/`, both
-retired in 0.7.0, and `report-editor.md`, retired in 0.5.0. A stale copy tells Claude to use
-agents and tools that no longer exist.
+offer to refresh the copies — saying first that any edits they made to the local copies, and to
+the "Adding a client" section of the folder's `CLAUDE.md`, will be replaced. A refresh:
+
+- copies `agents/` and the skills again, as in step 2, and deletes anything in `.claude/agents/`
+  or `.claude/skills/` that the installed plugin no longer ships — for example
+  `report-builder.md` and `google-ads-reports/`, both retired in 0.7.0, and `report-editor.md`,
+  retired in 0.5.0. A stale copy tells Claude to use agents and tools that no longer exist.
+- replaces the `## Adding a client` section of the folder's `CLAUDE.md` — from that heading up to
+  the next `## ` heading — with the one in the template above. Leave every other line of the file
+  exactly as it is: the agency may have added its own notes. If it has no such section, leave the
+  file alone.
+- writes the installed plugin's `version` and `gitCommitSha`, with today's date, into
+  `.roster/version.json`.
 
 ## Tone
 

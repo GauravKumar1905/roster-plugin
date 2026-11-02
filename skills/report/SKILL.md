@@ -1,6 +1,6 @@
 ---
 name: report
-description: Build a Google Ads or Meta report for one task queued in the Roster dashboard. Use when the user pastes "Work on my Roster report task", picks a task from their queue, or asks what reports are waiting for a client.
+description: Build a Google Ads or Meta Ads report for one task queued in the Roster dashboard. Use when the user pastes "Work on my Roster report task", picks a task from their queue, or asks what reports are waiting for a client.
 argument-hint: "[taskId]"
 ---
 
@@ -22,16 +22,19 @@ because only here can you ask them what they want.
 If the user pasted one — "Work on my Roster report task" with a `Task:` line — or passed a taskId,
 you have it; go to step 2. Do not call `list_tasks` to find it.
 
-Otherwise list one client's queue: `list_tasks` with the default workspace from `CLAUDE.md`. If
-there is no default, call `list_workspaces`, ask which client, then `list_tasks` for that one.
-Show what is waiting and ask which to start with. Do not start one on your own initiative.
+Otherwise list one client's queue: the client the user named, or, if they named none, ask which
+one in a line — `list_workspaces` has their names. Never pick one yourself. Then `list_tasks` for
+that client, show what is waiting and ask which to start with. Do not start one on your own
+initiative.
 
 ## 2. Read the brief
 
 `get_task` with the taskId, and the workspaceId too if the paste had one — it catches a mixed-up
-paste. One call returns their instruction, the campaign and its last-30-day delivery,
-`existingReports`, `savedTemplates`, the `ids` for every later call, and `nextSteps`. Do not call
-other tools to rediscover any of it.
+paste. The workspaceId is the `ws_…` id in brackets at the end of the paste's
+`Client: <name> (<id>)` line (a task copied before that line existed has it first, in
+`Workspace: <id> (<name>)`). One call returns their instruction, the campaign and its last-30-day
+delivery, `existingReports`, `savedTemplates`, the `ids` for every later call, and `nextSteps`. Do
+not call other tools to rediscover any of it.
 
 If it returns an `error` or a legacy note, tell the user what it says and stop.
 
@@ -40,10 +43,11 @@ can report — metrics, breakdowns, chart rules — with the reason for everythi
 preview and save tools hold your design to exactly that list. It costs no extra Google query after
 `get_task`.
 
-**A Meta task** (`platform: "meta"`, an account id starting `act_`) has one more decision first.
-Meta has no single conversion: show the brief's `conversionActions` by label and ask which one this
-report counts — or none — and wait. Then `get_catalog` with `accountId` = `ids.accountId`, the
-`campaignId` and that `conversionAction`. Load `report-design`'s `meta.md` before designing.
+**A Meta Ads task** (`platform: "meta"`, an account id starting `act_`) has one more decision
+first. Meta has no single conversion: show the brief's `conversionActions` by label and ask which
+one this report counts — or none — and wait. Then `get_catalog` with `accountId` =
+`ids.accountId`, the `campaignId` and that `conversionAction`. Load `report-design`'s `meta.md`
+before designing.
 
 ## 3. Ask what they want
 
@@ -89,8 +93,8 @@ order, **Overview first**:
    `report-design` before previewing.
 2. **`preview_report_page`** with `page` and that page's `sections`.
    - **Overview, when the report does not exist yet:** also `accountId` and `campaignIds` from
-     `ids`, and the report's `name` and `dateRange` (they apply to every page). A Meta report also
-     takes the chosen `conversionAction`, here and in its save.
+     `ids`, and the report's `name` and `dateRange` (they apply to every page). A Meta Ads report
+     also takes the chosen `conversionAction`, here and in its save.
    - **Every later page:** `reportId` instead, and nothing else about the report.
 3. **Refused?** It names the exact path and the fix. Correct exactly that and preview again. A
    page that failed gets no `previewId` and is never shown to the user as if it were ready.
@@ -106,8 +110,8 @@ order, **Overview first**:
    moving on, so design and preview the next page; if they only said to save, ask before starting
    it.
 
-The report stays **being built** — visible in the dashboard, but it cannot be shared — until every
-planned page is saved. If they add or drop a page partway, `set_report_pages` with the new list;
+Until every planned page is saved, the dashboard shows the report as **Claude is building it**,
+and it cannot be shared. If they add or drop a page partway, `set_report_pages` with the new list;
 dropping the last unsaved page finishes the build.
 
 How the saves are refused, and what to do:

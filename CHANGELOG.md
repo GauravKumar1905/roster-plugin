@@ -8,6 +8,35 @@ to run without an entry here.
 **Server needed** marks a release that only works once the matching Roster server is deployed.
 Entries before 0.19.0 were rebuilt from the commit history.
 
+## 0.20.1 — Clients, not workspaces
+
+- Works with any server, the one before this change included. The minimum isn't raised: Roster
+  still accepts 0.20.0 and warns nobody.
+
+- Claude says **client**, as the dashboard does, and **Meta Ads** for the ad platform. Tool names,
+  parameters and results still say workspace (`list_workspaces`, `workspaceId`), so nothing else
+  changes.
+- A task copied with **Copy for Claude** names its client as `Client: Northside Coffee (ws_…)`.
+  Claude takes the client's id from that line, as it did from the old `Workspace:` line (still
+  read), so a mixed-up paste is still caught. The template instruction's `Client:` line works the
+  same way.
+- When a request names no client, Claude asks which one. It no longer looks for a default client in
+  your Roster folder, which hasn't had one since 0.10.0.
+- Setup: if Roster isn't signed in, Claude asks you to type `/mcp`, choose roster and sign in. The
+  first time, it ends with "Setup is recorded. Go back to Roster and press **Done**." and then says
+  what comes next: add a client, connect its Google Ads or Meta Ads, choose its ad accounts, then
+  **Copy for Claude** on its Reports page.
+- A report still being built is "Claude is building it", as the dashboard says.
+- Changing a report no longer claims the link your client already has shows the change. A shared
+  link keeps the figures it was made with; a new link from the report page shows the change.
+- Refreshing your Roster folder (Claude offers it when the folder is behind the plugin) now also
+  rewrites the "Adding a client" section of its `CLAUDE.md`, which still said workspace. The rest of
+  that file is left as you have it.
+- The README and the plugin's description still name all four: Google Ads and Meta Ads reporting,
+  and Google Ads and Meta Ads campaign creation. They now say campaign creation opens soon, and that
+  reports work today. The README starts setup from the setup message the dashboard gives you, and
+  its privacy and terms links point at useroster.xyz.
+
 ## 0.20.0 — Meta Ads reports
 
 - **Server needed:** the Meta steps use tools and fields the matching server adds

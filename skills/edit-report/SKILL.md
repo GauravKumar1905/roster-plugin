@@ -1,6 +1,6 @@
 ---
 name: edit-report
-description: Change a Roster report that already exists — change a page, add a page, swap a breakdown, change its date range — keeping its link. Also picks up a report left half-built. Use when the user wants to change a saved report, rather than build a new one.
+description: Change a Roster report that already exists — change a page, add a page, swap a breakdown, change its date range — as the same report. Also picks up a report left half-built. Use when the user wants to change a saved report, rather than build a new one.
 argument-hint: "[reportId]"
 ---
 
@@ -13,13 +13,15 @@ Pass this version as `pluginVersion` to `check_setup`, `list_workspaces`, `list_
 # Change an existing report
 
 A saved report is something the agency has probably already sent to a client. A change updates it
-in place, so the link the client has keeps working and shows the new version.
+in place: it stays the same report, at the same address in the dashboard, and shows the new
+version there. A link already shared with the client does not change — it keeps the figures it was
+made with. To show the client the change, the agency creates a new link from the report page.
 
 ## 1. Find the report
 
 If the user gave a reportId or a report URL (`/r/<reportId>`), use it. Otherwise `list_reports`
-for the client — the default workspace from `CLAUDE.md`, or ask which client — and ask which
-report they mean. Do not guess between two that could fit.
+for the client they named — if they named none, ask which one in a line (`list_workspaces` has
+their names) — and ask which report they mean. Do not guess between two that could fit.
 
 ## 2. Read it
 
@@ -41,17 +43,17 @@ change those yourself.
 ("120 conversions a month, CPA under 40"), set them with `set_report_targets` — no preview or save
 needed, and nothing is re-rendered.
 
-A **Meta report** (`platform: "meta"`) counts one `conversionAction`. To count a different one —
-"use leads, not purchases" — `set_report_conversion_action` with the reportId; it redraws the
+A **Meta Ads report** (`platform: "meta"`) counts one `conversionAction`. To count a different
+one — "use leads, not purchases" — `set_report_conversion_action` with the reportId; it redraws the
 report. Name the new action in conversion titles afterwards.
 
 ## 3. Agree the change
 
 Say in one or two lines what you will change, and on which page, then load the `report-design`
 skill. If the report covers one campaign, `get_catalog` with that `campaignId` (from `get_report`'s
-`campaignIds`) says what it can report; otherwise call it without one. For a Meta report also pass
-its `accountId` and `conversionAction`, and read `report-design`'s `meta.md`. Change only what they asked
-for. Everything else stays as it is.
+`campaignIds`) says what it can report; otherwise call it without one. For a Meta Ads report also
+pass its `accountId` and `conversionAction`, and read `report-design`'s `meta.md`. Change only what
+they asked for. Everything else stays as it is.
 
 ## 4. Preview, stop, save — one page at a time
 
@@ -92,7 +94,8 @@ meant instead of picking the nearest option.
 
 Give them the URL and every warning from the save, word for word, and start the
 `report-reviewer` agent in the background with the reportId, what they approved and what they asked
-to change. Pass on its findings briefly when they arrive; agreed fixes go through steps 3 and 4
-again, with the same reportId.
+to change. Say in one line that a link already sent to the client keeps the figures it was made
+with, and that a new link from the report page shows the change. Pass on the reviewer's findings
+briefly when they arrive; agreed fixes go through steps 3 and 4 again, with the same reportId.
 
 If this change came from a queued task that is still open, `complete_task` once they are happy.
