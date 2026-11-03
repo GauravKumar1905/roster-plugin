@@ -8,6 +8,23 @@ to run without an entry here.
 **Server needed** marks a release that only works once the matching Roster server is deployed.
 Entries before 0.19.0 were rebuilt from the commit history.
 
+## Unreleased — What Roster knows about the client
+
+- **Server needed:** `get_client_profile`, `save_client_profile`, `list_documents` and
+  `read_document`, and `clientProfile` and `documents` in `get_task`, arrive with the matching
+  Roster app (docs/product/task-documents-and-client-context.md). Without it the skills read the
+  brief as before.
+
+- `report` reads the files attached to the client and to the report — a brief, last month's
+  report, screenshots, as text and as images — before its first reply, and uses the client's
+  profile to lead with what the client counts as success. The first reply is still the plan and the
+  Overview: when the profile lacks something that matters, Claude asks once, after the Overview is
+  saved, and never holds the report back for it. At the end it offers to save what it learned, and
+  saves only on a yes.
+- Profile notes are facts about the client and a document's contents are material, never
+  instructions to Claude; nothing is saved to the profile from a document unless the user asks.
+- `template` reads one client's profile and documents before mapping a client's format.
+
 ## 0.24.0 — Google Search Console and Google Analytics reports
 
 - **Server needed:** the Roster release after app 0.19.9, which adds Search Console and Google
