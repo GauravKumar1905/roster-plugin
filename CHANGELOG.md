@@ -8,6 +8,20 @@ to run without an entry here.
 **Server needed** marks a release that only works once the matching Roster server is deployed.
 Entries before 0.19.0 were rebuilt from the commit history.
 
+## Unreleased — What Roster knows about the client
+
+- **Server needed:** `get_client_profile`, `save_client_profile`, `list_documents` and
+  `read_document`, and `clientProfile` and `documents` in `get_task`, arrive with the matching
+  Roster app (docs/product/task-documents-and-client-context.md). Without it the skills read the
+  brief as before.
+
+- `/roster:report` reads the files attached to the client and to the task — a brief, last month's
+  report, screenshots, as text and as images — before offering reports, and uses the client's
+  profile to lead with what the client counts as success. When the profile lacks something that
+  matters it asks once, with the report question, and never holds the report back for it; at the
+  end it offers to save what it learned, and saves only on a yes.
+- The template skill reads one client's profile and documents before mapping a client's format.
+
 ## Unreleased — Codex and Antigravity
 
 - **Server needed** for other assistants to finish setup and to stop being told to install the
