@@ -52,8 +52,9 @@ report. Name the new action in conversion titles afterwards.
 Say in one or two lines what you will change, and on which page, then load the `report-design`
 skill. If the report covers one campaign, `get_catalog` with that `campaignId` (from `get_report`'s
 `campaignIds`) says what it can report; otherwise call it without one. For a Meta Ads report also
-pass its `accountId` and `conversionAction`, and read `report-design`'s `meta.md`. Change only what
-they asked for. Everything else stays as it is.
+pass its `accountId` and `conversionAction`, and read `report-design`'s `meta.md`. For a Search
+Console report (`platform: "search_console"`) pass only its `accountId` — the site — and read
+`report-design`'s `search-console.md`. Change only what they asked for. Everything else stays as it is.
 
 ## 4. Preview, stop, save — one page at a time
 

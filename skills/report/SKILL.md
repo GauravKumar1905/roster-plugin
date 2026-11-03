@@ -1,6 +1,6 @@
 ---
 name: report
-description: Build a Google Ads or Meta Ads report for one task queued in the Roster dashboard. Use when the user pastes "Work on my Roster report task", picks a task from their queue, or asks what reports are waiting for a client.
+description: Build a Google Ads, Meta Ads or Google Search Console report for one task queued in the Roster dashboard. Use when the user pastes "Work on my Roster report task", picks a task from their queue, or asks what reports are waiting for a client.
 argument-hint: "[taskId]"
 ---
 
@@ -12,7 +12,8 @@ Pass this version as `pluginVersion` to `check_setup`, `list_workspaces`, `list_
 
 # Work on a queued report task
 
-Every report starts as a task queued in the dashboard: one campaign, and the user's instruction.
+Every report starts as a task queued in the dashboard: one campaign — or, for Search Console, one
+site — and the user's instruction.
 You agree its pages with the user, then build it one page at a time — each previewed with real
 figures and saved only when they approve it — and have it reviewed. All in this conversation,
 because only here can you ask them what they want.
@@ -49,18 +50,26 @@ one this report counts — or none — and wait. Then `get_catalog` with `accoun
 `ids.accountId`, the `campaignId` and that `conversionAction`. Load `report-design`'s `meta.md`
 before designing.
 
+**A Search Console task** (`platform: "search_console"`, a site such as `sc-domain:…`) is about a
+whole site: the brief has `site` instead of `campaign` — the property, its last 28 days of clicks
+and impressions, and `dataThrough`, the last day Google has finished counting. There is no campaign
+to pass anywhere: `get_catalog` with `accountId` = `ids.accountId` alone. Load `report-design`'s
+`search-console.md` before designing.
+
 ## 3. Ask what they want
 
 The instruction was written in a hurry on a dashboard — "monthly report for this campaign". Turn
 it into a choice before designing anything:
 
-- Say what the campaign is in two lines: type, status, last-30-day spend and delivery.
+- Say what the campaign is in two lines: type, status, last-30-day spend and delivery. For a
+  Search Console site: its clicks and impressions over the last 28 days, through `dataThrough`.
 - If `existingReports` is not empty, mention those first. They may want a change, not a new
   report — that is the `edit-report` skill.
 - Offer two or three reports that suit **this campaign type**, built only from what `get_catalog`
   returned. A
   video campaign is about reach and views; a search campaign about clicks, cost and, where it
-  converts, conversions; Performance Max about outcomes, because its breakdowns are thin.
+  converts, conversions; Performance Max about outcomes, because its breakdowns are thin. A site
+  report is SEO: how search traffic moved, which queries and pages bring it, where it comes from.
 - Lead with a `savedTemplates` entry where `fits` is true — it is the agency's house format.
 - Then stop and wait. One question, short options, no preamble.
 
@@ -76,13 +85,15 @@ anything, agree which pages it will have:
 - Propose the pages that suit this campaign, from what `get_catalog` returned: Overview always,
   then only pages the campaign has data for (no Demographics on Performance Max). Say in a few
   words what each would hold.
+- A Search Console report has its own pages: Overview, Queries, Pages, Countries & devices, and
+  Search appearance only if the site has any. Ad reports' pages don't exist there.
 - A short report is Overview alone. That is fine.
 - Ask, and wait. Their answer is the `plannedPages` you pass when the report is first saved.
 
 **A saved template instead?** If they chose one of `savedTemplates`, there are no pages to build:
-`preview_report` with the `templateId`, `ids.accountId` and `ids.campaignIds`; show the figures and
-what was skipped; on their yes, `save_report` with the `templateId` and the three ids. Then go to
-step 6.
+`preview_report` with the `templateId`, `ids.accountId` and `ids.campaignIds` (none for a site);
+show the figures and what was skipped; on their yes, `save_report` with the `templateId` and the
+three ids. Then go to step 6.
 
 ## 5. Build it, one page at a time
 
@@ -94,7 +105,8 @@ order, **Overview first**:
 2. **`preview_report_page`** with `page` and that page's `sections`.
    - **Overview, when the report does not exist yet:** also `accountId` and `campaignIds` from
      `ids`, and the report's `name` and `dateRange` (they apply to every page). A Meta Ads report
-     also takes the chosen `conversionAction`, here and in its save.
+     also takes the chosen `conversionAction`, here and in its save. A Search Console report takes
+     `accountId` and no `campaignIds`.
    - **Every later page:** `reportId` instead, and nothing else about the report.
 3. **Refused?** It names the exact path and the fix. Correct exactly that and preview again. A
    page that failed gets no `previewId` and is never shown to the user as if it were ready.
@@ -120,9 +132,9 @@ How the saves are refused, and what to do:
   if anything they would notice changed.
 - **A fix would change what they agreed** — a breakdown came back empty, a widget has to go — do not
   save a different page. Tell them the problem and the smallest change you would suggest.
-- **Refused because these campaigns already have a report** — tell them, and build into that report
-  with its reportId instead. Pass `asNewReport` only when they explicitly want a second, separate
-  report.
+- **Refused because these campaigns (or this site) already have a report** — tell them, and build
+  into that report with its reportId instead. Pass `asNewReport` only when they explicitly want a
+  second, separate report.
 - **A problem on a page saved earlier** — the account's data has changed since. Tell them before
   touching that page.
 - **Refused after they already approved it** — say a whole design that `save_report` would not take

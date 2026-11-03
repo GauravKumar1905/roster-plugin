@@ -50,7 +50,10 @@ without saying what to do about each.
 
 `get_catalog` has the chart rules if you need to confirm one — for a Meta Ads report (`platform:
 "meta"` in `get_report`), with its `accountId`, so you get Meta's rules: age × gender is
-allowed there, clicks are link clicks, and conversions are the report's chosen action.
+allowed there, clicks are link clicks, and conversions are the report's chosen action. For a
+Search Console report (`platform: "search_console"`), with the site as `accountId`: clicks are
+organic, average position is lower-is-better and never a sort, query tables miss private queries,
+and page tables never show a total.
 
 ## What to return
 

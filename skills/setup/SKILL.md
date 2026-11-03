@@ -12,8 +12,9 @@ Pass this version as `pluginVersion` to `check_setup`, `list_workspaces`, `list_
 This is the last step of Roster's onboarding. The user has just come from Roster's setup page,
 usually by pasting its setup message, and the rest of the dashboard stays locked until this command
 records that it finished. Get them connected, give them a folder, and record completion. Nothing
-else: connecting Google Ads or Meta Ads, adding clients and their reports are the dashboard's next
-steps, and every report request from the dashboard names its client and campaign.
+else: connecting Google Ads, Meta Ads or Search Console, adding clients and their reports are the
+dashboard's next steps, and every report request from the dashboard names its client and campaign
+or site.
 
 **Keep what they read short.** Aim for under a dozen lines across the whole command. Someone
 handed three paragraphs skims all of them, and the line that mattered is the one they miss. Say
@@ -22,8 +23,8 @@ what you are doing, do it, stop.
 ## 1. Connect
 
 Call `check_setup`. It is here to confirm the connection works; do not report what it says about
-clients, Google Ads, Meta Ads or queued reports, and do not call `list_workspaces`, `list_tasks` or
-`get_catalog`. Setup does not look at clients at all.
+clients, Google Ads, Meta Ads, Search Console or queued reports, and do not call `list_workspaces`,
+`list_tasks` or `get_catalog`. Setup does not look at clients at all.
 
 If it fails with an authorization error, Roster isn't signed in yet. Ask them to type `/mcp`,
 choose `roster` and sign in with their Roster login, then wait for them, and try once more. If two
@@ -98,7 +99,7 @@ If they decline the prompt, setup still finishes: say in one line that they can 
 ### CLAUDE.md template
 
 ````markdown
-# Roster — Google Ads and Meta Ads reporting and campaign setup
+# Roster — Google Ads, Meta Ads and Search Console reporting, and campaign setup
 
 Dashboard: https://app.useroster.xyz
 
@@ -112,8 +113,8 @@ only when it reaches the client.
 ## Adding a client
 
 `create_workspace` with the client's name, when the user asks for one, then send them to the
-client's page in the dashboard to add its ad accounts. Google Ads and Meta Ads are connected once,
-in Settings in the dashboard, for every client — never from Claude.
+client's page in the dashboard to add its ad accounts or site. Google Ads, Meta Ads and Search
+Console are connected once, in Settings in the dashboard, for every client — never from Claude.
 
 ## Live state is never in this file
 
@@ -174,8 +175,8 @@ this, word for word — it names the button the setup page is waiting on:
 
 Then these, and nothing beyond them:
 
-- Next, in the dashboard: connect Google Ads or Meta Ads in Settings — once, for every client —
-  then add a client and choose its ad accounts. Claude cannot do that part.
+- Next, in the dashboard: connect Google Ads, Meta Ads or Search Console in Settings — once, for
+  every client — then add a client and choose its ad accounts or site. Claude cannot do that part.
 - Then, on that client's **Reports** page, choose a campaign, say what the report should show,
   press **Copy for Claude** and paste it here.
 - Claude shows you the figures before anything is saved. You refresh a saved report from the

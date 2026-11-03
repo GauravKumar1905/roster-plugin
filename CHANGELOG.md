@@ -8,6 +8,19 @@ to run without an entry here.
 **Server needed** marks a release that only works once the matching Roster server is deployed.
 Entries before 0.19.0 were rebuilt from the commit history.
 
+## Unreleased — Google Search Console reports
+
+- **Server needed:** the Roster server with Search Console (`platform/search-console`) has to be
+  deployed first; until then a site task never reaches Claude.
+
+- `report`: a Search Console task is about a whole site. Its brief has the site, its last 28 days
+  and the last day Google has finished counting; no campaign is passed anywhere; its pages are
+  Overview, Queries, Pages, Countries & devices and Search appearance.
+- `report-design`: new `search-console.md` — organic clicks, position where lower is better and
+  never a sort, queries that leave out private ones, pages that overlap, search types, Pacific Time.
+- `edit-report`, `template` and the `report-reviewer` agent know a site report; `setup` names
+  Search Console beside Google Ads and Meta Ads.
+
 ## Unreleased — Codex and Antigravity
 
 - **Server needed** for other assistants to finish setup and to stop being told to install the

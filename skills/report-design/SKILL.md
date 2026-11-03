@@ -23,6 +23,9 @@ More detail, read when it applies:
 - [example.md](example.md) — a complete spec for a video brand campaign
 - [meta.md](meta.md) — **a Meta Ads report** (account id `act_…`): choosing its conversion, ad
   sets, link clicks, and which breakdowns Meta reports together. Read it before any Meta Ads page.
+- [search-console.md](search-console.md) — **a Search Console report** (a site, `sc-domain:…` or
+  `https://…`): no campaigns, position where lower is better, private queries, overlapping pages,
+  Pacific Time and its own pages. Read it before any Search Console page.
 
 ## What the campaign can report decides the shape
 
