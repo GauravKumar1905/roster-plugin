@@ -1,17 +1,18 @@
 # Designing a Meta Ads report
 
 Read this when `get_task` says `platform: "meta"`, or the account id starts `act_`. Everything in
-`SKILL.md` still holds; these are the ways Meta differs. `get_catalog` for a Meta Ads campaign
-lists only what Meta reports, in Meta's words, and the preview and save tools hold the design to
-it.
+`SKILL.md` still holds; these are the ways Meta differs. `get_catalog` with a Meta Ads report's
+`reportId` lists only what Meta reports for its campaigns, in Meta's words, and the preview and
+save tools hold the design to it.
 
 ## Choose the conversion first
 
-Meta has no single conversion. `get_catalog` with the Meta `accountId` lists the account's
-`conversionActions` — purchases, leads, registrations, a custom conversion — most frequent first.
-Before designing anything with conversions in it, ask the user which one this report counts, by
-label, or none. Pass its `actionType` as `conversionAction` to `get_catalog` (with the
-`campaignId`) and to the Overview's `preview_report_page` and `save_report_page`.
+Meta has no single conversion. `get_catalog` with the report's `reportId` lists the account's
+`conversionActions` — purchases, leads, registrations, a custom conversion — most frequent first
+(for a template, `get_catalog` with the Meta `accountId` alone). Before designing anything with
+conversions in it, ask the user which one this report counts, by label, or none. Pass its
+`actionType` as `conversionAction` to `get_catalog` (with the `reportId`) and to the Overview's
+`preview_report_page` and `save_report_page`.
 
 - Then name the action in titles: "Purchases", "Cost per lead" — not "Conversions".
 - No action chosen, or none recorded: the report has no conversions, CPA or ROAS. That is a fine

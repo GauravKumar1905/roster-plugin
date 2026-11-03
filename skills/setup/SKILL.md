@@ -70,7 +70,7 @@ in the same message, ask the one question setup asks, then wait for the answer:
 > this folder without asking each time. Allow that?
 
 Their answer is about the read-only steps only: build the folder either way. A report's first reply
-reads the campaign and previews its Overview, and without this each of those stops for a
+reads the ad account and previews its Overview, and without this each of those stops for a
 permission prompt.
 
 Then build `~/Desktop/Roster`:
@@ -145,7 +145,7 @@ Dashboard: https://app.useroster.xyz
 ## Which client
 
 A report asked for in the dashboard (**Copy for Claude**) carries the report's link, and the report
-knows its client, ad account and campaign: use those. When a request in chat names no client, ask
+knows its client, ad account and campaigns: use those. When a request in chat names no client, ask
 which one, once, in one line, before calling anything scoped to a client. Never pick one yourself:
 a report built against the wrong account is found only when it reaches the client.
 
@@ -166,8 +166,8 @@ what is written here — call `check_setup` for readiness, `list_workspaces` for
 ## How reports get built
 
 - Every report starts from its link: `get_task` with the link in the pasted message. Use its `ids`
-  for every later call — `ids.reportId` is the report to build into — then `get_catalog` with the
-  campaignId, and design only from what it returns.
+  for every later call — `ids.reportId` is the report to build into — then `get_catalog` with that
+  reportId, and design only from what it returns.
 - The `report` skill runs it: the plan and the Overview, with real figures, in one message, then
   one page at a time — `preview_report_page`, stop for the user's yes, `save_report_page` with that
   preview's id. A Meta Ads report asks which result counts as a conversion with the plan. Never put

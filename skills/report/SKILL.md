@@ -13,13 +13,17 @@ Pass this version as `pluginVersion` to `check_setup`, `list_workspaces`, `get_t
 # Build a report asked for in Roster
 
 Every report is asked for in Roster: the agency picks **Google Ads report** or **Meta Ads report**,
-chooses the ad account, writes a note for you if it wants, and presses **Copy for Claude**. That
-makes the report — its link exists before it has a design — and copies a message like this:
+chooses the ad account — the report covers all its campaigns unless the agency picks some — writes
+a note for you if it wants, and presses **Copy for Claude**. That makes the report — its link
+exists before it has a design — and copies a message like this:
 
 > Build this Roster report with me.
 > Report: https://app.useroster.xyz/r/rep_8kq2m5c1a7d3e9f0
-> Google Ads account: Acme Dental (384-221-9057), campaign Implants – Search
+> Google Ads account: Acme Dental (384-221-9057), all campaigns
 > Note: Monthly report for the practice manager; new-patient leads matter most.
+
+"All campaigns" is the whole account, campaigns added later included. A report on some of them
+names them instead: "campaign Implants – Search", "campaigns A, B and C", "4 of its campaigns".
 
 You build into that report. Your first reply is the plan and its Overview, with real figures; then
 the other pages, one at a time, each previewed and saved only when they approve it; then a review.
@@ -40,17 +44,20 @@ here.
 ## 2. Read the brief
 
 `get_task` with `report` = the link, as pasted. One call returns the note they wrote for you, the
-campaign and its last-30-day delivery, `existingReports`, `savedTemplates`, the `ids` for every
-later call — `ids.reportId` first: you build into that report — and `nextSteps`. Follow
+campaigns it covers — the whole account by default — and their last 30 days (`account` and
+`campaigns`, paused and never-run campaigns included; `campaign` when the report covers one), the
+report Roster proposes for them (`proposal`), `existingReports`, `savedTemplates`, the `ids` for
+every later call — `ids.reportId` first: you build into that report — and `nextSteps`. Follow
 `nextSteps` in order, and do not call other tools to rediscover any of it.
 
 If it returns an `error`, tell the user what it says and stop: a request cancelled in Roster, a
-report that isn't theirs, or a campaign Google or Meta could not read. If the report is already
-built, it says so: give them the link and ask whether they want it changed — that is the
-`edit-report` skill.
+report that isn't theirs, an ad account Google or Meta could not read, or campaigns removed since
+the report was asked for. If the report is already built, it says so: give them the link and ask
+whether they want it changed — that is the `edit-report` skill.
 
 **A report left half-built** — the brief lists `pagesRemaining`. Tell them in one line where it
-stands, then carry on from the first remaining page, asking first. Go to step 4.
+stands, then carry on from the first remaining page, asking first: `get_catalog` with `reportId` =
+`ids.reportId`, then step 4.
 
 ## 3. Your first reply: the plan and the Overview, in one message
 
@@ -59,29 +66,37 @@ Nothing is saved before they answer it. In one message:
 - If `existingReports` is not empty, or a `savedTemplates` entry has `fits: true`, one line naming
   them first. They may want a change to a report they have (the `edit-report` skill), or their
   house format.
-- Two lines on what the campaign spent and converted in the last 30 days.
-- The report you propose — "Monthly report", for Last month, unless their note says otherwise —
-  and its pages: Overview, then only the pages this campaign has data for (no Demographics on
-  Performance Max), by the names they read. A short report is Overview alone; that is fine.
+- Two lines on what the report's campaigns spent and converted in the last 30 days, and across how
+  many campaigns: "Acme Dental on Google Ads, last 30 days: $5,300 spent, 212 conversions at
+  $25.00 each, across 5 campaigns (6 in all)". For one campaign, that campaign's.
+- The plan, in one line: "I'll build Roster's standard monthly report for last month — Overview,
+  Ad groups and Geo & device." — the pages from the brief's `proposal.pagesText`. The standard has
+  only pages the campaigns have data for (no Ad groups page for Performance Max alone). If their
+  note asks for something else — other pages, another period — propose that instead, Overview
+  first, by the names they read. A short report is Overview alone; that is fine.
 - The Overview itself, with real figures. Load the `report-design` skill once, then `get_catalog`
-  with `campaignId` = `ids.campaignIds[0]`; it returns only what this campaign can report. Design
-  the Overview from that alone — go through `report-design`'s checklist — and
-  `preview_report_page` with `reportId` = `ids.reportId`, page `overview`, the report's `name` and
-  `dateRange`.
+  with `reportId` = `ids.reportId`. It returns only what this report's campaigns can report — one
+  campaign, several or the whole account — and `standardReport`: the plan, page by page, built for
+  exactly those campaigns. Take the Overview's sections from it as given, changed only where their
+  note asks (hold any change to `report-design`'s checklist), and `preview_report_page` with
+  `reportId` = `ids.reportId`, page `overview`, `standardReport`'s `name` and `dateRange`, and
+  those sections.
 - End on exactly one question: "Save Overview and go on to Ad groups?" — naming the page after it.
   Their yes approves the plan and the Overview together.
 
-Their note was written in a hurry on a dashboard — "monthly report for this campaign". The plan is
+Their note was written in a hurry on a dashboard — "monthly report for the owner". The plan is
 where it gets settled: propose, and let them correct it. Where the note contradicts itself, ask
 rather than guess.
 
 **A Meta Ads report** (`platform: "meta"`, an account id starting `act_`) asks one thing with the
-plan: Meta has no single conversion. The first message is the two lines and the plan, ending on the
-brief's question — "Which result should count as a conversion — Leads (96 in the last 30 days) or
-Purchases (3)?", from `conversionActions` — and nothing is designed yet. With their answer (it may
-be none), the next message is the Overview: `get_catalog` with `accountId` = `ids.accountId`, the
-`campaignId` and that `conversionAction`; `preview_report_page` with the reportId, page `overview`,
-the name, the dateRange and that `conversionAction`; and "Save Overview and go on to …?". Load
+plan: Meta has no single conversion. The first message is the two lines and the plan ("I'll build
+Roster's standard monthly report for last month — Overview, Creative and Demographics."), and ends
+on the brief's question, from `conversionActions`: "Which result should count as a conversion —
+Leads (96 in the last 30 days) or Purchases (3)?" Nothing is designed yet. With their answer (it
+may be none), the next message is the Overview: `get_catalog` with `reportId` = `ids.reportId`
+and that `conversionAction`, whose `standardReport` names the action in its titles;
+`preview_report_page` with the reportId, page `overview`, the standard's name, dateRange and
+Overview sections, and that `conversionAction`; and "Save Overview and go on to Creative?". Load
 `report-design`'s `meta.md` before designing. An account that recorded no conversion actions has
 nothing to ask: say so in one line, and the plan and Overview come in one message, as for Google.
 
@@ -94,13 +109,15 @@ Then step 5.
 
 1. **On their yes to the Overview:** `save_report_page` with that `previewId` and exactly what was
    previewed — reportId, page, sections, name, dateRange, and a Meta report's `conversionAction` —
-   plus `plannedPages` = the pages you proposed, as they changed them. Anything that differs from
-   the preview is refused: preview again instead of editing on the way to the save.
+   plus `plannedPages` = the pages you proposed (`proposal.pages`), as they changed them. Anything
+   that differs from the preview is refused: preview again instead of editing on the way to the
+   save.
 2. **Tell them it is saved**, with every warning from the save word for word. Their yes covered
    moving on, so design the next page; if they only said to save, ask before starting it.
-3. **Design that page only** — its sections and nothing else — and `preview_report_page` with the
-   `reportId`, the `page` and its `sections` alone: no `name`, `dateRange`, `accountId` or
-   `campaignIds`, which belong to the whole report.
+3. **That page only** — its sections from `standardReport` as given, changed only where they
+   asked (a page the standard doesn't have, you design from `get_catalog`), and nothing else — and
+   `preview_report_page` with the `reportId`, the `page` and its `sections` alone: no `name`,
+   `dateRange`, `accountId` or `campaignIds`, which belong to the whole report.
 4. **Refused?** It names the exact path and the fix. Correct exactly that and preview again. A page
    that failed gets no `previewId` and is never shown to the user as if it were ready.
 5. **Show the figures and STOP.** One question — "Save it and go on to Geo & device?" — nothing else

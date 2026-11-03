@@ -93,16 +93,18 @@ You rarely need to type these. Plain language finds the right one: "change this 
 groups", "build a template from our monthly PDF", "what reports does Otago have?".
 
 You don't need a command to start a report either. Every report starts in the dashboard: pick
-**Google Ads report** or **Meta Ads report**, choose the ad account, write a note for Claude if you
-like, press **Copy for Claude**, and paste it into Claude:
+**Google Ads report** or **Meta Ads report**, choose the ad account — the report covers all its
+campaigns unless you pick some under **Change** — write a note for Claude if you like, press
+**Copy for Claude**, and paste it into Claude:
 
 > Build this Roster report with me.
 > Report: https://app.useroster.xyz/r/rep_…
-> Google Ads account: Northside Coffee (384-221-9057), campaign Northside Brand – Search
+> Google Ads account: Northside Coffee (384-221-9057), all campaigns
 > Note: Monthly report for the owner; store visits matter most.
 
-Claude's first reply is the report it proposes and its Overview, with real figures; a Meta Ads
-report asks first which result counts as a conversion. Then the other pages, one at a time: nothing
+Claude's first reply is the report it proposes — Roster's standard monthly report for last month,
+unless your note asks for something else — and its Overview, with real figures; a Meta Ads report
+asks first which result counts as a conversion. Then the other pages, one at a time: nothing
 is saved until you say yes, and Roster checks the real figures and refuses a report with a broken
 or empty widget. When the last page is saved, the report's page in Roster says **Ready to share**;
 press **Share with client** there for the link your client sees. A reviewer agent looks it over
@@ -121,7 +123,8 @@ month's PDF — and ask Claude to build a matching template:
 
 After that, every new client is one call: Claude offers the saved format by name and applies it.
 Widgets a client's account can't support are skipped rather than shown empty, so the same
-template survives a client with no conversion tracking.
+template survives a client with no conversion tracking. Roster's standard monthly report is listed
+first, for every client; it can't be changed, but Claude can start your own format from it.
 
 A report is not a template until you make it one. A template is either for one client or for
 every client, and each report made from it gets its own copy — improving a template later changes

@@ -39,7 +39,7 @@ without saying what to do about each.
 3. **The figures are believable.**
    - A widget that is all zeros, or that has one row where several were expected.
    - Widgets over the same dates that disagree on spend — unless the smaller one is a breakdown
-     whose title says it is partial.
+     whose title says it is partial, or names the campaigns it covers ("Search campaigns only").
    - Rates that cannot happen (CTR or view rate over 100%), or a CPM or CPC far out of line with
      the rest of the report.
    - A first or last period that is only partly covered and is drawn as if it were whole.
@@ -48,9 +48,10 @@ without saying what to do about each.
 5. **It will still read correctly in six weeks.** Titles with a hard-coded month or number, or a
    structure built around this month's figures, break the first time the numbers move.
 
-`get_catalog` has the chart rules if you need to confirm one — for a Meta Ads report (`platform:
-"meta"` in `get_report`), with its `accountId`, so you get Meta's rules: age × gender is
-allowed there, clicks are link clicks, and conversions are the report's chosen action.
+`get_catalog` with the reportId has the chart rules, and what the report's campaigns can report,
+if you need to confirm one. For a Meta Ads report (`platform: "meta"` in `get_report`) it gives
+Meta's rules: age × gender is allowed there, clicks are link clicks, and conversions are the
+report's chosen action.
 
 ## What to return
 

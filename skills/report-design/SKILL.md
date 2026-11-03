@@ -1,6 +1,6 @@
 ---
 name: report-design
-description: How to design a Roster report spec — which metrics and charts a campaign supports, the chart rules the validator enforces, rolling date ranges and breakdowns. Load it before writing or changing any Roster report or template spec.
+description: How to design a Roster report spec — which metrics and charts a report's campaigns support, the chart rules the validator enforces, rolling date ranges and breakdowns. Load it before writing or changing any Roster report or template spec.
 user-invocable: false
 ---
 
@@ -24,14 +24,16 @@ More detail, read when it applies:
 - [meta.md](meta.md) — **a Meta Ads report** (account id `act_…`): choosing its conversion, ad
   sets, link clicks, and which breakdowns Meta reports together. Read it before any Meta Ads page.
 
-## What the campaign can report decides the shape
+## What the report's campaigns can report decides the shape
 
-`get_catalog` with the campaign's id returns only what it can report, worked out from its type
-and whether conversion data actually arrives, with the reason for everything left out. Design only
-from that list — preview and save refuse anything else. The capabilities behind it:
+`get_catalog` with the report's `reportId` returns only what its campaigns can report — one
+campaign, several or the whole account — worked out from their types and whether conversion data
+actually arrives, with the reason for everything left out. Design only from that list — preview
+and save refuse anything else. (A template, meant for any client, starts from the whole
+vocabulary instead: `get_catalog` with no report.) The capabilities behind it:
 
 - `[]` — no conversion data. Build a **reach and efficiency** report: spend, impressions,
-  clicks, CTR, CPC, CPM, and video metrics where the campaign runs video. Do **not** include
+  clicks, CTR, CPC, CPM, and video metrics where the campaigns run video. Do **not** include
   conversions, cpa, roas, aov or conversion_rate. They will render blank.
 - `["conversion_tracking"]` — add conversions, CPA, conversion rate. Still no ROAS or AOV.
 - `["conversion_tracking", "conversion_value"]` — the full e-commerce shape is available.
@@ -49,6 +51,16 @@ A widget that needs a capability declares it:
 Declared widgets are **skipped** where the capability is missing, so the same design still works
 elsewhere. This is what makes a template reusable across a whole client roster.
 
+## Start from Roster's standard monthly report
+
+For a report, `get_catalog` also returns `standardReport`: Roster's standard monthly report, built
+for exactly those campaigns. On Google Ads it is Overview (key numbers, day by day, and a campaigns
+table beyond one campaign), Ad groups (with what people searched for where Search or Shopping
+campaigns run; no Ad groups page for Performance Max alone) and Geo & device (top cities, devices).
+On Meta Ads it is Overview, Creative and Demographics. Its `leftOut` says what these campaigns
+can't show, and why. When it fits what they asked for, start from it: it is built to every rule
+below. Change only what they ask, and hold each change to this skill.
+
 ## Composing the report
 
 A report is a set of **pages**, and you design and preview one page at a time — never the whole
@@ -60,7 +72,8 @@ The Overview page reads top-down from summary to detail:
 1. **Headline** — a `kpi_row` of the 3–5 numbers the client checks first.
 2. **Trend** — a `line` chart over `date` (or `week` for ranges longer than ~60 days).
 3. **Breakdown** — where the money went: `pie` or `bar` over a low-cardinality dimension, or a
-   `grouped_bar` to compare groups across one — ad group × age, network × device.
+   `grouped_bar` to compare groups across one — ad group × age, network × device. On a report of
+   several campaigns or a whole account, this is a campaigns table: a `table` by `campaign_name`.
 4. **Detail** — a `table`. Agencies live in tables; make it substantial, 5–8 metric columns.
 
 The pages, and what each answers. The reader picks them from a menu, the report opens on
@@ -68,24 +81,24 @@ Overview, and a PDF starts each on a new sheet:
 
 | `segment` | Answers | Typical sections |
 | --- | --- | --- |
-| `overview` | How is the campaign doing overall? | Headline numbers, trend, split by campaign |
-| `ad_groups` | Which ad groups work best? | Ad group table, ad group × age grouped bar, keywords |
+| `overview` | How is the advertising doing overall? | Headline numbers, trend, split by campaign |
+| `ad_groups` | Which ad groups work best? | Ad group table, ad group × age grouped bar, keywords, search terms |
 | `creative` | Which ads work best? | Ads, ad copy, videos |
-| `demographics` | Who is watching? | Age, gender, audience |
+| `demographics` | Who do the ads reach? | Age, gender, audience |
 | `platform` | Where did the ads run? | Network (YouTube, Display, Search), ad format, hour of day |
-| `geo_device` | Where are viewers, and on what devices? | Regions, cities, devices |
+| `geo_device` | Where were the ads seen, and on what devices? | Regions, cities, devices |
 
-Leave out a page the campaign has no data for (no Demographics on Performance Max). A short
-report is Overview alone. A page holds 1–4 sections, and a section 1–4 widgets; past that, it is
-two pages, or a table doing the work of several charts.
+Leave out a page the report's campaigns have no data for (no Demographics for Performance Max
+alone). A short report is Overview alone. A page holds 1–4 sections, and a section 1–4 widgets;
+past that, it is two pages, or a table doing the work of several charts.
 
 ## Before you preview a page — every time
 
 Run down this list. Each item is a refusal or a bad report that has actually happened:
 
 1. **This page only.** Its own sections, nothing from other pages, nothing for "later".
-2. **Every id is in `get_catalog`** for this campaign — metrics, dimensions, chart types. Not a
-   similar name, not one from another campaign. Unsure whether a metric has data here?
+2. **Every id is in `get_catalog`** for this report — metrics, dimensions, chart types. Not a
+   similar name, not one from another report. Unsure whether a metric has data here?
    `preview_metric` first.
 3. **Capabilities.** Conversions, CPA, ROAS, AOV and conversion rate only where the catalog's
    capabilities allow them, and a widget that needs one declares `requires`.
@@ -93,7 +106,9 @@ Run down this list. Each item is a refusal or a bad report that has actually hap
    bars, a time axis on lines, small `series`, sort by a metric that is shown.
 5. **No breakdowns the platform won't report together** — age × gender on Google; two breakdown
    families on Meta ([meta.md](meta.md)) — and no breakdown estimated from two others.
-6. **A breakdown that doesn't cover everything says so in its title** ("partial").
+6. **A breakdown that doesn't cover everything says so in its title** — the campaigns it covers,
+   in the words of its `titleNote` ("Ad groups (Search campaigns only)"), or "partial" — and shows
+   no total.
 7. **No chart that repeats a table's figures** — the table draws its own.
 8. **Titles a client understands, with no dates or numbers in them.**
 9. **Overview starts with the headline numbers** — a `kpi_row` — and every other page starts with
@@ -148,7 +163,7 @@ Getting these right first time is faster than reading the error:
 - **Sort by a metric the widget actually displays.**
 - **`compareTo` works on `kpi`, `kpi_row` and `table`** — not on a table whose rows are dates.
 
-Unsure whether a metric has data for this campaign? `preview_metric` checks one cheaply before
+Unsure whether a metric has data for this report? `preview_metric` checks one cheaply before
 you commit it to the design.
 
 ## Things you don't need to do

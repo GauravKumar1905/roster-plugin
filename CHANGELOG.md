@@ -8,6 +8,38 @@ to run without an entry here.
 **Server needed** marks a release that only works once the matching Roster server is deployed.
 Entries before 0.19.0 were rebuilt from the commit history.
 
+## 0.22.0 — Whole-account reports and Roster's standard monthly report
+
+- **Server needed:** app 0.19.6, which lets `get_catalog` take a report's `reportId` and return
+  its `standardReport`, briefs a whole account or several campaigns, and makes this release the
+  oldest Roster accepts. Older plugins are never refused: they are warned, and told to update on
+  their first call.
+
+- A report covers every campaign in the ad account unless you pick some under **Change**, so the
+  message **Copy for Claude** copies ends ", all campaigns" — or names the campaigns you picked.
+  Campaigns added to the account later are in a whole-account report from its next refresh.
+- Claude's first reply opens with two lines on the last 30 days — "Acme Dental on Google Ads, last
+  30 days: $5,300 spent, 212 conversions at $25.00 each, across 5 campaigns (6 in all)" — and
+  proposes Roster's standard monthly report for last month: on Google Ads, Overview, Ad groups and
+  Geo & device (no Ad groups page for Performance Max alone); on Meta Ads, Overview, Creative and
+  Demographics. Its Overview comes with real figures, as before, and a report of more than one
+  campaign splits it by campaign in a table. A Meta Ads report still asks which result counts as a
+  conversion with the plan, and the standard names that result in its titles.
+- Claude designs from `get_catalog` with the report's `reportId`, which knows whether the report
+  covers one campaign, several or the whole account, and holds every page to exactly that — the
+  same check preview and save make. Changing a report and the reviewer read it the same way.
+- A breakdown only some of the campaigns report says which in its title — "Ad groups (Search and
+  Display campaigns only)" — or says "partial", and shows no total.
+- The pages' questions read right for one campaign or a whole account: Overview is "How is the
+  advertising doing overall?", Demographics "Who do the ads reach?", and Geo & device "Where were
+  the ads seen, and on what devices?".
+- Roster's standard monthly report (`tpl_roster_standard`) is listed first among the templates, for
+  every client, and can't be changed. Claude can start an agency's own template from it, saved as
+  theirs.
+- Roster folders set up before this keep "`get_catalog` with the campaignId" in their `CLAUDE.md`
+  until `/roster:setup` refreshes them (Claude offers it when the folder is behind the plugin);
+  until then the brief's own steps already say the `reportId`.
+
 ## Unreleased — Codex and Antigravity
 
 - **Server needed** for other assistants to finish setup and to stop being told to install the
