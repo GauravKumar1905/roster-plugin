@@ -4,7 +4,7 @@ description: Build a Google Ads or Meta Ads report for one task queued in the Ro
 argument-hint: "[taskId]"
 ---
 
-Plugin version: 0.20.1
+Plugin version: 0.20.2
 
 Pass this version as `pluginVersion` to `check_setup`, `list_workspaces`, `list_tasks`, `get_task`,
 `list_reports`, `get_report` and `list_templates`. If a result carries a note headed
