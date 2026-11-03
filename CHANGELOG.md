@@ -8,6 +8,18 @@ to run without an entry here.
 **Server needed** marks a release that only works once the matching Roster server is deployed.
 Entries before 0.19.0 were rebuilt from the commit history.
 
+## Unreleased — Codex and Antigravity
+
+- **Server needed** for other assistants to finish setup and to stop being told to install the
+  Claude plugin. Nothing changes for Claude.
+
+- The same skills, packaged for OpenAI's Codex (`codex/`, with `.agents/plugins/marketplace.json`
+  so `codex plugin marketplace add GauravKumar1905/roster-plugin` finds it) and Google's
+  Antigravity (`antigravity/`, installed with `agy plugin install …/roster-plugin/antigravity`).
+- Both are generated from the Claude skills by `scripts/build-packages.mjs` and rebuilt by every
+  release. The reviewer agent becomes a `review-report` skill there, since neither loads a
+  plugin's agents, and setup is a short connect-and-record skill with no local folder.
+
 ## 0.21.0 — Reports start from their link in Roster
 
 - **Server needed:** app 0.19.5, which gives `get_task` the report's link (`report`) and the steps

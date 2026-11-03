@@ -54,6 +54,32 @@ in the same Plugins screen. It is off by default for marketplaces added from Git
 tells Roster which version it is, so if yours falls behind, the dashboard and Claude both say so.
 What changed in each version is in [CHANGELOG.md](CHANGELOG.md).
 
+## Codex and Antigravity
+
+The same plugin, packaged for OpenAI's Codex and Google's Antigravity. Sign up in the dashboard
+first, as above; then, instead of the Claude steps:
+
+**Codex** (CLI or the ChatGPT desktop app):
+
+```
+codex plugin marketplace add GauravKumar1905/roster-plugin
+codex plugin add roster@roster
+```
+
+Sign in with your Roster login when the browser opens, then say "set up Roster".
+
+**Antigravity** (CLI, desktop app or IDE):
+
+```
+agy plugin install https://github.com/GauravKumar1905/roster-plugin/antigravity
+```
+
+Sign in with your Roster login the first time a Roster tool asks, then say "set up Roster" — or
+run `/roster-setup`.
+
+Either way, setup connects, tells the dashboard you're done, and you press **Done** there. There is
+no local folder: that is a Claude Code convenience. Reports, templates and the queue work the same.
+
 ## Skills
 
 | | |
@@ -118,6 +144,11 @@ needs you. Ask Claude *what reports are waiting for Otago?* to see them from Cla
   rather than one shaped around this month's numbers. The other skills load it when designing
 - **`agents/report-reviewer`** — reviews a saved report against what you asked for, while you do
 - **`.mcp.json`** — the connection to Roster
+- **`codex/`, `antigravity/`, `.agents/plugins/marketplace.json`** — the Codex and Antigravity
+  packages, **generated** from the skills above by `node scripts/build-packages.mjs`. Edit the
+  skills at the root, then run it; `--check` fails when the packages are out of date. The release
+  script runs it for you. In those packages the reviewer is a skill (`review-report`), setup has no
+  folder, and the plugin-version lines are gone — only Claude's requests carry a version.
 
 ## Two things worth knowing
 
