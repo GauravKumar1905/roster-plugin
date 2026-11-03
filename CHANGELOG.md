@@ -8,6 +8,40 @@ to run without an entry here.
 **Server needed** marks a release that only works once the matching Roster server is deployed.
 Entries before 0.19.0 were rebuilt from the commit history.
 
+## 0.21.0 — Reports start from their link in Roster
+
+- **Server needed:** app 0.19.5, which gives `get_task` the report's link (`report`) and the steps
+  below, and makes this release the oldest Roster accepts. Older plugins keep working, and are told
+  to update on their first call.
+
+- **Copy for Claude** pastes the report's link: "Build this Roster report with me.", the link, the
+  ad account and its campaign, and your note. Claude builds into that report — the row and its link
+  exist in Roster from the moment you ask — so its page follows along: Waiting for Claude, Claude is
+  building it, Ready to share.
+- Claude's first reply is the report it proposes and its Overview, with real figures, in one
+  message, ending "Save Overview and go on to Ad groups?". Your yes approves both. A Meta Ads report
+  asks which result counts as a conversion with the plan, and shows the Overview next.
+- When the last page is saved, Claude gives you the link and says to press **Share with client**
+  there. A change to a report already shared says that your client's link still shows the version
+  it was made from, until you share again.
+- "Carry on building this Roster report with me" (Continue in Claude) picks up a report left
+  half-built, and "Change this Roster report with me" (Change with Claude, with an optional
+  `Change:` line) is the `edit-report` skill's start.
+- No queue: `list_tasks` and `complete_task` are gone, and so is ticking a task off. Claude uses
+  the dashboard's words — Waiting for Claude, Claude is building it, Ready to share, Share with
+  client, Refresh figures — and never says task, queue or sent.
+- A template message's `Client:` line is the client's name alone; Claude finds the client by name.
+  The reviewer reads the note you wrote for the report.
+- Setup asks once whether Roster's read-only steps — reading reports and accounts, previewing
+  pages — may run in your Roster folder without asking each time. Yes writes them into the folder's
+  `.claude/settings.json`; nothing that saves is ever in it. Setup's last line is now "Setup is
+  recorded. Go back to Roster and press Done — it asks what you'd like to do first."
+- Roster folders set up before this keep their old `CLAUDE.md` lines (the queue, `list_tasks`)
+  until `/roster:setup` refreshes them. A refresh (Claude offers it when the folder is behind the
+  plugin) now rewrites "Which client", "Live state", "How reports get built" and "How to ask for a
+  report" as well as "Adding a client", and asks the read-only question when the folder's settings
+  allow none of those steps yet.
+
 ## 0.20.2 — Google Ads and Meta Ads are connected in Settings
 
 - Works with any server; the words match app 0.19.4. The minimum isn't raised: Roster still

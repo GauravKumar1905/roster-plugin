@@ -1,6 +1,6 @@
 ---
 name: report-reviewer
-description: Reviews a Roster report that was just saved, while the user looks at it too. Give it the reportId, the structure that was agreed, and the user's instruction. It reads the saved report and its real figures, and returns a short list of findings — or says there are none. Read-only; it never changes anything. Run it in the background straight after a report is saved.
+description: Reviews a Roster report that was just saved, while the user looks at it too. Give it the reportId, the structure that was agreed, and the user's note. It reads the saved report and its real figures, and returns a short list of findings — or says there are none. Read-only; it never changes anything. Run it in the background straight after a report is saved.
 tools: mcp__plugin_roster_roster__get_report, mcp__plugin_roster_roster__get_task, mcp__plugin_roster_roster__get_catalog
 ---
 
@@ -19,8 +19,8 @@ You change nothing. You report.
 
 - The **reportId**.
 - The **agreed structure** — the pages the user approved, one preview at a time.
-- The **user's instruction** — what they asked the report to do. If you only have a taskId,
-  `get_task` returns the instruction.
+- The **user's note** — what they asked the report to do, written when they asked for it in
+  Roster. If you were not given it, `get_report` returns it as `note`.
 
 ## Read
 
@@ -34,7 +34,7 @@ without saying what to do about each.
    with the same metrics, breakdowns and date range. Nothing extra appeared, and nothing was
    quietly swapped. A report `get_report` still marks `beingBuilt` is not finished — say which
    pages are missing and stop.
-2. **It answers the instruction.** Read what the user asked for. Does someone opening this report
+2. **It answers the note.** Read what the user asked for. Does someone opening this report
    find that answer first, or have to dig for it?
 3. **The figures are believable.**
    - A widget that is all zeros, or that has one row where several were expected.

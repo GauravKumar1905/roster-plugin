@@ -28,9 +28,11 @@ rest of the dashboard opens once Claude has finished:
    - type `/reload-plugins`
    - type `/mcp`, choose `roster` and sign in with the same login
    - allow a Roster folder on your Desktop
+   - say whether Roster's read-only steps can run without asking each time
 3. **Come back and press Done** when Claude says "Setup is recorded. Go back to Roster and press
-   Done." The dashboard then walks you through connecting Google Ads or Meta Ads in Settings —
-   once, for every client — then adding a client and choosing its ad accounts.
+   Done — it asks what you'd like to do first." Pick Google Ads report or Meta Ads report there:
+   Roster asks for the sign-in and the ad account — Google Ads and Meta Ads are connected once, for
+   every client — then copies a message for Claude.
 
 If Claude can't run commands in the Code tab, install from Claude's menus instead: Settings →
 Plugins → Add → Add marketplace, paste `https://github.com/GauravKumar1905/roster-plugin`, press
@@ -57,26 +59,32 @@ What changed in each version is in [CHANGELOG.md](CHANGELOG.md).
 | | |
 |---|---|
 | `/roster:setup` | Connect, set up your folder, and finish onboarding |
-| `/roster:report` | Work on a queued task, or see what is waiting for a client |
-| `/roster:edit-report` | Change a report you already have, as the same report |
+| `/roster:report` | Build a report asked for in Roster, or see what is waiting for a client |
+| `/roster:edit-report` | Change a report you already have, keeping its link |
 | `/roster:template` | Turn your agency's own report format into a reusable template |
 
 You rarely need to type these. Plain language finds the right one: "change this report to add ad
 groups", "build a template from our monthly PDF", "what reports does Otago have?".
 
-You don't need a command to start a report either. Every report starts as a task in the
-dashboard: on a client's **Reports** page, choose one campaign, say what you need, press **Copy
-for Claude**, and paste it into Claude:
+You don't need a command to start a report either. Every report starts in the dashboard: pick
+**Google Ads report** or **Meta Ads report**, choose the ad account, write a note for Claude if you
+like, press **Copy for Claude**, and paste it into Claude:
 
-> Work on my Roster report task.
-> Client: Northside Coffee (ws_…)
-> Task: task_… — "Monthly report for the brand campaign"
-> Campaign: Northside Brand (Search)
-> Start with get_task, ask me what report I want for this campaign, and show me a preview before saving.
+> Build this Roster report with me.
+> Report: https://app.useroster.xyz/r/rep_…
+> Google Ads account: Northside Coffee (384-221-9057), campaign Northside Brand – Search
+> Note: Monthly report for the owner; store visits matter most.
 
-Claude reads the brief, asks what report you want for that campaign, and shows you the figures
-before anything is saved. Once you agree, Claude saves it — Roster checks the real figures and
-refuses a report with a broken or empty widget — and a reviewer agent looks it over while you do.
+Claude's first reply is the report it proposes and its Overview, with real figures; a Meta Ads
+report asks first which result counts as a conversion. Then the other pages, one at a time: nothing
+is saved until you say yes, and Roster checks the real figures and refuses a report with a broken
+or empty widget. When the last page is saved, the report's page in Roster says **Ready to share**;
+press **Share with client** there for the link your client sees. A reviewer agent looks it over
+while you do.
+
+To change a report later, press **Change with Claude** on its page in Roster and paste what it
+copies — "Change this Roster report with me", with the report's link. It stays the same report, at
+the same link.
 
 ## Templates
 
@@ -91,16 +99,16 @@ template survives a client with no conversion tracking.
 
 A report is not a template until you make it one. A template is either for one client or for
 every client, and each report made from it gets its own copy — improving a template later changes
-new reports, never ones you have already sent. On a client's **Templates** page you can turn one of
+new reports, never ones you have already shared. On a client's **Templates** page you can turn one of
 their reports into a template, or copy an instruction that has Claude design a new one.
 
-## The report queue
+## Roster and Claude, side by side
 
-You can't start Claude from the Roster dashboard, and Claude can't see the dashboard. So the
-dashboard has a **report queue**: note down each report you want while you're looking at your
-clients — one campaign each — and copy each task into Claude when you're ready. Ask Claude *what's
-in my queue* to see what is waiting for a client. Each report is shown to you before it's saved, and its task
-is ticked off once it's done.
+You can't start Claude from the Roster dashboard, and Claude can't see the dashboard. So each
+report is handed over as a message with its link: **Copy for Claude** to start one, **Continue in
+Claude** to pick up one left half-built, **Change with Claude** to change one. The report's page
+follows along — Waiting for Claude, Claude is building it, Ready to share — and Home lists what
+needs you. Ask Claude *what reports are waiting for Otago?* to see them from Claude's side.
 
 ## What's in here
 

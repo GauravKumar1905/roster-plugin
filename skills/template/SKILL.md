@@ -5,7 +5,7 @@ description: Turn an agency's own report format into a reusable Roster template,
 
 Plugin version: 0.20.2
 
-Pass this version as `pluginVersion` to `check_setup`, `list_workspaces`, `list_tasks`, `get_task`,
+Pass this version as `pluginVersion` to `check_setup`, `list_workspaces`, `get_task`,
 `list_reports`, `get_report` and `list_templates`. If a result carries a note headed
 "ROSTER PLUGIN:", do what it says.
 
@@ -17,17 +17,18 @@ it and render itself from then on.
 
 A report and a template are different things. A template is a design someone chose to reuse, for
 **one client** or for **every client**. Each report made from it gets its own copy, so improving a
-template later changes new reports, never ones already sent.
+template later changes new reports, never ones already shared.
 
 ## 1. Check what they have
 
 `list_templates` — they may already have this saved. If so, a change to it is `get_template`,
 then the steps below with that `templateId`.
 
-If they pasted the dashboard's "Create a new Roster report template." instruction, its
-`Client: <name> (<id>)` line names the client it came from, and the `ws_…` id in brackets is that
-client's workspaceId (a copy made before that line existed has it first, in
-`Workspace: <id> (<name>)`). Steps 4 and 5 use it.
+If they pasted the dashboard's "Create a new Roster report template." message, its
+`Client: <name>` line names the client it came from. Find that client by its name in
+`list_workspaces` — its `workspaceId` is what steps 4 and 5 use. A copy made before November 2026
+also has the id in brackets, `Client: <name> (ws_…)`, or first, in `Workspace: <id> (<name>)`; use
+it when it is there.
 
 ## 2. Work out their format
 
@@ -57,11 +58,12 @@ client without conversion tracking — those widgets are skipped rather than sho
 
 Ask whether it is for one client or every client. Then `preview_report` with the spec and a real
 campaign of the client they mean — the one in the pasted `Client:` line, or the one they name;
-neither: ask which, in a line. Take it from a queued task's `ids` (`get_task`), or from that
-client's accounts in `list_workspaces`. Then ask whether it matches their existing report.
-Iterate until they say it does. Preview it with the `templateId` once saved, or the spec before:
-a spec is held to that campaign's catalog, so test it on a campaign that can report everything in
-it, and declare `requires` on conversion widgets so other campaigns skip them.
+neither: ask which, in a line. Take it from one of that client's reports — `get_report` returns its
+`accountId` and `campaignIds` — or from the client's accounts in `list_workspaces`. Then ask whether
+it matches their existing report. Iterate until they say it does. Preview it with the `templateId`
+once saved, or the spec before: a spec is held to that campaign's catalog, so test it on a campaign
+that can report everything in it, and declare `requires` on conversion widgets so other campaigns
+skip them.
 
 ## 5. Save
 
