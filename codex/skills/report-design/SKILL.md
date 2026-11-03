@@ -20,8 +20,8 @@ More detail, read when it applies:
 - [breakdowns.md](breakdowns.md) — gender, age, audience, creative type, splitting conversions
   by action; keywords, search terms, ads, ad copy, videos and locations; comparing tables; targets
 - [example.md](example.md) — a complete spec for a video brand campaign
-- [meta.md](meta.md) — **a Meta report** (account id `act_…`): choosing its conversion, ad sets,
-  link clicks, and which breakdowns Meta reports together. Read it before any Meta page.
+- [meta.md](meta.md) — **a Meta Ads report** (account id `act_…`): choosing its conversion, ad
+  sets, link clicks, and which breakdowns Meta reports together. Read it before any Meta Ads page.
 
 ## What the campaign can report decides the shape
 

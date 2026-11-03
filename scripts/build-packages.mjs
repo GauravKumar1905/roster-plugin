@@ -11,13 +11,18 @@
 // What changes on the way out, and why:
 // - The plugin-version block goes. Only Claude's requests carry a version, and the server gives the
 //   `pluginVersion` argument to Claude alone; another assistant passing it would be refused.
-// - CLAUDE.md, the plugin's update step and Claude's background agent are rewritten. The reviewer
-//   agent becomes a skill: Codex does not load agents from a plugin, and Antigravity rejects a
-//   plugin's agents when they are called (agy issue #551).
-// - Setup is written fresh per assistant. Claude's builds a local folder and runs `claude plugin`
+// - The plugin's update step and Claude's background agent are rewritten. The reviewer agent
+//   becomes a skill: Codex does not load agents from a plugin, and Antigravity rejects a plugin's
+//   agents when they are called (agy issue #551).
+// - The dashboard's buttons and statuses that name Claude (Copy for Claude, Change with Claude,
+//   Waiting for Claude, Claude is building it) are described rather than quoted. The server still
+//   quotes them to every assistant where it matters — get_task's errors, list_reports' `status`.
+// - Setup is written fresh per assistant. Claude's builds a local folder (its CLAUDE.md, copies of
+//   the skills, the read-only allow-list in .claude/settings.json) and runs `claude plugin`
 //   commands; elsewhere, connecting is the whole of setup.
 // - Antigravity's skill names are prefixed `roster-`, since a plugin's skills there sit beside every
-//   other plugin's as slash commands. Codex namespaces them by plugin already.
+//   other plugin's as slash commands. Codex namespaces them by plugin already. Only a name used as
+//   a skill is renamed — "the `report` skill", "`report-design`'s" — never `report` the argument.
 //
 // Every rewrite must match exactly once, and the output is scanned for Claude-only words, so an
 // edit to a Claude skill that would leak into the others fails the build instead of shipping.
@@ -33,7 +38,7 @@ const claudeManifest = readJson(".claude-plugin/plugin.json");
 const VERSION = claudeManifest.version;
 const MCP_URL = readJson(".mcp.json").mcpServers.roster.url;
 const DESCRIPTION = claudeManifest.description;
-const SITE = "https://gauravkumar1905.github.io/roster-site";
+const SITE = "https://useroster.xyz";
 const REPO = "https://github.com/GauravKumar1905/roster-plugin";
 
 /** The skills every package carries, in the order they are listed. */
@@ -53,27 +58,64 @@ function phrase(text) {
 
 /** [file, from, to]: each must match exactly once in that file. */
 const REWRITES = [
+  // The report skill: the request's button, the statuses it is offered by, the plugin's update
+  // step, and the reviewer agent.
   [
     "skills/report/SKILL.md",
-    phrase("`list_tasks` with the default workspace from `CLAUDE.md`. If there is no default, call"),
-    "`list_tasks` for the client the user named. If they named\nnone, call",
-  ],
-  [
-    "skills/report/SKILL.md",
-    phrase("the plugin is out of date: say so and offer to update it (the `setup` skill does it)."),
-    "Roster's tools here are out of date: say so, and tell them to\n  update the Roster plugin.",
+    phrase("and presses **Copy for Claude**. That makes the report — its link exists before it has a design — and copies a message like this:"),
+    "and presses the button that copies the\nrequest. That makes the report — its link exists before it has a design — and copies a message\nlike this:",
   ],
   [
     "skills/report/SKILL.md",
     phrase(
-      "## 6. Review — two ways at once\n\nWhen the last planned page is saved, in the same turn: give the user the report's URL and start the `report-reviewer` agent in the background with the reportId, the pages they approved and their instruction. They look at the report while the reviewer does.\n\nWhen the reviewer's findings arrive, pass them on briefly.",
+      "Offer the reports Roster shows as **Waiting for Claude** or **Claude is building it**, and ask which to start. Do not start one on your own initiative.",
     ),
-    "## 6. Review\n\nWhen the last planned page is saved: give the user the report's URL, then review it with the\n`review-report` skill — the reportId, the pages they approved and their instruction. They look at\nthe report while you do.\n\nPass your findings on briefly.",
+    "Offer the reports\nwhose `status` says they are waiting or being built, and ask which to start. Do not start one on\nyour own initiative.",
+  ],
+  [
+    "skills/report/SKILL.md",
+    phrase("press Copy for Claude and paste the message here."),
+    "copy the message Roster gives them and paste\nit here.",
+  ],
+  [
+    "skills/report/SKILL.md",
+    phrase(
+      "Roster shows the report as **Claude is building it · 1 of 3 pages**, and it can't be shared. If they add or drop a page partway, `set_report_pages` with the new list;",
+    ),
+    "Roster shows the report as still being built —\n**1 of 3 pages** — and it can't be shared. If they add or drop a page partway, `set_report_pages`\nwith the new list;",
+  ],
+  [
+    "skills/report/SKILL.md",
+    phrase("the plugin is out of date: say so and offer to update it (the `setup` skill does it)."),
+    "Roster's tools here are out of date: say so, and tell\n  them to update the Roster plugin.",
+  ],
+  [
+    "skills/report/SKILL.md",
+    phrase(
+      "and in the same turn start the `report-reviewer` agent in the background with the reportId, the pages they approved and their note. They look at the report while the reviewer does. When the reviewer's findings arrive, pass them on briefly. A fix they agree to goes through the same loop as building: preview",
+    ),
+    "then review it with the `review-report` skill — the reportId, the pages they approved\nand their note. They look at the report while you do.\n\nPass your findings on briefly. A fix they agree to goes through the same loop as building:\npreview",
+  ],
+  [
+    "skills/report/SKILL.md",
+    phrase(
+      "**Use the dashboard's words:** Waiting for Claude, Claude is building it, Ready to share, Share with client, Refresh figures. Never \"task\", \"queue\"",
+    ),
+    "**Use the dashboard's words:** Ready to share, Share with client, Refresh figures. Never \"task\",\n  \"queue\"",
+  ],
+
+  // The edit-report skill: the same, for the report page's change button.
+  [
+    "skills/edit-report/SKILL.md",
+    phrase("The report page's **Change with Claude** copies a message like this:"),
+    "The report's page in Roster has a button that copies a message like this:",
   ],
   [
     "skills/edit-report/SKILL.md",
-    phrase("the default workspace from `CLAUDE.md`, or ask which client"),
-    "the one they named, or ask which client",
+    phrase(
+      "If Roster shows it as **Waiting for Claude** or **Claude is building it** (no spec yet, or `beingBuilt`), it isn't finished, and finishing it is the `report` skill's:",
+    ),
+    "If Roster shows it as waiting or still being built (no spec yet, or `beingBuilt`), it isn't\nfinished, and finishing it is the `report` skill's:",
   ],
   [
     "skills/edit-report/SKILL.md",
@@ -83,15 +125,35 @@ const REWRITES = [
   [
     "skills/edit-report/SKILL.md",
     phrase(
-      "start the `report-reviewer` agent in the background with the reportId, what they approved and what they asked to change. Pass on its findings briefly when they arrive;",
+      "Then start the `report-reviewer` agent in the background with the reportId, what they approved and what they asked to change. Pass on the reviewer's findings briefly when they arrive; agreed",
     ),
-    "review it with the\n`review-report` skill — the reportId, what they approved and what they asked to change. Pass on\nyour findings briefly;",
+    "Then review it with the `review-report` skill — the\nreportId, what they approved and what they asked to change. Pass on your findings\nbriefly; agreed",
   ],
+
   ["skills/report-design/SKILL.md", phrase("with no Claude in the loop"), "with no assistant in the loop"],
 ];
 
-/** Words that mean a Claude-only instruction slipped through. */
-const FORBIDDEN = [/claude/i, /CLAUDE\.md/, /pluginVersion/, /ROSTER PLUGIN/, /report-reviewer/, /mcp__/, /\/roster:/, /in the background/i];
+/**
+ * Words that mean a Claude-only instruction slipped through: Claude by name (the dashboard's
+ * Claude-named buttons included), the plugin-version machinery, the background agent, Claude's tool
+ * names, and the Roster folder setup builds — its version stamp, its allow-list, the plugin cache.
+ */
+const FORBIDDEN = [
+  /claude/i,
+  /CLAUDE\.md/,
+  /pluginVersion/,
+  /ROSTER PLUGIN/,
+  /report-reviewer/,
+  /mcp__/,
+  /\/roster:/,
+  /in the background/i,
+  /settings\.json/,
+  /permissions\.allow/,
+  /Roster folder/i,
+  /\.roster\//,
+  /installed_plugins/,
+  /reload-plugins/,
+];
 
 function stripVersionBlock(text, file) {
   const block = /^Plugin version: [^\n]*\n\n(?:[^\n]+\n)+\n/m;
@@ -111,10 +173,14 @@ function frontmatter(text, file, name, description) {
   return `---\nname: ${name}\ndescription: ${desc}\n---\n` + text.slice(match[0].length);
 }
 
+/**
+ * A skill named as one — "the `report` skill", "`report-design`'s checklist" — takes the prefix.
+ * The same word as anything else stays: `get_task` with `report` = the link is an argument.
+ */
 function renameSkillRefs(text, prefix) {
   if (!prefix) return text;
   const names = [...SKILLS, "setup", "review-report"].sort((a, b) => b.length - a.length);
-  return text.replace(new RegExp("`(" + names.join("|") + ")`", "g"), (_, n) => "`" + prefix + n + "`");
+  return text.replace(new RegExp("`(" + names.join("|") + ")`(?=\\s+skill|'s)", "g"), (_, n) => "`" + prefix + n + "`");
 }
 
 // ── Skills ────────────────────────────────────────────────────────────────────────────────────────
@@ -147,7 +213,7 @@ function sourceSkills() {
 }
 
 const REVIEW_DESCRIPTION =
-  "Review a Roster report that was just saved, before it goes to the client: is it what was agreed, does it answer the instruction, are the figures believable. Use straight after the last page of a report is saved, or when the user asks you to check a report. Read-only; it changes nothing.";
+  "Review a Roster report that was just saved, before it goes to the client: is it what was agreed, does it answer the note the agency wrote for it, are the figures believable. Use straight after the last page of a report is saved, or when the user asks you to check a report. Read-only; it changes nothing.";
 
 const SETUP_DESCRIPTION =
   "Connect this assistant to your Roster account and finish Roster's onboarding. Use for \"set up Roster\", \"connect Roster\", or when the Roster dashboard says setup isn't finished.";
@@ -164,16 +230,18 @@ description: ${SETUP_DESCRIPTION}
 
 # Set up Roster
 
-The user has come from the Roster dashboard, which stays on its setup screen until this records
-that it finished. Get them connected and record completion. Nothing else: clients, their Google
-Ads and their reports are the dashboard's next steps.
+The user has come from Roster's setup page, and the rest of the dashboard stays locked until this
+records that setup finished. Get them connected and record completion. Nothing else: connecting
+Google Ads or Meta Ads, adding clients and their reports are the dashboard's next steps, and every
+report asked for in the dashboard comes with its own link.
 
 **Keep it short.** Say what you are doing, do it, stop.
 
 ## 1. Connect
 
 Call \`check_setup\`. It is here to confirm the connection works; do not report what it says about
-clients, Google Ads or queued reports.
+clients, Google Ads, Meta Ads or reports waiting to be built, and do not call \`list_workspaces\`,
+\`list_reports\` or \`get_catalog\`. Setup does not look at clients at all.
 
 If the Roster tools are missing, or it fails with an authorization error, Roster is not signed in
 yet. ${signIn}
@@ -191,20 +259,22 @@ succeeded.
 
 ## 3. Orientation — first run only
 
-Only when \`complete_setup\` returned \`firstTime: true\`. Four lines at most:
+Only when \`complete_setup\` returned \`firstTime: true\`. Three lines at most. The first is exactly
+this, word for word — it names the button the setup page is waiting on, and what comes after it:
 
-- Back in the dashboard, press **Done** — it opens now.
-- Next, the dashboard walks you through adding a client, connecting its Google Ads and picking
-  its accounts. That part happens there, not here.
-- A report starts as a task in the dashboard: choose one campaign, say what you need, copy the
-  request and paste it here.
-- You see the figures before anything is saved, and each link you send keeps the figures you
-  checked.
+> Setup is recorded. Go back to Roster and press **Done** — it asks what you'd like to do first.
+
+Then these, and nothing beyond them:
+
+- Next, in Roster: pick Google Ads report or Meta Ads report. It asks for the sign-in and the ad
+  account, then gives you a message to paste here.
+- You see the plan and the figures before anything is saved. You refresh a saved report in Roster
+  whenever you want new figures, and each link you share keeps the figures you checked.
 
 ## Tone
 
-Report what happened, not the mechanics. "You're connected, and the dashboard is open." is the
-right shape. Do not name tools or protocol detail unless something failed and the detail is what
+Report what happened, not the mechanics. "You're connected, and setup is recorded." is the right
+shape. Do not name tools or protocol detail unless something failed and the detail is what
 fixes it.
 `;
 }
@@ -233,15 +303,17 @@ function packageFiles(target) {
       author: { name: claudeManifest.author.name },
       homepage: `${SITE}/`,
       repository: REPO,
-      keywords: ["google-ads", "reporting", "agency", "marketing"],
+      keywords: ["google-ads", "meta-ads", "reporting", "campaigns", "agency", "marketing"],
       extensions: {
         "com.openai": {
           onboardingSkill: "./skills/setup/SKILL.md",
           interface: {
             displayName: claudeManifest.displayName,
-            shortDescription: "Self-refreshing Ads reports",
+            shortDescription: "Ads reports and campaign setup",
+            // The four things Roster does, as the root README says them: Google Ads and Meta Ads
+            // reporting, Google Ads and Meta Ads campaign creation — never reporting alone.
             longDescription:
-              "Design a Google Ads client report once, in plain language. Roster refreshes it from live data whenever you're ready, and you send your client a link to the figures you've checked. Roster only ever reads Google Ads.",
+              "Google Ads and Meta Ads client reports, and new Google Ads and Meta Ads campaigns. Design a report once, in plain language; Roster refreshes it from live data whenever you're ready, and you send your client a link to the figures you've checked. Campaigns are drafted with you and created paused, only after your yes. Campaign creation opens soon; until then Roster only reads your ad accounts.",
             developerName: claudeManifest.author.name,
             category: "Productivity",
             websiteURL: `${SITE}/`,

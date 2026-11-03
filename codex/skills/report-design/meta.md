@@ -1,8 +1,9 @@
-# Designing a Meta report
+# Designing a Meta Ads report
 
 Read this when `get_task` says `platform: "meta"`, or the account id starts `act_`. Everything in
-`SKILL.md` still holds; these are the ways Meta differs. `get_catalog` for a Meta campaign lists
-only what Meta reports, in Meta's words, and the preview and save tools hold the design to it.
+`SKILL.md` still holds; these are the ways Meta differs. `get_catalog` for a Meta Ads campaign
+lists only what Meta reports, in Meta's words, and the preview and save tools hold the design to
+it.
 
 ## Choose the conversion first
 
@@ -20,8 +21,8 @@ label, or none. Pass its `actionType` as `conversionAction` to `get_catalog` (wi
 
 ## Meta's structure and words
 
-- **Campaign → ad set → ad.** An ad set is Meta's ad group: `ad_set_name` where a Google report
-  has `ad_group_name`. The `ad_groups` page is called **Ad sets** on a Meta report.
+- **Campaign → ad set → ad.** An ad set is Meta's ad group: `ad_set_name` where a Google Ads report
+  has `ad_group_name`. The `ad_groups` page is called **Ad sets** on a Meta Ads report.
 - **Clicks are link clicks** — clicks to the ad's destination, not Meta's "Clicks (all)". CTR and
   CPC are built on them. Title them "Link clicks" and "Link CTR".
 - **Video:** `video_plays_3s` is Meta's 3-second play (what Ads Manager calls a video view) —
@@ -59,9 +60,9 @@ placement, no country × device). `cannotCombineWith` in the catalog lists them.
   device — because each is its own query. Its series take small breakdowns only: `placement` has
   too many values; use `publisher_platform`.
 
-## Pages that suit Meta
+## Pages that suit Meta Ads
 
-| Page | On a Meta report |
+| Page | On a Meta Ads report |
 | --- | --- |
 | `overview` | Spend, reach, frequency, link clicks, link CTR, CPM (and the chosen conversion with its cost); a trend; a campaign split |
 | `ad_groups` (Ad sets) | Ad set table; ad set × age; a picker of ad sets against age, gender, platform, device |

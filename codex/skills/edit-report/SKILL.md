@@ -1,28 +1,36 @@
 ---
 name: edit-report
-description: "Change a Roster report that already exists — change a page, add a page, swap a breakdown, change its date range — keeping its link. Also picks up a report left half-built. Use when the user wants to change a saved report, rather than build a new one."
+description: "Change a Roster report that already exists — change a page, add a page, swap a breakdown, change its date range — keeping its link. Use when the user pastes \"Change this Roster report with me\", or wants to change a saved report rather than build a new one."
 ---
 
 # Change an existing report
 
-A saved report is something the agency has probably already sent to a client. A change updates it
-in place, so the link the client has keeps working and shows the new version.
+A saved report is something the agency has probably already shared with a client. A change updates
+it in place: it stays the same report, at the same link in Roster, and shows the new version there.
+A link already shared with the client does not change — it keeps the version it was made from. To
+show the client the change, the agency presses **Share with client** on the report's page.
 
 ## 1. Find the report
 
-If the user gave a reportId or a report URL (`/r/<reportId>`), use it. Otherwise `list_reports`
-for the client — the one they named, or ask which client — and ask which
-report they mean. Do not guess between two that could fit.
+The report's page in Roster has a button that copies a message like this:
+
+> Change this Roster report with me: https://app.useroster.xyz/r/rep_8kq2m5c1a7d3e9f0
+> Change: add a page on devices
+
+The link is the report, and the `Change:` line, when there is one, is what they want changed. Any
+other report link (`/r/rep_…`) or reportId works the same way. Otherwise `list_reports` for the
+client they named — if they named none, ask which one in a line (`list_workspaces` has their
+names) — and ask which report they mean. Do not guess between two that could fit.
 
 ## 2. Read it
 
-`get_report` with the reportId. It returns the saved spec, its `pages`, the figures from its
-latest render, and `checks` — the warnings found when it was last drawn. Work from that spec; do
-not rebuild the report from memory.
+`get_report` with the link, as pasted. It returns the saved spec, its `pages`, the figures from its
+latest render, `checks` — the warnings found when it was last drawn — and the `note` the agency
+wrote when it asked for the report. Work from that spec; do not rebuild the report from memory.
 
-If it says `beingBuilt`, the report was left half-built: `pagesRemaining` lists what is still to
-come. Ask whether to carry on, then follow the page loop in the `report` skill (step 5) from the
-first remaining page.
+If Roster shows it as waiting or still being built (no spec yet, or `beingBuilt`), it isn't
+finished, and finishing it is the `report` skill's: `get_task` with the
+link, then its `nextSteps` — carry on from the first remaining page, asking first.
 
 It also returns `layout`: how the user arranged the sections on the page and the notes they wrote,
 as Markdown. Both belong to the user. Keep every section's `key` in the spec you save back, so the
@@ -34,17 +42,18 @@ change those yourself.
 ("120 conversions a month, CPA under 40"), set them with `set_report_targets` — no preview or save
 needed, and nothing is re-rendered.
 
-A **Meta report** (`platform: "meta"`) counts one `conversionAction`. To count a different one —
-"use leads, not purchases" — `set_report_conversion_action` with the reportId; it redraws the
+A **Meta Ads report** (`platform: "meta"`) counts one `conversionAction`. To count a different
+one — "use leads, not purchases" — `set_report_conversion_action` with the reportId; it redraws the
 report. Name the new action in conversion titles afterwards.
 
 ## 3. Agree the change
 
-Say in one or two lines what you will change, and on which page, then load the `report-design`
-skill. If the report covers one campaign, `get_catalog` with that `campaignId` (from `get_report`'s
-`campaignIds`) says what it can report; otherwise call it without one. For a Meta report also pass
-its `accountId` and `conversionAction`, and read `report-design`'s `meta.md`. Change only what they asked
-for. Everything else stays as it is.
+Say in one or two lines what you will change, and on which page — from their `Change:` line, or,
+when the message had none, ask what should change first. Then load the `report-design` skill. If
+the report covers one campaign, `get_catalog` with that `campaignId` (from `get_report`'s
+`campaignIds`) says what it can report; otherwise call it without one. For a Meta Ads report also
+pass its `accountId` and `conversionAction`, and read `report-design`'s `meta.md`. Change only what
+they asked for. Everything else stays as it is.
 
 ## 4. Preview, stop, save — one page at a time
 
@@ -76,16 +85,17 @@ Never work round a refusal — not by saving a template, not with another tool. 
 to is not in your list, Roster's tools here are out of date: say so, and
 tell them to update the Roster plugin.
 
-**Talking to them:** say what happens, not how — no tool names, "spec" or "connection". When
-something goes wrong: what happened, whether anything they approved is lost, and the one step you
-recommend as a yes-or-no question. An answer that does not match what you offered: ask what they
-meant instead of picking the nearest option.
+**Talking to them:** say what happens, not how — no tool names, "spec" or "connection". Use the
+dashboard's words: Ready to share, Share with client, Refresh figures — never "task", "queue" or
+"sent". When something goes wrong: what happened, whether anything they approved is lost, and the
+one step you recommend as a yes-or-no question. An answer that does not match what you offered: ask
+what they meant instead of picking the nearest option.
 
 ## 5. Review
 
-Give them the URL and every warning from the save, word for word, and review it with the
-`review-report` skill — the reportId, what they approved and what they asked to change. Pass on
-your findings briefly; agreed fixes go through steps 3 and 4
-again, with the same reportId.
-
-If this change came from a queued task that is still open, `complete_task` once they are happy.
+Give them the link and every warning from the save, word for word. When the report has already
+been shared, the save says how its client's link stands — "Saved — same link. Acme Dental's link
+still shows the 2 Nov version; press Share with client when you want them to see this one." Say
+exactly that. Then review it with the `review-report` skill — the
+reportId, what they approved and what they asked to change. Pass on your findings
+briefly; agreed fixes go through steps 3 and 4 again, with the same reportId.

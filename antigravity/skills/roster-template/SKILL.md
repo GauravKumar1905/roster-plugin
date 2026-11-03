@@ -11,12 +11,18 @@ it and render itself from then on.
 
 A report and a template are different things. A template is a design someone chose to reuse, for
 **one client** or for **every client**. Each report made from it gets its own copy, so improving a
-template later changes new reports, never ones already sent.
+template later changes new reports, never ones already shared.
 
 ## 1. Check what they have
 
 `list_templates` — they may already have this saved. If so, a change to it is `get_template`,
 then the steps below with that `templateId`.
+
+If they pasted the dashboard's "Create a new Roster report template." message, its
+`Client: <name>` line names the client it came from. Find that client by its name in
+`list_workspaces` — its `workspaceId` is what steps 4 and 5 use. A copy made before November 2026
+also has the id in brackets, `Client: <name> (ws_…)`, or first, in `Workspace: <id> (<name>)`; use
+it when it is there.
 
 ## 2. Work out their format
 
@@ -45,11 +51,13 @@ client without conversion tracking — those widgets are skipped rather than sho
 ## 4. Test it on a real campaign
 
 Ask whether it is for one client or every client. Then `preview_report` with the spec and a real
-campaign — a queued task's `ids` from `get_task`, or one of the client's accounts from
-`list_workspaces` — and ask whether it matches their existing report. Iterate until they say it
-does. Preview it with the `templateId` once saved, or the spec before: a spec is held to that
-campaign's catalog, so test it on a campaign that can report everything in it, and declare
-`requires` on conversion widgets so other campaigns skip them.
+campaign of the client they mean — the one in the pasted `Client:` line, or the one they name;
+neither: ask which, in a line. Take it from one of that client's reports — `get_report` returns its
+`accountId` and `campaignIds` — or from the client's accounts in `list_workspaces`. Then ask whether
+it matches their existing report. Iterate until they say it does. Preview it with the `templateId`
+once saved, or the spec before: a spec is held to that campaign's catalog, so test it on a campaign
+that can report everything in it, and declare `requires` on conversion widgets so other campaigns
+skip them.
 
 ## 5. Save
 
@@ -59,9 +67,10 @@ solve.
 
 `save_template` with no `templateId`, the `spec`, the `scope`, a clear name, and a description
 saying what it is for — the description is what tells the next person which template to reach
-for. A template for Meta reports also takes `platform: "meta"`, and is designed from Meta's catalog
-(`get_catalog` with a Meta `accountId`; see `roster-report-design`'s `meta.md`). To change one, `save_template` with its `templateId`; reports already made from it do not
-change.
+for. A template for one client also takes that client's `workspaceId`. A template for Meta Ads
+reports also takes `platform: "meta"`, and is designed from Meta's catalog (`get_catalog` with a
+Meta `accountId`; see `roster-report-design`'s `meta.md`). To change one, `save_template` with its
+`templateId`; reports already made from it do not change.
 
 If they already have a report in this shape, `save_template` with `fromReportId` copies its design
 instead. A report can also be turned into a template from the client's **Templates** page in the

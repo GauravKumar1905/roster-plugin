@@ -78,7 +78,7 @@ Sign in with your Roster login the first time a Roster tool asks, then say "set 
 run `/roster-setup`.
 
 Either way, setup connects, tells the dashboard you're done, and you press **Done** there. There is
-no local folder: that is a Claude Code convenience. Reports, templates and the queue work the same.
+no local folder: that is a Claude Code convenience. Reports and templates work the same: each starts from the message Roster copies.
 
 ## Skills
 
