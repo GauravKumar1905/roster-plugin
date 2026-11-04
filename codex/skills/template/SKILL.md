@@ -18,6 +18,11 @@ template later changes new reports, never ones already shared.
 `list_templates` — they may already have this saved. If so, a change to it is `get_template`,
 then the steps below with that `templateId`.
 
+Roster's standard monthly report (`tpl_roster_standard`) is listed first, for every client. It is
+Roster's own and can't be changed, but it can be a starting point: `get_template` has its spec for
+each platform, and that spec, changed to their format and saved with `save_template` and no
+`templateId`, becomes the agency's own.
+
 If they pasted the dashboard's "Create a new Roster report template." message, its
 `Client: <name>` line names the client it came from. Find that client by its name in
 `list_workspaces` — its `workspaceId` is what steps 4 and 5 use. A copy made before November 2026

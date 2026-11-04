@@ -49,10 +49,10 @@ report. Name the new action in conversion titles afterwards.
 ## 3. Agree the change
 
 Say in one or two lines what you will change, and on which page — from their `Change:` line, or,
-when the message had none, ask what should change first. Then load the `report-design` skill. If
-the report covers one campaign, `get_catalog` with that `campaignId` (from `get_report`'s
-`campaignIds`) says what it can report; otherwise call it without one. For a Meta Ads report also
-pass its `accountId` and `conversionAction`, and read `report-design`'s `meta.md`. Change only what
+when the message had none, ask what should change first. Then load the `report-design` skill, and
+`get_catalog` with the report's `reportId`: it says what the report's campaigns can report — one
+campaign, several or the whole account — and on a Meta Ads report it counts the report's own
+conversion action. For a Meta Ads report, read `report-design`'s `meta.md` too. Change only what
 they asked for. Everything else stays as it is.
 
 ## 4. Preview, stop, save — one page at a time

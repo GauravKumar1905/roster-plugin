@@ -2,7 +2,7 @@
   "name": "roster",
   "displayName": "Roster — Google Ads and Meta Ads reporting and campaign setup",
   "description": "Google Ads and Meta Ads client reports, designed once and refreshed whenever you're ready, and new Google Ads and Meta Ads campaigns, created paused after your yes. Campaign creation opens soon. Reports work today. Connects to your Roster account.",
-  "version": "0.21.0",
+  "version": "0.22.0",
   "author": {
     "name": "Roster"
   },
