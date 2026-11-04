@@ -101,17 +101,24 @@ Where it stands decides what comes next:
 
 One message, then wait for the answers.
 
-**What Roster read about the account.** Open with `readiness.say`, as written: "Acme Dental's
-Google Ads account is ready for Search, Display and Demand Gen; Performance Max needs a conversion
-action first, which I can set up with you."
+**What Roster read about the account.** Open with `readiness.say`, as written. Its first line is
+what the account is ready for, and what any other type needs — "Acme Dental's Google Ads account is
+ready for Search, Display and Demand Gen; Performance Max needs a conversion action first, which I
+can set up with you." — and after it comes a line for each thing that holds back every campaign
+(`readiness.accountWide`), as the campaign job says it: "Billing isn't set up. The campaign can be
+created paused but won't run until it is."
 
 - `readiness.canCreate` is false: say what it found, and that nothing can be drafted for this
   account until it's fixed, and stop. Nothing you do here fixes it.
-- An account-wide line (billing, verification) doesn't stop a campaign being created, paused, but
-  it won't run until that's sorted. Say so.
-- A type blocked for want of a conversion action is the one you can fix: offer to set one up first
-  (Conversion tracking, below). Merchant Center, a Business Profile or YouTube videos are added in
-  Google Ads by someone with access to them.
+- An account-wide line (billing, Google's advertiser verification) doesn't stop a campaign being
+  drafted or created, paused, but it won't run until that's sorted in Google Ads.
+- **Performance Max held back for want of a conversion action** (`readiness.blocked`, with
+  `claudeCanSetUp`) is the one you can fix: if they want Performance Max, offer to set one up first
+  (Conversion tracking, below). The other types can be drafted as they are.
+- `readiness.worthAdding` isn't in `say`: it is what would help a type run better — a conversion
+  action for smart bidding, Merchant Center for a client that sells products, YouTube videos for
+  Demand Gen video ads. Say one where it bears on what they plan. Merchant Center and YouTube videos
+  are added in Google Ads by someone with access to them.
 
 **Only the questions the note, the client's profile and its documents don't answer.** If the brief
 lists documents, read the ones that matter with `read_document` first, and say in one line which
@@ -127,9 +134,9 @@ and don't invent any of it:
 - **Where:** places, or a radius around an address or coordinates. "Everywhere" only if they say
   the whole world.
 - **Languages** their customers search in.
-- **Bidding:** recommend one. Maximize Conversions if the account tracks conversions (`readiness`
-  neither blocks a type nor suggests adding a conversion action); otherwise Maximize Clicks with a
-  CPC cap. Manual CPC and Target Impression Share only if they ask.
+- **Bidding:** recommend one. Maximize Conversions if the account tracks conversions (nothing in
+  `readiness.blocked` or `readiness.worthAdding` asks for a conversion action); otherwise Maximize
+  Clicks with a CPC cap. Manual CPC and Target Impression Share only if they ask.
 - **EU political advertising, always:** whether the campaign contains EU political advertising.
   Google requires the advertiser's own answer on every campaign; it's their legal declaration. Ask
   it as a plain question every time, and never answer it for them, however obvious it seems.
