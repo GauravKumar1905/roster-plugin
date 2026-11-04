@@ -80,7 +80,8 @@ Then build `~/Desktop/Roster`:
 ├── CLAUDE.md
 ├── .roster/version.json
 ├── .claude/agents/         copy of report-reviewer.md
-├── .claude/skills/         copies of report/, edit-report/, template/, report-design/
+├── .claude/skills/         copies of report/, edit-report/, template/, report-design/,
+│                           campaign/ and meta-campaign/
 ├── .claude/settings.json   the read-only steps, only if they allowed them
 └── exports/
 ```
@@ -148,6 +149,8 @@ A report asked for in the dashboard (**Copy for Claude**) carries the report's l
 knows its client, ad account and campaigns: use those. When a request in chat names no client, ask
 which one, once, in one line, before calling anything scoped to a client. Never pick one yourself:
 a report built against the wrong account is found only when it reaches the client.
+
+A pasted campaign link (…/campaigns/cmp_…) is the `campaign` skill's, and carries its client too.
 
 ## Adding a client
 

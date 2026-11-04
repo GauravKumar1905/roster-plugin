@@ -8,6 +8,46 @@ to run without an entry here.
 **Server needed** marks a release that only works once the matching Roster server is deployed.
 Entries before 0.19.0 were rebuilt from the commit history.
 
+## 0.23.0 — Campaigns start from their page in Roster
+
+- **Server needed:** app 0.19.7 with campaign creation switched on, which gives `get_campaign` and
+  `list_campaigns`, takes `campaignLink` on every campaign tool and files each checked draft on the
+  campaign's page. Released at go-live, when campaign creation is switched on, with the minimum
+  raised (`--raise-plugin-minimum`): 0.22.0 has no campaign skill. Older plugins are never refused:
+  they are warned, and told to update on their first call.
+
+- Two new skills, Claude only: `campaign` (Google Ads: Search, Display, Performance Max, Demand Gen,
+  and the conversion tracking they need) and `meta-campaign` (Meta: website traffic, sales and
+  leads). The Codex and Antigravity packages are unchanged.
+- A campaign is asked for in Roster: **New campaign**, pick the ad account — Roster checks what it
+  can set up there — write a note for Claude if you like, and **Copy for Claude** pastes "Draft this
+  Google Ads campaign with me in Roster." with the campaign's link. Claude reads the brief from the
+  link (`get_campaign`), never picks a client, and without a link asks you to start the campaign in
+  Roster.
+- Claude's first reply opens with what Roster found in the account — "Acme Dental's Google Ads
+  account is ready for Search, Display and Demand Gen; Performance Max needs a conversion action
+  first, which I can set up with you." — and asks only what your note doesn't answer, always the EU
+  political advertising question (Meta: the special ad categories, Advantage+ audience, and who ads
+  in the EU are for and who pays).
+- Every draft that passes Roster's and Google's (or Meta's) check is on the campaign's page —
+  "Draft — waiting for your yes", holding for six hours — and only the latest can be created.
+  Claude shows the summary and every ad, asks "Create this campaign, paused?", and creates it only
+  in your reply. It ends: "Created, paused, in Google Ads: … Its page in Roster: … . Switch it on in
+  Google Ads when you're ready." A gap, or a campaign that didn't go through, is said plainly, and
+  its page says so too.
+- The campaign page's buttons pick it up again: "Carry on drafting this Roster campaign with me"
+  (a draft, or one that didn't go through), "Look at this Roster campaign with me" (what was
+  approved, its last Check status, Things to look at and the team's comments; a live read only when
+  you ask how it's doing; "Noted in Roster." after Claude adds a comment) and "Check whether this
+  Roster campaign was created" (a yes whose answer never came, settled without making two).
+- Claude uses the dashboard's words — Waiting for Claude, Claude is drafting, Draft — waiting for
+  your yes, Paused, as created, Enabled in Google Ads, Active in Meta, Didn't go through — and never
+  edits, pauses or switches on a campaign that exists.
+- Where Roster doesn't offer campaign setup yet, both skills say "Google Ads and Meta Ads campaigns
+  open soon in Roster. Reports work today." and stop.
+- `/roster:setup` copies the two skills into the Roster folder, and the folder's `CLAUDE.md` says a
+  pasted campaign link is the `campaign` skill's. The read-only steps setup offers are unchanged.
+
 ## 0.22.0 — Whole-account reports and Roster's standard monthly report
 
 - **Server needed:** app 0.19.6, which lets `get_catalog` take a report's `reportId` and return

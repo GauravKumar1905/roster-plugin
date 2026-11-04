@@ -88,6 +88,8 @@ no local folder: that is a Claude Code convenience. Reports and templates work t
 | `/roster:report` | Build a report asked for in Roster, or see what is waiting for a client |
 | `/roster:edit-report` | Change a report you already have, keeping its link |
 | `/roster:template` | Turn your agency's own report format into a reusable template |
+| `/roster:campaign` | Draft and create a Google Ads campaign asked for in Roster, once campaign creation opens |
+| `/roster:meta-campaign` | The same, for a Meta Ads campaign |
 
 You rarely need to type these. Plain language finds the right one: "change this report to add ad
 groups", "build a template from our monthly PDF", "what reports does Otago have?".
@@ -113,6 +115,11 @@ while you do.
 To change a report later, press **Change with Claude** on its page in Roster and paste what it
 copies — "Change this Roster report with me", with the report's link. It stays the same report, at
 the same link.
+
+Once campaign creation opens, a campaign starts the same way: **New campaign** in the dashboard,
+pick the ad account, write a note for Claude if you like, press **Copy for Claude** and paste it
+into Claude. Claude drafts it with you, on the campaign's own page in Roster, shows you every ad,
+and creates it paused only after your yes.
 
 ## Templates
 
@@ -145,6 +152,9 @@ needs you. Ask Claude *what reports are waiting for Otago?* to see them from Cla
   thing you do. They run in your conversation, so Claude can ask you what you want at each step
 - **`skills/report-design`** — how to design a report that still reads correctly in six weeks,
   rather than one shaped around this month's numbers. The other skills load it when designing
+- **`skills/campaign`, `skills/meta-campaign`** — Google Ads and Meta Ads campaigns, each started
+  from its page in Roster, once campaign creation opens. Claude only: the Codex and Antigravity
+  packages below don't carry them
 - **`agents/report-reviewer`** — reviews a saved report against what you asked for, while you do
 - **`.mcp.json`** — the connection to Roster
 - **`codex/`, `antigravity/`, `.agents/plugins/marketplace.json`** — the Codex and Antigravity
