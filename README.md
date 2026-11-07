@@ -9,7 +9,7 @@ Google Ads and Meta Ads reporting and campaign setup, for freelancers and small 
   client needs. Claude drafts it with you and shows you every ad, and Roster creates it paused,
   only after your yes.
 
-Campaign creation opens soon. Reports work today.
+Meta Ads campaign creation is open now. Google Ads campaign creation opens soon.
 
 This plugin connects Claude to your Roster account. It contains no application code — the tools
 run on Roster's servers, and this package is the connection plus the instructions Claude needs
@@ -40,10 +40,13 @@ Sync, then Add **Roster — Google Ads and Meta Ads reporting and campaign setup
 open Roster → Connectors → roster, press Connect and sign in with your Roster login. Then run
 `/roster:setup` in the Code tab.
 
-Until campaign creation opens, Roster only reads your ad accounts. After that, it changes an
-account only when you ask it to set up a campaign. It shows you the campaign and every ad first,
-creates it only after your yes, and creates it paused, so nothing runs or spends until you switch
-it on. It never edits, pauses or removes anything already there.
+Until Google Ads campaign creation opens, Roster only reads your Google Ads accounts. In a Meta ad
+account — and in Google Ads once it opens — it changes an account only when you ask it to set up a
+campaign. It shows you the campaign and every ad first, creates it only after your yes, and creates
+it paused, so nothing runs or spends until you switch it on. It never edits, pauses or removes
+anything already there. A connection to Roster approved before campaign setup opened only reads: to
+set up campaigns, sign in to Roster again — in Claude Code, type `/mcp`, choose `roster`, Clear
+authentication, then Authenticate. Reports keep working meanwhile.
 
 Roster is built for the Claude desktop app, where the plugin brings its commands, agents and
 skills along. The connector on its own (claude.ai → Settings → Connectors) reaches the same tools
@@ -88,8 +91,8 @@ no local folder: that is a Claude Code convenience. Reports and templates work t
 | `/roster:report` | Build a report asked for in Roster, or see what is waiting for a client |
 | `/roster:edit-report` | Change a report you already have, keeping its link |
 | `/roster:template` | Turn your agency's own report format into a reusable template |
-| `/roster:campaign` | Draft and create a Google Ads campaign asked for in Roster, once campaign creation opens |
-| `/roster:meta-campaign` | The same, for a Meta Ads campaign |
+| `/roster:campaign` | Draft and create a Google Ads campaign asked for in Roster, once Google Ads campaign creation opens |
+| `/roster:meta-campaign` | Draft and create a Meta Ads campaign asked for in Roster |
 
 You rarely need to type these. Plain language finds the right one: "change this report to add ad
 groups", "build a template from our monthly PDF", "what reports does Otago have?".
@@ -116,10 +119,10 @@ To change a report later, press **Change with Claude** on its page in Roster and
 copies — "Change this Roster report with me", with the report's link. It stays the same report, at
 the same link.
 
-Once campaign creation opens, a campaign starts the same way: **New campaign** in the dashboard,
-pick the ad account, write a note for Claude if you like, press **Copy for Claude** and paste it
-into Claude. Claude drafts it with you, on the campaign's own page in Roster, shows you every ad,
-and creates it paused only after your yes.
+A Meta Ads campaign starts the same way — and a Google Ads one, once those open: **New campaign**
+in the dashboard, pick the ad account, write a note for Claude if you like, press **Copy for
+Claude** and paste it into Claude. Claude drafts it with you, on the campaign's own page in
+Roster, shows you every ad, and creates it paused only after your yes.
 
 ## Templates
 
@@ -153,8 +156,8 @@ needs you. Ask Claude *what reports are waiting for Otago?* to see them from Cla
 - **`skills/report-design`** — how to design a report that still reads correctly in six weeks,
   rather than one shaped around this month's numbers. The other skills load it when designing
 - **`skills/campaign`, `skills/meta-campaign`** — Google Ads and Meta Ads campaigns, each started
-  from its page in Roster, once campaign creation opens. Claude only: the Codex and Antigravity
-  packages below don't carry them
+  from its page in Roster; Google Ads ones once their campaign creation opens. Claude only: the
+  Codex and Antigravity packages below don't carry them
 - **`agents/report-reviewer`** — reviews a saved report against what you asked for, while you do
 - **`.mcp.json`** — the connection to Roster
 - **`codex/`, `antigravity/`, `.agents/plugins/marketplace.json`** — the Codex and Antigravity

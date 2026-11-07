@@ -10,20 +10,25 @@ Entries before 0.19.0 were rebuilt from the commit history.
 
 ## 0.23.0 — Campaigns start from their page in Roster
 
-- **Server needed:** app 0.19.7 with campaign creation switched on, which gives `get_campaign` and
-  `list_campaigns`, takes `campaignLink` on every campaign tool and files each checked draft on the
-  campaign's page. Released at go-live, when campaign creation is switched on, with the minimum
-  raised (`--raise-plugin-minimum`): 0.22.0 has no campaign skill. Older plugins are never refused:
-  they are warned, and told to update on their first call.
+- **Server needed:** app 0.19.9, the release that switches campaign creation on for Meta
+  (`ROSTER_CAMPAIGN_CREATION=meta`). To a connection approved for Meta campaigns it gives
+  `get_campaign`, `list_campaigns` and Meta's campaign tools; it takes `campaignLink` on every
+  campaign tool, files each checked draft on the campaign's page, and answers `check_setup` with
+  `campaignSetup`. Released at go-live, with the minimum raised (`--raise-plugin-minimum`): 0.22.0
+  has no campaign skill. Older plugins are never refused: they are warned, and told to update on
+  their first call.
 
+- Meta Ads campaigns open first; Google Ads campaigns open soon. Both skills ship now:
+  `meta-campaign` works from this release, and `campaign` says "Google Ads campaigns open soon. Meta
+  Ads campaigns are open." until Google Ads campaigns open in Roster.
 - Two new skills, Claude only: `campaign` (Google Ads: Search, Display, Performance Max, Demand Gen,
   and the conversion tracking they need) and `meta-campaign` (Meta: website traffic, sales and
   leads). The Codex and Antigravity packages are unchanged.
 - A campaign is asked for in Roster: **New campaign**, pick the ad account — Roster checks what it
   can set up there — write a note for Claude if you like, and **Copy for Claude** pastes "Draft this
-  Google Ads campaign with me in Roster." with the campaign's link. Claude reads the brief from the
-  link (`get_campaign`), never picks a client, and without a link asks you to start the campaign in
-  Roster.
+  Meta Ads campaign with me in Roster." (or Google Ads) with the campaign's link. Claude reads the
+  brief from the link (`get_campaign`), never picks a client, and without a link asks you to start
+  the campaign in Roster.
 - Claude's first reply opens with what Roster found in the account — "Acme Dental's Google Ads
   account is ready for Search, Display and Demand Gen; Performance Max needs a conversion action
   first, which I can set up with you." — and asks only what your note doesn't answer, always the EU
@@ -43,10 +48,25 @@ Entries before 0.19.0 were rebuilt from the commit history.
 - Claude uses the dashboard's words — Waiting for Claude, Claude is drafting, Draft — waiting for
   your yes, Paused, as created, Enabled in Google Ads, Active in Meta, Didn't go through — and never
   edits, pauses or switches on a campaign that exists.
-- Where Roster doesn't offer campaign setup yet, both skills say "Google Ads and Meta Ads campaigns
-  open soon in Roster. Reports work today." and stop.
+- Each skill checks its own platform first: `campaign` needs `preview_campaign` among Roster's
+  tools, `meta-campaign` needs `preview_meta_campaign`. Without it, the skill calls `check_setup`
+  and says its platform's `campaignSetup` sentence word for word — or, where Roster offers no
+  campaign setup at all, "Google Ads and Meta Ads campaigns open soon in Roster. Reports work
+  today." — then stops: it drafts nothing and offers no other way. A campaign's link alone, or a
+  campaign asked about by name, is read first, so a Meta campaign that reaches the `campaign` skill
+  is handed to `meta-campaign`, and the reverse.
+- A Claude connection approved before campaign setup opened can only read, so connections approved
+  before need to reconnect once. The skills say how, in Roster's sentence — in Claude Code, "type
+  /mcp, choose roster, Clear authentication, then Authenticate" — and reports keep working
+  meanwhile.
 - `/roster:setup` copies the two skills into the Roster folder, and the folder's `CLAUDE.md` says a
-  pasted campaign link is the `campaign` skill's. The read-only steps setup offers are unchanged.
+  pasted campaign link is the `campaign` skill's. The read-only steps it offers now take in the
+  campaign reads — `get_campaign`, `list_campaigns`, `find_locations`, `find_meta_places` and
+  `find_meta_interests` — and it asks: "Roster's read-only steps — reading your reports, campaigns
+  and accounts and previewing report pages — can run in this folder without asking each time. Allow
+  that?" Checking and creating a campaign still ask each time. A Roster folder that already allows
+  the report steps is asked once, when setup refreshes it: "Roster's campaign reads can run without
+  asking too. Allow that?"
 
 ## 0.22.0 — Whole-account reports and Roster's standard monthly report
 

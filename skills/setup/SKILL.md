@@ -66,12 +66,12 @@ in the same message, ask the one question setup asks, then wait for the answer:
 > Creating a Roster folder on your Desktop so your setup and report tools are ready next time.
 > Approve the prompt that comes up.
 >
-> Roster's read-only steps — reading your reports and accounts and previewing pages — can run in
-> this folder without asking each time. Allow that?
+> Roster's read-only steps — reading your reports, campaigns and accounts and previewing report
+> pages — can run in this folder without asking each time. Allow that?
 
 Their answer is about the read-only steps only: build the folder either way. A report's first reply
-reads the ad account and previews its Overview, and without this each of those stops for a
-permission prompt.
+reads the ad account and previews its Overview, and a campaign's reads its brief and looks up
+places and interests; without this each of those stops for a permission prompt.
 
 Then build `~/Desktop/Roster`:
 
@@ -127,14 +127,22 @@ creates or changes anything:
       "mcp__plugin_roster_roster__preview_report_page",
       "mcp__plugin_roster_roster__preview_report",
       "mcp__plugin_roster_roster__list_templates",
-      "mcp__plugin_roster_roster__get_template"
+      "mcp__plugin_roster_roster__get_template",
+      "mcp__plugin_roster_roster__get_campaign",
+      "mcp__plugin_roster_roster__list_campaigns",
+      "mcp__plugin_roster_roster__find_locations",
+      "mcp__plugin_roster_roster__find_meta_places",
+      "mcp__plugin_roster_roster__find_meta_interests"
     ]
   }
 }
 ```
 
+The last five are the campaign reads. Previewing a campaign is not among them: it files the draft
+on the campaign's page and has Google or Meta check it, so each one asks.
+
 **No:** write nothing, and do not raise it again in this setup. Either way, saving a page, a report
-or a template still asks them first.
+or a template, and checking or creating a campaign, still asks them first.
 
 ### CLAUDE.md template
 
@@ -233,7 +241,13 @@ If they already had the folder and the installed plugin is newer than `.roster/v
 offer to refresh the copies — saying first that any edits they made to the local copies, and to
 the sections of the folder's `CLAUDE.md` named below, will be replaced. If the folder's
 `.claude/settings.json` holds none of the read-only steps (step 2), ask the read-only question in
-the same message, once, and do what step 2 says with the answer. A refresh:
+the same message, once, and do what step 2 says with the answer. If it holds the others but none of
+the campaign reads, ask this instead, in the same message, once:
+
+> Roster's campaign reads can run without asking too. Allow that?
+
+On a yes, merge the five campaign reads into `permissions.allow` as step 2 does; on a no, write
+nothing and do not raise it again. A refresh:
 
 - copies `agents/` and the skills again, as in step 2, and deletes anything in `.claude/agents/`
   or `.claude/skills/` that the installed plugin no longer ships — for example

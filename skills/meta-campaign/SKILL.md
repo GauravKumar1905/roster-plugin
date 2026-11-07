@@ -6,14 +6,23 @@ argument-hint: "[campaign link]"
 
 Plugin version: 0.22.0
 
-Pass this version as `pluginVersion` to `get_campaign` and `list_campaigns`. If a result carries a
-note headed "ROSTER PLUGIN:", do what it says.
+Pass this version as `pluginVersion` to `check_setup`, `get_campaign` and `list_campaigns`. If a
+result carries a note headed "ROSTER PLUGIN:", do what it says.
 
 # Set up a Meta campaign asked for in Roster
 
-**First:** campaign setup is open only where Roster's tools include `get_campaign`. If they don't,
-say "Google Ads and Meta Ads campaigns open soon in Roster. Reports work today." and stop: draft
-nothing, and don't offer another way.
+**First:** Meta campaign setup is open only where Roster's tools include `preview_meta_campaign`.
+If they don't, call `check_setup`: if its `campaignSetup.meta.say` is there, say that, word for
+word; if there's no `campaignSetup`, say "Google Ads and Meta Ads campaigns open soon in Roster.
+Reports work today." Either way, stop: draft nothing, and don't offer another way.
+
+That check is for a Meta campaign. A Google Ads one is handed over first (below), and the
+`campaign` skill makes its own. Where the request names no platform — a campaign's link alone, or
+a campaign asked about by name — and Roster's tools include `get_campaign`, find it and read its
+brief first (steps 1 and 2): a Google Ads campaign is handed over, and a Meta one's `nextSteps`
+say what comes next — without `preview_meta_campaign`, what to tell the user. Where they don't
+include `get_campaign`, call `check_setup` and say the `campaignSetup` sentence that asks to sign
+in again — or, with no `campaignSetup`, the one above.
 
 Every campaign is asked for in Roster: the agency presses **New campaign**, picks the ad account —
 Roster checks what it can set up there — writes a note for you if it wants, and presses **Copy for
