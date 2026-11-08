@@ -9,7 +9,9 @@ Google Ads and Meta Ads reporting and campaign setup, for freelancers and small 
   client needs. Claude drafts it with you and shows you every ad, and Roster creates it paused,
   only after your yes.
 
-Meta Ads campaign creation is open now. Google Ads campaign creation opens soon.
+Meta Ads campaign creation is in early access: Roster turns it on agency by agency, and until it's
+on for yours, Claude and the dashboard say so and set nothing up. To ask for it, email
+gauravkr.contact@gmail.com. Google Ads campaign creation opens soon.
 
 This plugin connects Claude to your Roster account. It contains no application code — the tools
 run on Roster's servers, and this package is the connection plus the instructions Claude needs
@@ -92,7 +94,7 @@ no local folder: that is a Claude Code convenience. Reports and templates work t
 | `/roster:edit-report` | Change a report you already have, keeping its link |
 | `/roster:template` | Turn your agency's own report format into a reusable template |
 | `/roster:campaign` | Draft and create a Google Ads campaign asked for in Roster, once Google Ads campaign creation opens |
-| `/roster:meta-campaign` | Draft and create a Meta Ads campaign asked for in Roster |
+| `/roster:meta-campaign` | Draft and create a Meta Ads campaign asked for in Roster, once campaign creation is on for your agency |
 
 You rarely need to type these. Plain language finds the right one: "change this report to add ad
 groups", "build a template from our monthly PDF", "what reports does Otago have?".

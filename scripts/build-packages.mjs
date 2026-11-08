@@ -312,9 +312,10 @@ function packageFiles(target) {
             shortDescription: "Ads reports and campaign setup",
             // The four things Roster does, as the root README says them: Google Ads and Meta Ads
             // reporting, Google Ads and Meta Ads campaign creation — never reporting alone. Meta's
-            // campaigns open first; Google's are said to open soon until they do.
+            // campaigns open first, in early access (turned on agency by agency); Google's are said
+            // to open soon until they do.
             longDescription:
-              "Google Ads and Meta Ads client reports, and new Meta Ads campaigns. Design a report once, in plain language; Roster refreshes it from live data whenever you're ready, and you send your client a link to the figures you've checked. Campaigns are drafted with you and created paused, only after your yes. Google Ads campaigns open soon; until then Roster only reads your Google Ads accounts.",
+              "Google Ads and Meta Ads client reports, and new Meta Ads campaigns. Design a report once, in plain language; Roster refreshes it from live data whenever you're ready, and you send your client a link to the figures you've checked. Campaigns are drafted with you and created paused, only after your yes. Meta Ads campaigns are in early access, turned on agency by agency. Google Ads campaigns open soon; until then Roster only reads your Google Ads accounts.",
             developerName: claudeManifest.author.name,
             category: "Productivity",
             websiteURL: `${SITE}/`,

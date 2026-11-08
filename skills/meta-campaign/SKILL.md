@@ -21,8 +21,9 @@ That check is for a Meta campaign. A Google Ads one is handed over first (below)
 a campaign asked about by name — and Roster's tools include `get_campaign`, find it and read its
 brief first (steps 1 and 2): a Google Ads campaign is handed over, and a Meta one's `nextSteps`
 say what comes next — without `preview_meta_campaign`, what to tell the user. Where they don't
-include `get_campaign`, call `check_setup` and say the `campaignSetup` sentence that asks to sign
-in again — or, with no `campaignSetup`, the one above.
+include `get_campaign`, call `check_setup` and say, word for word, whichever platform's
+`campaignSetup` sentence isn't "open soon" — the one asking to sign in again, or the one saying
+campaign creation is in early access — or, with no `campaignSetup`, the one above.
 
 Every campaign is asked for in Roster: the agency presses **New campaign**, picks the ad account —
 Roster checks what it can set up there — writes a note for you if it wants, and presses **Copy for

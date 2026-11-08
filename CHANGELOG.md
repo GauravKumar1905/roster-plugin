@@ -11,16 +11,25 @@ Entries before 0.19.0 were rebuilt from the commit history.
 ## 0.23.0 — Campaigns start from their page in Roster
 
 - **Server needed:** app 0.19.9, the release that switches campaign creation on for Meta
-  (`ROSTER_CAMPAIGN_CREATION=meta`). To a connection approved for Meta campaigns it gives
-  `get_campaign`, `list_campaigns` and Meta's campaign tools; it takes `campaignLink` on every
-  campaign tool, files each checked draft on the campaign's page, and answers `check_setup` with
-  `campaignSetup`. Released at go-live, with the minimum raised (`--raise-plugin-minimum`): 0.22.0
-  has no campaign skill. Older plugins are never refused: they are warned, and told to update on
-  their first call.
+  (`ROSTER_CAMPAIGN_CREATION=meta`), in early access. To a connection approved for Meta campaigns,
+  in an agency whose campaign creation is turned on, it gives `get_campaign`, `list_campaigns` and
+  Meta's campaign tools; it takes `campaignLink` on every campaign tool, files each checked draft on
+  the campaign's page, and answers `check_setup` with `campaignSetup`. Released at go-live, with the
+  minimum raised (`--raise-plugin-minimum`): 0.22.0 has no campaign skill. Older plugins are never
+  refused: they are warned, and told to update on their first call.
 
-- Meta Ads campaigns open first; Google Ads campaigns open soon. Both skills ship now:
-  `meta-campaign` works from this release, and `campaign` says "Google Ads campaigns open soon. Meta
-  Ads campaigns are open." until Google Ads campaigns open in Roster.
+- Meta Ads campaigns open first, in early access; Google Ads campaigns open soon. Both skills ship
+  now: `meta-campaign` works from this release once your agency's campaign creation is turned on,
+  and `campaign` says "Google Ads campaigns open soon." until Google Ads campaigns open in
+  Roster — with "Meta Ads campaigns are open." after it once campaign creation is on for your
+  agency.
+- Campaign creation is in early access: Roster turns it on agency by agency. Until it's on for
+  yours, Claude has no campaign tools; asked to set up a Meta Ads campaign, or given a campaign's
+  link, it says "Campaign creation is in early access. To turn it on for your agency, email
+  gauravkr.contact@gmail.com." word for word and sets nothing up, and the dashboard's Meta Ads
+  campaign job and Campaigns say the same, the address a link. Reports work as before. To ask for
+  it, email that address. Once it's on, the connection you have picks it up with no new sign-in —
+  unless it was approved before campaign setup opened (below).
 - Two new skills, Claude only: `campaign` (Google Ads: Search, Display, Performance Max, Demand Gen,
   and the conversion tracking they need) and `meta-campaign` (Meta: website traffic, sales and
   leads). The Codex and Antigravity packages are unchanged.
@@ -54,7 +63,9 @@ Entries before 0.19.0 were rebuilt from the commit history.
   campaign setup at all, "Google Ads and Meta Ads campaigns open soon in Roster. Reports work
   today." — then stops: it drafts nothing and offers no other way. A campaign's link alone, or a
   campaign asked about by name, is read first, so a Meta campaign that reaches the `campaign` skill
-  is handed to `meta-campaign`, and the reverse.
+  is handed to `meta-campaign`, and the reverse; where Roster's tools can't read it (no
+  `get_campaign`), the skill says whichever platform's `campaignSetup` sentence isn't "open soon" —
+  sign in again, or early access.
 - A Claude connection approved before campaign setup opened can only read, so connections approved
   before need to reconnect once. The skills say how, in Roster's sentence — in Claude Code, "type
   /mcp, choose roster, Clear authentication, then Authenticate" — and reports keep working
