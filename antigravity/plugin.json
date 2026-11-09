@@ -1,5 +1,5 @@
 {
   "$schema": "https://antigravity.google/schemas/v1/plugin.json",
   "name": "roster",
-  "description": "Google Ads and Meta Ads client reports, designed once and refreshed whenever you're ready, and new Google Ads and Meta Ads campaigns, created paused after your yes. Campaign creation opens soon. Reports work today. Connects to your Roster account."
+  "description": "Google Ads and Meta Ads client reports, designed once and refreshed whenever you're ready, and new Meta Ads campaigns, drafted with you and created paused after your yes. Meta Ads campaigns are in early access; Google Ads campaigns open soon. Connects to your Roster account."
 }

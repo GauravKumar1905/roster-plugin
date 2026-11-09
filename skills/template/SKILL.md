@@ -3,7 +3,7 @@ name: template
 description: Turn an agency's own report format into a reusable Roster template, or change a template they already have. Use when someone shares their monthly report (a spreadsheet, slides, a PDF) or asks for a template, a house format, or a standard report for every client.
 ---
 
-Plugin version: 0.22.0
+Plugin version: 0.23.0
 
 Pass this version as `pluginVersion` to `check_setup`, `list_workspaces`, `get_task`,
 `list_reports`, `get_report` and `list_templates`. If a result carries a note headed

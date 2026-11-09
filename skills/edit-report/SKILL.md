@@ -4,7 +4,7 @@ description: Change a Roster report that already exists — change a page, add a
 argument-hint: "[report link]"
 ---
 
-Plugin version: 0.22.0
+Plugin version: 0.23.0
 
 Pass this version as `pluginVersion` to `check_setup`, `list_workspaces`, `get_task`,
 `list_reports`, `get_report` and `list_templates`. If a result carries a note headed
