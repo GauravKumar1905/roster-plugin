@@ -51,7 +51,9 @@ without saying what to do about each.
 `get_catalog` with the reportId has the chart rules, and what the report's campaigns can report,
 if you need to confirm one. For a Meta Ads report (`platform: "meta"` in `get_report`) it gives
 Meta's rules: age × gender is allowed there, clicks are link clicks, and conversions are the
-report's chosen action.
+report's chosen action. For a Search Console report (`platform: "search_console"`) it gives the
+site's: clicks are organic, average position is lower-is-better and never a sort, query tables miss
+private queries, and page tables never show a total.
 
 ## What to return
 

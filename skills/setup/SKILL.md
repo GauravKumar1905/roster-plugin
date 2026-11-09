@@ -12,8 +12,8 @@ Pass this version as `pluginVersion` to `check_setup`, `list_workspaces`, `get_t
 This is the last step of Roster's onboarding. The user has just come from Roster's setup page,
 usually by pasting its setup message, and the rest of the dashboard stays locked until this command
 records that it finished. Get them connected, give them a folder, and record completion. Nothing
-else: connecting Google Ads or Meta Ads, adding clients and their reports are the dashboard's next
-steps, and every report asked for in the dashboard comes with its own link.
+else: connecting Google Ads, Meta Ads or Search Console, adding clients and their reports are the
+dashboard's next steps, and every report asked for in the dashboard comes with its own link.
 
 **Keep what they read short.** Aim for under a dozen lines across the whole command. Someone
 handed three paragraphs skims all of them, and the line that mattered is the one they miss. Say
@@ -22,7 +22,7 @@ what you are doing, do it, stop.
 ## 1. Connect
 
 Call `check_setup`. It is here to confirm the connection works; do not report what it says about
-clients, Google Ads, Meta Ads or reports waiting for Claude, and do not call `list_workspaces`,
+clients, Google Ads, Meta Ads, Search Console or reports waiting for Claude, and do not call `list_workspaces`,
 `list_reports` or `get_catalog`. Setup does not look at clients at all.
 
 If it fails with an authorization error, Roster isn't signed in yet. Ask them to type `/mcp`,
@@ -226,8 +226,8 @@ this, word for word — it names the button the setup page is waiting on, and wh
 
 Then these, and nothing beyond them:
 
-- Next, in Roster: pick Google Ads report or Meta Ads report. It asks for the sign-in and the ad
-  account, then gives you a message to paste here.
+- Next, in Roster: pick Google Ads report, Meta Ads report or Search Console report. It asks for
+  the sign-in and the ad account or site, then gives you a message to paste here.
 - Claude shows you the plan and the figures before anything is saved. You refresh a saved report
   in Roster whenever you want new figures, and each link you share keeps the figures you checked.
 - Turn on automatic updates for the Roster marketplace in Claude's Plugins screen, so fixes

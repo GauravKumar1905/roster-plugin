@@ -8,6 +8,26 @@ to run without an entry here.
 **Server needed** marks a release that only works once the matching Roster server is deployed.
 Entries before 0.19.0 were rebuilt from the commit history.
 
+## 0.24.0 — Google Search Console reports
+
+- **Server needed:** the Roster release after app 0.19.9, which adds Search Console. Older plugins
+  are never refused: a site report's brief carries its own steps.
+
+- Search Console is connected once, in Settings, with a Google sign-in of its own — read-only, and
+  apart from the Google Ads one — and a client's sites are added on its page, beside its ad
+  accounts.
+- A site report is asked for in Roster like any other: **Search Console report**, pick the site,
+  and **Copy for Claude** pastes "Build this Roster report with me." with "Search Console site:
+  example.com".
+- `report`: a Search Console report covers a whole site. Its brief has the site, its last 28 days
+  and the last day Google has finished counting, and no campaign is passed anywhere. Claude
+  proposes its pages — Overview, Queries, Pages and Countries & devices, and Search appearance where
+  the site has any — and builds them one at a time as for an ad report.
+- `report-design`: new `search-console.md` — organic clicks, position where lower is better and
+  never a sort, queries that leave out private ones, pages that overlap, search types, Pacific Time.
+- `edit-report`, `template` and the `report-reviewer` agent know a site report; `setup` names
+  Search Console beside Google Ads and Meta Ads.
+
 ## 0.23.0 — Campaigns start from their page in Roster
 
 - **Server needed:** app 0.19.9, the release that switches campaign creation on for Meta

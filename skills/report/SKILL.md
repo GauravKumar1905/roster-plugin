@@ -1,6 +1,6 @@
 ---
 name: report
-description: Build a Google Ads or Meta Ads report asked for in Roster. Use when the user pastes "Build this Roster report with me" or "Carry on building this Roster report with me", a Roster report link (/r/…), or asks which reports are waiting for a client.
+description: Build a Google Ads, Meta Ads or Google Search Console report asked for in Roster. Use when the user pastes "Build this Roster report with me" or "Carry on building this Roster report with me", a Roster report link (/r/…), or asks which reports are waiting for a client.
 argument-hint: "[report link]"
 ---
 
@@ -12,9 +12,10 @@ Pass this version as `pluginVersion` to `check_setup`, `list_workspaces`, `get_t
 
 # Build a report asked for in Roster
 
-Every report is asked for in Roster: the agency picks **Google Ads report** or **Meta Ads report**,
-chooses the ad account — the report covers all its campaigns unless the agency picks some — writes
-a note for you if it wants, and presses **Copy for Claude**. That makes the report — its link
+Every report is asked for in Roster: the agency picks **Google Ads report**, **Meta Ads report** or
+**Search Console report**, chooses the ad account or the site — an ad report covers all the
+account's campaigns unless the agency picks some; a site report covers the whole site — writes a
+note for you if it wants, and presses **Copy for Claude**. That makes the report — its link
 exists before it has a design — and copies a message like this:
 
 > Build this Roster report with me.
@@ -23,7 +24,8 @@ exists before it has a design — and copies a message like this:
 > Note: Monthly report for the practice manager; new-patient leads matter most.
 
 "All campaigns" is the whole account, campaigns added later included. A report on some of them
-names them instead: "campaign Implants – Search", "campaigns A, B and C", "4 of its campaigns".
+names them instead: "campaign Implants – Search", "campaigns A, B and C", "4 of its campaigns". A
+site report's line is "Search Console site: example.com".
 
 You build into that report. Your first reply is the plan and its Overview, with real figures; then
 the other pages, one at a time, each previewed and saved only when they approve it; then a review.
@@ -38,8 +40,8 @@ Otherwise, `list_reports` for the client they named. If they named none, ask whi
 line (`list_workspaces` has their names) — never pick one yourself. Offer the reports Roster shows
 as **Waiting for Claude** or **Claude is building it**, and ask which to start. Do not start one on
 your own initiative. If nothing is waiting, tell them how to ask for one: in Roster, pick Google
-Ads report or Meta Ads report, choose the ad account, press Copy for Claude and paste the message
-here.
+Ads report, Meta Ads report or Search Console report, choose the ad account or site, press Copy for
+Claude and paste the message here.
 
 ## 2. Read the brief
 
@@ -99,6 +101,16 @@ and that `conversionAction`, whose `standardReport` names the action in its titl
 Overview sections, and that `conversionAction`; and "Save Overview and go on to Creative?". Load
 `report-design`'s `meta.md` before designing. An account that recorded no conversion actions has
 nothing to ask: say so in one line, and the plan and Overview come in one message, as for Google.
+
+**A Search Console report** (`platform: "search_console"`, a site such as `sc-domain:…`) covers a
+whole site. The brief has `site` instead of campaigns — the property, its clicks and impressions
+over the last 28 days, and `dataThrough`, the last day Google has finished counting — and no
+`proposal`: there is no standard for a site. The first message is two lines on those 28 days, the
+plan — Overview, Queries, Pages and Countries & devices, with Search appearance only if
+`preview_metric` shows the site has any — and the Overview, designed from `get_catalog` with
+`reportId` = `ids.reportId` (it returns the site's catalog), previewed with the reportId, page
+`overview`, a name and a dateRange. No campaign is passed anywhere. Then the other pages as below,
+each designed from the catalog. Load `report-design`'s `search-console.md` before designing.
 
 **A saved template instead?** If they choose one of `savedTemplates`, there are no pages to build:
 `preview_report` with the `templateId`, `ids.accountId` and `ids.campaignIds`; show the figures and
