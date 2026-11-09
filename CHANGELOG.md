@@ -8,10 +8,11 @@ to run without an entry here.
 **Server needed** marks a release that only works once the matching Roster server is deployed.
 Entries before 0.19.0 were rebuilt from the commit history.
 
-## 0.24.0 — Google Search Console reports
+## 0.24.0 — Google Search Console and Google Analytics reports
 
-- **Server needed:** the Roster release after app 0.19.9, which adds Search Console. Older plugins
-  are never refused: a site report's brief carries its own steps.
+- **Server needed:** the Roster release after app 0.19.9, which adds Search Console and Google
+  Analytics. Older plugins are never refused: a site or property report's brief carries its own
+  steps.
 
 - Search Console is connected once, in Settings, with a Google sign-in of its own — read-only, and
   apart from the Google Ads one — and a client's sites are added on its page, beside its ad
@@ -25,8 +26,17 @@ Entries before 0.19.0 were rebuilt from the commit history.
   the site has any — and builds them one at a time as for an ad report.
 - `report-design`: new `search-console.md` — organic clicks, position where lower is better and
   never a sort, queries that leave out private ones, pages that overlap, search types, Pacific Time.
-- `edit-report`, `template` and the `report-reviewer` agent know a site report; `setup` names
-  Search Console beside Google Ads and Meta Ads.
+- Google Analytics (GA4) is connected the same way, with a read-only Google sign-in of its own, and
+  a client's properties are added on its page. **Google Analytics report** pastes "Google Analytics
+  property: Acme Dental (123456789)".
+- `report`: a Google Analytics report covers a whole property. Its brief has the property's time
+  zone, currency and last 28 days, and the key events it recorded. Claude proposes Overview,
+  Acquisition, Pages and Audience, and Key events where the property records any. `key_events`
+  counts every key event; one is chosen, as the report's `conversionAction`, only when the note asks.
+- `report-design`: new `google-analytics.md` — users that never add up, page and event splits that
+  overlap, rows Google withholds, rates from counts, e-commerce only where purchases are recorded.
+- `edit-report`, `template` and the `report-reviewer` agent know a site report and a property
+  report; `setup` names Search Console and Google Analytics beside Google Ads and Meta Ads.
 
 ## 0.23.0 — Campaigns start from their page in Roster
 

@@ -1,13 +1,15 @@
 ---
 name: report
-description: "Build a Google Ads or Meta Ads report asked for in Roster. Use when the user pastes \"Build this Roster report with me\" or \"Carry on building this Roster report with me\", a Roster report link (/r/…), or asks which reports are waiting for a client."
+description: "Build a Google Ads, Meta Ads, Google Search Console or Google Analytics report asked for in Roster. Use when the user pastes \"Build this Roster report with me\" or \"Carry on building this Roster report with me\", a Roster report link (/r/…), or asks which reports are waiting for a client."
 ---
 
 # Build a report asked for in Roster
 
-Every report is asked for in Roster: the agency picks **Google Ads report** or **Meta Ads report**,
-chooses the ad account — the report covers all its campaigns unless the agency picks some — writes
-a note for you if it wants, and presses the button that copies the
+Every report is asked for in Roster: the agency picks **Google Ads report**, **Meta Ads report**,
+**Search Console report** or **Google Analytics report**, chooses the ad account, the site or the
+property — an ad report covers all the account's campaigns unless the agency picks some; a site or
+property report covers the whole website — writes a
+note for you if it wants, and presses the button that copies the
 request. That makes the report — its link exists before it has a design — and copies a message
 like this:
 
@@ -17,7 +19,9 @@ like this:
 > Note: Monthly report for the practice manager; new-patient leads matter most.
 
 "All campaigns" is the whole account, campaigns added later included. A report on some of them
-names them instead: "campaign Implants – Search", "campaigns A, B and C", "4 of its campaigns".
+names them instead: "campaign Implants – Search", "campaigns A, B and C", "4 of its campaigns". A
+site report's line is "Search Console site: example.com", and a GA4 one's "Google Analytics property:
+Acme Dental (123456789)".
 
 You build into that report. Your first reply is the plan and its Overview, with real figures; then
 the other pages, one at a time, each previewed and saved only when they approve it; then a review.
@@ -32,7 +36,8 @@ Otherwise, `list_reports` for the client they named. If they named none, ask whi
 line (`list_workspaces` has their names) — never pick one yourself. Offer the reports
 whose `status` says they are waiting or being built, and ask which to start. Do not start one on
 your own initiative. If nothing is waiting, tell them how to ask for one: in Roster, pick Google
-Ads report or Meta Ads report, choose the ad account, copy the message Roster gives them and paste
+Ads report, Meta Ads report, Search Console report or Google Analytics report, choose the ad
+account, site or property, copy the message Roster gives them and paste
 it here.
 
 ## 2. Read the brief
@@ -93,6 +98,26 @@ and that `conversionAction`, whose `standardReport` names the action in its titl
 Overview sections, and that `conversionAction`; and "Save Overview and go on to Creative?". Load
 `report-design`'s `meta.md` before designing. An account that recorded no conversion actions has
 nothing to ask: say so in one line, and the plan and Overview come in one message, as for Google.
+
+**A Search Console report** (`platform: "search_console"`, a site such as `sc-domain:…`) covers a
+whole site. The brief has `site` instead of campaigns — the property, its clicks and impressions
+over the last 28 days, and `dataThrough`, the last day Google has finished counting — and no
+`proposal`: there is no standard for a site. The first message is two lines on those 28 days, the
+plan — Overview, Queries, Pages and Countries & devices, with Search appearance only if
+`preview_metric` shows the site has any — and the Overview, designed from `get_catalog` with
+`reportId` = `ids.reportId` (it returns the site's catalog), previewed with the reportId, page
+`overview`, a name and a dateRange. No campaign is passed anywhere. Then the other pages as below,
+each designed from the catalog. Load `report-design`'s `search-console.md` before designing.
+
+**A Google Analytics report** (`platform: "analytics"`, a GA4 property such as
+`properties/123456789`) covers a whole website. The brief has `property` instead of campaigns — its
+time zone, currency and last 28 days (sessions, users, key events, revenue) — and `keyEvents`, the
+key events it recorded; no `proposal`. The first message is two lines on those 28 days, the plan —
+Overview, Acquisition, Pages and Audience, with Key events only where the property records any — and
+the Overview, designed from `get_catalog` with `reportId` = `ids.reportId`, previewed with the
+reportId, page `overview`, a name and a dateRange. `key_events` counts every key event; only when
+the note asks for one, pass its event name as `conversionAction` everywhere. No campaign is passed
+anywhere. Load `report-design`'s `google-analytics.md` before designing.
 
 **A saved template instead?** If they choose one of `savedTemplates`, there are no pages to build:
 `preview_report` with the `templateId`, `ids.accountId` and `ids.campaignIds`; show the figures and

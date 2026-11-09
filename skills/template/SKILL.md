@@ -82,8 +82,10 @@ for. A template for one client also takes that client's `workspaceId`. A templat
 reports also takes `platform: "meta"`, and is designed from Meta's catalog (`get_catalog` with a
 Meta `accountId`; see `report-design`'s `meta.md`). A template for Search Console site reports
 takes `platform: "search_console"`, and is designed from Search Console's catalog (`get_catalog`
-with a site as `accountId`; see `report-design`'s `search-console.md`). A site template and an ad
-template never stand in for each other. To change one, `save_template` with its
+with a site as `accountId`; see `report-design`'s `search-console.md`). One for Google Analytics
+reports takes `platform: "analytics"`, and is designed from GA4's catalog (`get_catalog` with a
+property, `properties/…`, as `accountId`; see `report-design`'s `google-analytics.md`). Templates
+for different platforms never stand in for each other. To change one, `save_template` with its
 `templateId`; reports already made from it do not change.
 
 If they already have a report in this shape, `save_template` with `fromReportId` copies its design

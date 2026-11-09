@@ -53,7 +53,10 @@ if you need to confirm one. For a Meta Ads report (`platform: "meta"` in `get_re
 Meta's rules: age × gender is allowed there, clicks are link clicks, and conversions are the
 report's chosen action. For a Search Console report (`platform: "search_console"`) it gives the
 site's: clicks are organic, average position is lower-is-better and never a sort, query tables miss
-private queries, and page tables never show a total.
+private queries, and page tables never show a total. For a Google Analytics report
+(`platform: "analytics"`) it gives GA4's: users are never summed, a pie or a stacked bar, page and
+event tables never show a total, rates come from counts, and `key_events` is every key event unless
+the report has a chosen one (`conversionAction`).
 
 ## What to return
 

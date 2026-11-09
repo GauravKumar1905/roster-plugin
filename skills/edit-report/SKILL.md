@@ -60,7 +60,9 @@ when the message had none, ask what should change first. Then load the `report-d
 `get_catalog` with the report's `reportId`: it says what the report's campaigns can report — one
 campaign, several or the whole account — and on a Meta Ads report it counts the report's own
 conversion action. For a Meta Ads report, read `report-design`'s `meta.md` too; for a Search
-Console report (`platform: "search_console"`, a whole site), `search-console.md`. Change only what
+Console report (`platform: "search_console"`, a whole site), `search-console.md`; for a Google
+Analytics report (`platform: "analytics"`, a GA4 property), `google-analytics.md` — and keep the
+report's key event (`conversionAction` in `get_report`) on every call if it has one. Change only what
 they asked for. Everything else stays as it is.
 
 ## 4. Preview, stop, save — one page at a time

@@ -1,6 +1,6 @@
 ---
 name: report
-description: Build a Google Ads, Meta Ads or Google Search Console report asked for in Roster. Use when the user pastes "Build this Roster report with me" or "Carry on building this Roster report with me", a Roster report link (/r/…), or asks which reports are waiting for a client.
+description: Build a Google Ads, Meta Ads, Google Search Console or Google Analytics report asked for in Roster. Use when the user pastes "Build this Roster report with me" or "Carry on building this Roster report with me", a Roster report link (/r/…), or asks which reports are waiting for a client.
 argument-hint: "[report link]"
 ---
 
@@ -12,9 +12,10 @@ Pass this version as `pluginVersion` to `check_setup`, `list_workspaces`, `get_t
 
 # Build a report asked for in Roster
 
-Every report is asked for in Roster: the agency picks **Google Ads report**, **Meta Ads report** or
-**Search Console report**, chooses the ad account or the site — an ad report covers all the
-account's campaigns unless the agency picks some; a site report covers the whole site — writes a
+Every report is asked for in Roster: the agency picks **Google Ads report**, **Meta Ads report**,
+**Search Console report** or **Google Analytics report**, chooses the ad account, the site or the
+property — an ad report covers all the account's campaigns unless the agency picks some; a site or
+property report covers the whole website — writes a
 note for you if it wants, and presses **Copy for Claude**. That makes the report — its link
 exists before it has a design — and copies a message like this:
 
@@ -25,7 +26,8 @@ exists before it has a design — and copies a message like this:
 
 "All campaigns" is the whole account, campaigns added later included. A report on some of them
 names them instead: "campaign Implants – Search", "campaigns A, B and C", "4 of its campaigns". A
-site report's line is "Search Console site: example.com".
+site report's line is "Search Console site: example.com", and a GA4 one's "Google Analytics property:
+Acme Dental (123456789)".
 
 You build into that report. Your first reply is the plan and its Overview, with real figures; then
 the other pages, one at a time, each previewed and saved only when they approve it; then a review.
@@ -40,8 +42,8 @@ Otherwise, `list_reports` for the client they named. If they named none, ask whi
 line (`list_workspaces` has their names) — never pick one yourself. Offer the reports Roster shows
 as **Waiting for Claude** or **Claude is building it**, and ask which to start. Do not start one on
 your own initiative. If nothing is waiting, tell them how to ask for one: in Roster, pick Google
-Ads report, Meta Ads report or Search Console report, choose the ad account or site, press Copy for
-Claude and paste the message here.
+Ads report, Meta Ads report, Search Console report or Google Analytics report, choose the ad
+account, site or property, press Copy for Claude and paste the message here.
 
 ## 2. Read the brief
 
@@ -111,6 +113,16 @@ plan — Overview, Queries, Pages and Countries & devices, with Search appearanc
 `reportId` = `ids.reportId` (it returns the site's catalog), previewed with the reportId, page
 `overview`, a name and a dateRange. No campaign is passed anywhere. Then the other pages as below,
 each designed from the catalog. Load `report-design`'s `search-console.md` before designing.
+
+**A Google Analytics report** (`platform: "analytics"`, a GA4 property such as
+`properties/123456789`) covers a whole website. The brief has `property` instead of campaigns — its
+time zone, currency and last 28 days (sessions, users, key events, revenue) — and `keyEvents`, the
+key events it recorded; no `proposal`. The first message is two lines on those 28 days, the plan —
+Overview, Acquisition, Pages and Audience, with Key events only where the property records any — and
+the Overview, designed from `get_catalog` with `reportId` = `ids.reportId`, previewed with the
+reportId, page `overview`, a name and a dateRange. `key_events` counts every key event; only when
+the note asks for one, pass its event name as `conversionAction` everywhere. No campaign is passed
+anywhere. Load `report-design`'s `google-analytics.md` before designing.
 
 **A saved template instead?** If they choose one of `savedTemplates`, there are no pages to build:
 `preview_report` with the `templateId`, `ids.accountId` and `ids.campaignIds`; show the figures and
