@@ -79,7 +79,7 @@ Nothing is created without their yes to the exact campaign you showed them.
 - **They want a new campaign and pasted no link:** don't draft it here, and never pick a client or
   an account. Ask them to start it in Roster —
   New campaign, pick the account, then Copy for Claude — and paste the message here. Conversion
-  tracking on its own is the one exception (below).
+  tracking is set up in a campaign's conversation too (below).
 
 ## 2. Read the brief
 
@@ -169,10 +169,10 @@ show it to them. A city that came out as its region or province is wider than th
 
 ## 5. Draft
 
-Build the campaign from the brief, Google's rules in mind. Its `accountId` is `ids.accountId`, the
-campaign's own account: a draft for another account is refused. Every draft says its type, e.g.
-`"type": "search"`. Images are web addresses (https) of PNG, JPEG or GIF files the user gives you —
-never invent or search for images; Roster fetches and checks each one.
+Build the campaign from the brief, Google's rules in mind. It has no account: Roster takes the
+campaign's own from `campaignLink`. Every draft says its type, e.g. `"type": "search"`. Images are
+web addresses (https) of PNG, JPEG or GIF files the user gives you — never invent or search for
+images; Roster fetches and checks each one.
 
 ### Search
 
@@ -225,20 +225,19 @@ leads, purchases — set one up, in this conversation:
    name ("Website — enquiry form").
 2. `preview_google_conversion_action` with `campaignLink`. Show the summary, and say plainly: **it counts
    nothing until its tag is on their site**, and Roster can't put it there. STOP until they say yes.
-3. `create_google_conversion_action` with that previewId, the same action and `campaignLink`. Give them the
-   tag code it returns: the site-wide Google tag goes in the `<head>` of every page (once; if their
-   site already loads that same tag, only the event snippet is needed), the event snippet on the
-   page the conversion lands on (the thank-you page). The campaign's page in Roster keeps the code
+3. `create_google_conversion_action` with that previewId alone: Roster kept the action with it. Give
+   them the tag code it returns: the site-wide Google tag goes in the `<head>` of every page (once;
+   if their site already loads that same tag, only the event snippet is needed), the event snippet
+   on the page the conversion lands on (the thank-you page). The campaign's page in Roster keeps the code
    too: **Copy tag code** there gives it again. Then carry on with the campaign — a type it blocked
    can be previewed now.
 
 Later, the brief's `conversionTracking` lists the actions set up for the campaign, and what each
 counted in the 30 days to its date; none at all usually means the tag isn't installed yet.
 
-**Conversion tracking on its own**, with no campaign: ask which client if they haven't said
-(`list_clients` has the names) — never pick one — then `get_account_setup` for its Google Ads
-accounts and their conversion actions, and the same three steps without `campaignLink`, passing
-`clientId` when the account is in more than one client.
+**Conversion tracking with no campaign in Roster:** the action has no account but the campaign's, so
+ask them to start the campaign in Roster first (New campaign, pick the account, then Copy for
+Claude), and set it up in that conversation — never pick a client or an account.
 
 ## 6. Preview — then stop
 
@@ -261,9 +260,9 @@ again, and the yes asked again, before it can be created.
 ## 7. Create
 
 On their yes — in their reply, never in the message that showed the preview — `create_google_campaign`
-with that `previewId`, **exactly the same campaign** and `campaignLink`. Anything different is
-refused; preview again instead of editing on the way. The yes freezes the draft on the page as
-What you approved.
+with that `previewId` alone: Roster kept the draft it checked, and creates **exactly that
+campaign**. A change is previewed again, never made on the way. The yes freezes the draft on the
+page as What you approved.
 
 - **Created:** say the sentence its result gives, word for word:
 
@@ -279,7 +278,7 @@ What you approved.
   latest and ask again.
 - **A yes whose answer never came** — "Google's answer didn't arrive", or a brief that says **Not
   sure it was created**: say it plainly — Roster isn't sure the campaign was created. While the yes
-  still holds, `create_google_campaign` again with the same `previewId`, campaign and `campaignLink`; once
+  still holds, `create_google_campaign` again with the same `previewId`; once
   the check has run out, preview `draft.campaign` unchanged with `campaignLink`, show them, ask the
   yes again, and create on it. The brief's `nextSteps` say which. Either way Roster picks up the
   campaign if Google made it, and creates it if not — never two.
@@ -318,9 +317,10 @@ They run an agency; they are not developers. In every message:
 
 ## Rules that hold throughout
 
-- **`campaignLink` on every call for the campaign:** `preview_google_campaign`,
-  `create_google_campaign`, `preview_google_conversion_action`, `create_google_conversion_action`,
-  `add_campaign_comment`. Its client and ad account are the campaign's; never pick others.
+- **`campaignLink` on every call for the campaign but a create:** `preview_google_campaign`,
+  `preview_google_conversion_action`, `add_campaign_comment`. Its client and ad account are the
+  campaign's: never put an account in a draft, nor pick a client. A create takes the `previewId`
+  alone.
 - **Never create in the message that shows the preview.** Their yes comes in between, every time.
 - **Never answer the EU political advertising question for them.**
 - **One campaign, one page.** A change before the yes, and a retry after a refusal, are drafted
