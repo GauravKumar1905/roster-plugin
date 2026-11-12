@@ -89,7 +89,7 @@ agency wrote, the ad account with its currency and time zone, what Roster can se
 (`readiness`), the draft last checked or what was approved, what came of the yes (`result`), the
 last Check status (`lastCheck`), Roster's open advice (`lookAt`), the team's comments, the client's
 profile and documents, the `ids` for every later call, and `nextSteps`. Follow `nextSteps` in
-order, and don't call other tools to rediscover any of it — not `list_workspaces`, not
+order, and don't call other tools to rediscover any of it — not `list_clients`, not
 `get_account_setup`.
 
 If it returns an error, tell the user what it says and stop: a cancelled campaign —

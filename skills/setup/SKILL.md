@@ -5,7 +5,7 @@ description: Connect this Claude to your Roster account, set up your reporting f
 
 Plugin version: 0.25.0
 
-Pass this version as `pluginVersion` to `check_setup`, `list_workspaces`, `get_task`,
+Pass this version as `pluginVersion` to `check_setup`, `list_clients`, `get_task`,
 `list_reports`, `get_report` and `list_templates`. If a result carries a note headed
 "ROSTER PLUGIN:", do what it says.
 
@@ -22,7 +22,7 @@ what you are doing, do it, stop.
 ## 1. Connect
 
 Call `check_setup`. It is here to confirm the connection works; do not report what it says about
-clients, Google Ads, Meta Ads, Search Console, Google Analytics or reports waiting for Claude, and do not call `list_workspaces`,
+clients, Google Ads, Meta Ads, Search Console, Google Analytics or reports waiting for Claude, and do not call `list_clients`,
 `list_reports` or `get_catalog`. Setup does not look at clients at all.
 
 If it fails with an authorization error, Roster isn't signed in yet. Ask them to type `/mcp`,
@@ -118,7 +118,7 @@ creates or changes anything:
   "permissions": {
     "allow": [
       "mcp__plugin_roster_roster__check_setup",
-      "mcp__plugin_roster_roster__list_workspaces",
+      "mcp__plugin_roster_roster__list_clients",
       "mcp__plugin_roster_roster__list_reports",
       "mcp__plugin_roster_roster__get_report",
       "mcp__plugin_roster_roster__get_task",
@@ -162,14 +162,14 @@ A pasted campaign link (…/campaigns/cmp_…) is the `campaign` skill's, and ca
 
 ## Adding a client
 
-`create_workspace` with the client's name, when the user asks for one, then send them to the
+`create_client` with the client's name, when the user asks for one, then send them to the
 client's page in the dashboard to add its ad accounts. Google Ads and Meta Ads are connected once,
 in Settings in the dashboard, for every client — never from Claude.
 
 ## Live state is never in this file
 
 Clients, accounts, campaigns and reports all change without this file changing. Never answer from
-what is written here — call `check_setup` for readiness, `list_workspaces` for clients,
+what is written here — call `check_setup` for readiness, `list_clients` for clients,
 `list_reports` for a client's reports and where each stands (none named: ask which first),
 `get_task` with a report's link for its brief, `get_report` for a saved report, and
 `list_templates` for templates.

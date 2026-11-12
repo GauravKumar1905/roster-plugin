@@ -6,7 +6,7 @@ argument-hint: "[report link]"
 
 Plugin version: 0.25.0
 
-Pass this version as `pluginVersion` to `check_setup`, `list_workspaces`, `get_task`,
+Pass this version as `pluginVersion` to `check_setup`, `list_clients`, `get_task`,
 `list_reports`, `get_report` and `list_templates`. If a result carries a note headed
 "ROSTER PLUGIN:", do what it says.
 
@@ -39,7 +39,7 @@ If the paste has a report link (`/r/rep_…`) — "Build this Roster report with
 building this Roster report with me", or the link on its own — you have it; go to step 2.
 
 Otherwise, `list_reports` for the client they named. If they named none, ask which client in a
-line (`list_workspaces` has their names) — never pick one yourself. Offer the reports Roster shows
+line (`list_clients` has their names) — never pick one yourself. Offer the reports Roster shows
 as **Waiting for Claude** or **Claude is building it**, and ask which to start. Do not start one on
 your own initiative. If nothing is waiting, tell them how to ask for one: in Roster, pick Google
 Ads report, Meta Ads report, Search Console report or Google Analytics report, choose the ad

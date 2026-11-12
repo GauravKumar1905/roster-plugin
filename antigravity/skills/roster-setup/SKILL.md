@@ -15,7 +15,7 @@ report asked for in the dashboard comes with its own link.
 ## 1. Connect
 
 Call `check_setup`. It is here to confirm the connection works; do not report what it says about
-clients, Google Ads, Meta Ads or reports waiting to be built, and do not call `list_workspaces`,
+clients, Google Ads, Meta Ads or reports waiting to be built, and do not call `list_clients`,
 `list_reports` or `get_catalog`. Setup does not look at clients at all.
 
 If the Roster tools are missing, or it fails with an authorization error, Roster is not signed in

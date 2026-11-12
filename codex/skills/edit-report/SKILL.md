@@ -19,7 +19,7 @@ The report's page in Roster has a button that copies a message like this:
 
 The link is the report, and the `Change:` line, when there is one, is what they want changed. Any
 other report link (`/r/rep_…`) or reportId works the same way. Otherwise `list_reports` for the
-client they named — if they named none, ask which one in a line (`list_workspaces` has their
+client they named — if they named none, ask which one in a line (`list_clients` has their
 names) — and ask which report they mean. Do not guess between two that could fit.
 
 ## 2. Read it
