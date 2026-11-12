@@ -157,6 +157,11 @@ and don't invent any of it:
   costliest mistake there is. A total budget needs an end date. Each ad set has its own budget
   unless they ask for one budget Meta spreads across them. Meta won't take less than the kind's
   `readiness.metaMinimumDailyBudget` per ad set per day (over the run, for a total budget).
+- **Images or videos** for the ads, from the user's own files — never a link they'd have to host
+  somewhere. If the brief's `media` already lists files the agency put on the campaign's page, say
+  in one line what Roster made of each (`line`) and use them. Otherwise ask, in these words: "Which
+  images or videos should the ads use? Give me the file or folder on this computer, or upload them
+  on the campaign's page in Roster and tell me when they're there." See **The ads' files** below.
 - **Dates:** start (default: as soon as they switch it on) and end, if any, in the account's time
   zone (`account.timeZone`).
 - **Where:** countries, regions or cities, and any to leave out. No default country.
@@ -223,7 +228,7 @@ refused.
       "ads": [
         {
           "name": "Sofa — square",
-          "media": { "format": "image", "url": "https://…/sofa.jpg" },
+          "media": { "format": "image", "url": "roster:med_8c1f0a2b3d4e5f60" },
           "primaryText": "…", "headline": "…",
           "callToAction": "SHOP_NOW",
           "url": "https://…/sofas?utm_source=meta&utm_medium=paid_social"
@@ -236,9 +241,10 @@ refused.
 
 - **Ad sets** by audience or place — one or a few. Each holds its own targeting and (by default)
   budget.
-- **Ads:** each an image or a video the user gives you as an https address — never invent or search
-  for images. Images: JPEG or PNG, at least 600 pixels a side (1080×1080 or 1080×1350 look best).
-  Videos: MP4 or MOV; Meta fetches it, and makes a still unless they give a `thumbnailUrl`.
+- **Ads:** each an image or a video from the user's files, named by its `use` (`roster:med_…`) —
+  never invent or search for images. An https address works too when the user offers one, but
+  never ask for it. Images: JPEG or PNG, at least 600 pixels a side (1080×1080 or 1080×1350 look
+  best). Videos: MP4 or MOV; Meta makes a still unless they give a `thumbnailUrl`.
 - **Text:** primary text (above the image; past 125 characters it's cut behind "See more"), a
   headline (past 40 it's cut in some placements), an optional description. Write it from what they
   told you; don't invent offers, prices or claims.
@@ -352,3 +358,20 @@ They run an agency; they are not developers. In every message:
   again on the same page with the same link. Another campaign starts in Roster, with its own link.
 - **Never edit, pause or switch on a campaign that exists**, and never draft over one: changes are
   made in Ads Manager.
+
+## The ads' files
+
+The user's images and videos go to Roster, never through the conversation, and reach the ad
+account only when the campaign is created.
+
+- **A path** (a file, several, or a folder): read each file's name and size (`ls -l`, or `stat`),
+  keeping only JPEG, PNG, MP4 and MOV files — say which you skipped, and ask which ones before
+  sending more than about ten. Then `add_campaign_media` with `campaignLink` and the files. For each
+  upload it returns, run exactly:
+  `curl --fail -sS -X PUT -H "<each header>" --upload-file "<the file's path>" "<uploadUrl>"`.
+  Never show the user the address. Then `check_campaign_media` with `campaignLink` and the
+  `mediaIds`, and say what Roster made of each in one line (`line`), and why for any refused.
+- **"It's in Roster"**: `check_campaign_media` with `campaignLink` and no ids lists them all.
+- **No shell to run curl** (no Bash tool here): offer only the campaign's page in Roster — its
+  **Ad images and videos** box — and check when they say it's there.
+- Read only the files and folders the user pointed you to.
