@@ -8,11 +8,12 @@ to run without an entry here.
 **Server needed** marks a release that only works once the matching Roster server is deployed.
 Entries before 0.19.0 were rebuilt from the commit history.
 
-## 0.28.0 — A report's link, or a campaign's, is enough
+## 0.28.0 — A report's link, or a campaign's, is enough; start one from here
 
 - **Server needed:** the Roster release where tools work out what a report or a campaign already
-  says, and the minimum from here. The two do not mix: this plugin leaves out inputs an older
-  server needs, and an older plugin passes inputs this server no longer has.
+  says, with `start_report` and `start_campaign`, and the minimum from here. The two do not mix:
+  this plugin leaves out inputs an older server needs, and an older plugin passes inputs this
+  server no longer has.
 
 - Reports: `get_catalog`, `preview_metric`, `preview_report`, the page tools and `save_report`
   take the `reportId` alone; its account, campaigns and conversion come from the report. A Meta
@@ -23,6 +24,11 @@ Entries before 0.19.0 were rebuilt from the commit history.
   none for every client — no `scope`.
 - Campaigns: drafts carry no account id — the campaign's link says which — and a campaign is
   created from its preview's `previewId` alone.
+- `report`: asked for a new report with no link, Claude asks which client, which of its accounts and
+  which campaigns, says back what it will start, and on a yes starts it with `start_report` — the
+  same report New report makes in Roster — then builds it from its link.
+- `campaign` and `meta-campaign`: the same for a new campaign, with `start_campaign`. Conversion
+  tracking with no campaign starts one first.
 
 ## 0.27.0 — Places by name; Google's campaign tools say Google
 
