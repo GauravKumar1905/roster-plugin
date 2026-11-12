@@ -8,6 +8,14 @@ to run without an entry here.
 **Server needed** marks a release that only works once the matching Roster server is deployed.
 Entries before 0.19.0 were rebuilt from the commit history.
 
+## Unreleased — Google's campaign tools say Google
+
+- **Server needed:** the Roster release that renames them; the two do not mix.
+
+- `campaign` calls `preview_google_campaign`, `create_google_campaign`,
+  `preview_google_conversion_action` and `create_google_conversion_action`, as `meta-campaign`
+  calls Meta's by Meta's names.
+
 ## 0.26.0 — Clients, not workspaces; campaign tracking; ads from your own files
 
 - **Server needed:** the Roster release that renames workspaces to clients, and the minimum from

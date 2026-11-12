@@ -11,7 +11,7 @@ result carries a note headed "ROSTER PLUGIN:", do what it says.
 
 # Set up a Google Ads campaign asked for in Roster
 
-**First:** Google Ads campaign setup is open only where Roster's tools include `preview_campaign`.
+**First:** Google Ads campaign setup is open only where Roster's tools include `preview_google_campaign`.
 If they don't, call `check_setup`: if its `campaignSetup.google.say` is there, say that, word for
 word; if there's no `campaignSetup`, say "Google Ads and Meta Ads campaigns open soon in Roster.
 Reports work today." Either way, stop: draft nothing, and don't offer another way.
@@ -20,7 +20,7 @@ That check is for a Google Ads campaign. A Meta one is handed over first (below)
 `meta-campaign` skill makes its own. Where the request names no platform — a campaign's link
 alone, or a campaign asked about by name — and Roster's tools include `get_campaign`, find it and
 read its brief first (steps 1 and 2): a Meta campaign is handed over, and a Google Ads one's
-`nextSteps` say what comes next — without `preview_campaign`, what to tell the user. Where they
+`nextSteps` say what comes next — without `preview_google_campaign`, what to tell the user. Where they
 don't include `get_campaign`, call `check_setup` and say, word for word, whichever platform's
 `campaignSetup` sentence isn't "open soon" — the one asking to sign in again, or the one saying
 campaign creation is in early access — or, with no `campaignSetup`, the one above.
@@ -218,9 +218,9 @@ leads, purchases — set one up, in this conversation:
    request_quote, add_to_cart, begin_checkout, subscribe, download, page_view, other), whether it has
    a value (none; a fixed amount; or a default the site can replace with the real value), and a
    name ("Website — enquiry form").
-2. `preview_conversion_action` with `campaignLink`. Show the summary, and say plainly: **it counts
+2. `preview_google_conversion_action` with `campaignLink`. Show the summary, and say plainly: **it counts
    nothing until its tag is on their site**, and Roster can't put it there. STOP until they say yes.
-3. `create_conversion_action` with that previewId, the same action and `campaignLink`. Give them the
+3. `create_google_conversion_action` with that previewId, the same action and `campaignLink`. Give them the
    tag code it returns: the site-wide Google tag goes in the `<head>` of every page (once; if their
    site already loads that same tag, only the event snippet is needed), the event snippet on the
    page the conversion lands on (the thank-you page). The campaign's page in Roster keeps the code
@@ -237,7 +237,7 @@ accounts and their conversion actions, and the same three steps without `campaig
 
 ## 6. Preview — then stop
 
-`preview_campaign` with the draft and `campaignLink`.
+`preview_google_campaign` with the draft and `campaignLink`.
 
 - **`passed: false`:** nothing was filed. Fix what each problem names and preview again. Where a fix
   changes something they decided (budget, places, bidding), ask them first. Never show a failed
@@ -255,7 +255,7 @@ again, and the yes asked again, before it can be created.
 
 ## 7. Create
 
-On their yes — in their reply, never in the message that showed the preview — `create_campaign`
+On their yes — in their reply, never in the message that showed the preview — `create_google_campaign`
 with that `previewId`, **exactly the same campaign** and `campaignLink`. Anything different is
 refused; preview again instead of editing on the way. The yes freezes the draft on the page as
 What you approved.
@@ -274,7 +274,7 @@ What you approved.
   latest and ask again.
 - **A yes whose answer never came** — "Google's answer didn't arrive", or a brief that says **Not
   sure it was created**: say it plainly — Roster isn't sure the campaign was created. While the yes
-  still holds, `create_campaign` again with the same `previewId`, campaign and `campaignLink`; once
+  still holds, `create_google_campaign` again with the same `previewId`, campaign and `campaignLink`; once
   the check has run out, preview `draft.campaign` unchanged with `campaignLink`, show them, ask the
   yes again, and create on it. The brief's `nextSteps` say which. Either way Roster picks up the
   campaign if Google made it, and creates it if not — never two.
@@ -313,8 +313,8 @@ They run an agency; they are not developers. In every message:
 
 ## Rules that hold throughout
 
-- **`campaignLink` on every call for the campaign:** `find_locations`, `preview_campaign`,
-  `create_campaign`, `preview_conversion_action`, `create_conversion_action`,
+- **`campaignLink` on every call for the campaign:** `find_locations`, `preview_google_campaign`,
+  `create_google_campaign`, `preview_google_conversion_action`, `create_google_conversion_action`,
   `add_campaign_comment`. Its client and ad account are the campaign's; never pick others.
 - **Never create in the message that shows the preview.** Their yes comes in between, every time.
 - **Never answer the EU political advertising question for them.**
