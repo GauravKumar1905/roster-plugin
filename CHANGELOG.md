@@ -8,10 +8,15 @@ to run without an entry here.
 **Server needed** marks a release that only works once the matching Roster server is deployed.
 Entries before 0.19.0 were rebuilt from the commit history.
 
-## Unreleased — Google's campaign tools say Google
+## 0.27.0 — Places by name; Google's campaign tools say Google
 
-- **Server needed:** the Roster release that renames them; the two do not mix.
+- **Server needed:** the Roster release that renames Google's campaign tools and resolves places
+  in the preview, and the minimum from here. The two do not mix.
 
+- `campaign` and `meta-campaign` put places and languages in the draft by name, with the country
+  when there is one, and the preview finds the ids. When a name could be more than one place, the
+  preview stops and lists the options (`choose`); Claude asks the user and previews again with the
+  chosen one. `find_locations` and `find_meta_places` are gone, and `setup` no longer allows them.
 - `campaign` calls `preview_google_campaign`, `create_google_campaign`,
   `preview_google_conversion_action` and `create_google_conversion_action`, as `meta-campaign`
   calls Meta's by Meta's names.

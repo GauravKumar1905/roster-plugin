@@ -130,15 +130,13 @@ creates or changes anything:
       "mcp__plugin_roster_roster__get_template",
       "mcp__plugin_roster_roster__get_campaign",
       "mcp__plugin_roster_roster__list_campaigns",
-      "mcp__plugin_roster_roster__find_locations",
-      "mcp__plugin_roster_roster__find_meta_places",
       "mcp__plugin_roster_roster__find_meta_interests"
     ]
   }
 }
 ```
 
-The last five are the campaign reads. Previewing a campaign is not among them: it files the draft
+The last three are the campaign reads. Previewing a campaign is not among them: it files the draft
 on the campaign's page and has Google or Meta check it, so each one asks.
 
 **No:** write nothing, and do not raise it again in this setup. Either way, saving a page, a report
@@ -247,7 +245,7 @@ the campaign reads, ask this instead, in the same message, once:
 
 > Roster's campaign reads can run without asking too. Allow that?
 
-On a yes, merge the five campaign reads into `permissions.allow` as step 2 does; on a no, write
+On a yes, merge the three campaign reads into `permissions.allow` as step 2 does; on a no, write
 nothing and do not raise it again. A refresh:
 
 - copies `agents/` and the skills again, as in step 2, and deletes anything in `.claude/agents/`

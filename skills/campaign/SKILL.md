@@ -153,14 +153,19 @@ and don't invent any of it:
 
 ## 4. Places and languages
 
-`find_locations` with `campaignLink`, the place names exactly as they said them, the country code
-whenever there is one, and the languages. Then:
+Put places and languages in the draft as they said them — "Austin", "Hindi" — with
+`locations.country` (the two-letter code) whenever there is one. The preview finds Google's ids
+itself; never look ids up or invent them. A name only goes through when it is plain which place it
+is. Otherwise the preview stops before checking anything else and says why:
 
-- Show each place's top match by its full name ("Austin, Texas, United States") and ask them to
-  confirm. When there are several plausible matches ("Georgia" — the country or the US state?), ask.
-  Never choose between them yourself.
-- A place that came back as a postcode, or not at all, is unresolved: ask how else it's known.
-- A city that came back as its region or province is wider than they asked for; say so.
+- **`choose`:** the name could be more than one place ("Georgia" — the country or the US state?),
+  or nothing is called exactly that. Show each option by its full name and ask which they mean.
+  Never choose between them yourself. Put the chosen option's `id` in place of the name, at the
+  `path` it gives, and preview again; the other names stay as they are.
+- **`unresolved`:** a postcode, or nothing at all. Ask how else it's known, or for a nearby city.
+
+When the preview passes, its summary names every place in full ("Austin, Texas, United States");
+show it to them. A city that came out as its region or province is wider than they asked for; say so.
 
 ## 5. Draft
 
@@ -313,7 +318,7 @@ They run an agency; they are not developers. In every message:
 
 ## Rules that hold throughout
 
-- **`campaignLink` on every call for the campaign:** `find_locations`, `preview_google_campaign`,
+- **`campaignLink` on every call for the campaign:** `preview_google_campaign`,
   `create_google_campaign`, `preview_google_conversion_action`, `create_google_conversion_action`,
   `add_campaign_comment`. Its client and ad account are the campaign's; never pick others.
 - **Never create in the message that shows the preview.** Their yes comes in between, every time.
