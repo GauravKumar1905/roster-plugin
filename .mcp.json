@@ -4,7 +4,7 @@
       "type": "http",
       "url": "https://app.useroster.xyz/api/mcp",
       "headers": {
-        "X-Roster-Plugin-Version": "0.26.0"
+        "X-Roster-Plugin-Version": "0.27.0"
       }
     }
   }
