@@ -2,14 +2,14 @@
 
 Read this when `get_task` says `platform: "analytics"`, or the account id is a GA4 property —
 `properties/123456789`. Everything in `SKILL.md` still holds where it applies; these are the ways a
-website report differs. `get_catalog` with the report's `reportId` (or, for a template, the property
-as `accountId`) lists only what GA4 reports, in its own words, and the preview and save tools hold
+website report differs. `get_catalog` with the report's `reportId` (or, for a template,
+`platform: "analytics"`) lists only what GA4 reports, in its own words, and the preview and save tools hold
 the design to it.
 
 ## A website, not campaigns
 
-- **The whole property is the scope.** There are no Roster campaigns: never pass `campaignIds` or a
-  `campaignId`. `ga_campaign` is a dimension — the UTM campaign a visit arrived from — not a scope.
+- **The whole property is the scope.** There are no Roster campaigns. `ga_campaign` is a dimension —
+  the UTM campaign a visit arrived from — not a scope.
 - **Visits from every source.** No spend and no ads. A report on how the client's website is
   visited: sessions, users, engagement, and what visitors did.
 - **Dates are the property's own time zone**, and a report ends yesterday. Say the zone once when
@@ -56,9 +56,8 @@ Rates are computed from counts after aggregation; never build them yourself.
 
 `key_events` counts **every** key event the property marks, together. The brief lists them
 (`keyEvents`, most first). Only when the agency's note asks for one — "form submissions", "booked
-calls" — use that event's `eventName` as `conversionAction` in `get_catalog`,
-`preview_report_page` and `save_report_page`, and name it in the titles ("Form submissions by
-channel"). Otherwise ask nothing about it. A property with no key events has no key event widgets
+calls" — set that event's `eventName` on the report with `set_report_conversion_action` before
+`get_catalog`, and name it in the titles ("Form submissions by channel"). Otherwise ask nothing about it. A property with no key events has no key event widgets
 and no `key_events` page; say so in one line.
 
 ## E-commerce

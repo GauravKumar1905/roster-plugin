@@ -116,10 +116,11 @@ plan: Meta has no single conversion. The first message is the two lines and the 
 Roster's standard monthly report for last month — Overview, Creative and Demographics."), and ends
 on the brief's question, from `conversionActions`: "Which result should count as a conversion —
 Leads (96 in the last 30 days) or Purchases (3)?" Nothing is designed yet. With their answer (it
-may be none), the next message is the Overview: `get_catalog` with `reportId` = `ids.reportId`
-and that `conversionAction`, whose `standardReport` names the action in its titles;
-`preview_report_page` with the reportId, page `overview`, the standard's name, dateRange and
-Overview sections, and that `conversionAction`; and "Save Overview and go on to Creative?". Load
+may be none), the next message is the Overview: `set_report_conversion_action` with `reportId` =
+`ids.reportId` and the chosen `actionType` (none: skip it) — the report keeps it, and every later
+call counts it; `get_catalog` with the reportId, whose `standardReport` names the action in its
+titles; `preview_report_page` with the reportId, page `overview`, and the standard's name,
+dateRange and Overview sections; and "Save Overview and go on to Creative?". Load
 `report-design`'s `meta.md` before designing. An account that recorded no conversion actions has
 nothing to ask: say so in one line, and the plan and Overview come in one message, as for Google.
 
@@ -140,27 +141,26 @@ key events it recorded; no `proposal`. The first message is two lines on those 2
 Overview, Acquisition, Pages and Audience, with Key events only where the property records any — and
 the Overview, designed from `get_catalog` with `reportId` = `ids.reportId`, previewed with the
 reportId, page `overview`, a name and a dateRange. `key_events` counts every key event; only when
-the note asks for one, pass its event name as `conversionAction` everywhere. No campaign is passed
-anywhere. Load `report-design`'s `google-analytics.md` before designing.
+the note asks for one, set its event name with `set_report_conversion_action` before `get_catalog`.
+No campaign is passed anywhere. Load `report-design`'s `google-analytics.md` before designing.
 
 **A saved template instead?** If they choose one of `savedTemplates`, there are no pages to build:
-`preview_report` with the `templateId`, `ids.accountId` and `ids.campaignIds`; show the figures and
-what was skipped; on their yes, `save_report` with the `templateId` and `reportId` = `ids.reportId`.
+`preview_report` with the `templateId` and `reportId` = `ids.reportId`; show the figures and what
+was skipped; on their yes, `save_report` with the same two.
 Then step 5.
 
 ## 4. Build it, one page at a time
 
 1. **On their yes to the Overview:** `save_report_page` with that `previewId` and exactly what was
-   previewed — reportId, page, sections, name, dateRange, and a Meta report's `conversionAction` —
-   plus `plannedPages` = the pages you proposed (`proposal.pages`), as they changed them. Anything
+   previewed — reportId, page, sections, name and dateRange — plus `plannedPages` = the pages you proposed (`proposal.pages`), as they changed them. Anything
    that differs from the preview is refused: preview again instead of editing on the way to the
    save.
 2. **Tell them it is saved**, with every warning from the save word for word. Their yes covered
    moving on, so design the next page; if they only said to save, ask before starting it.
 3. **That page only** — its sections from `standardReport` as given, changed only where they
    asked (a page the standard doesn't have, you design from `get_catalog`), and nothing else — and
-   `preview_report_page` with the `reportId`, the `page` and its `sections` alone: no `name`,
-   `dateRange`, `accountId` or `campaignIds`, which belong to the whole report.
+   `preview_report_page` with the `reportId`, the `page` and its `sections` alone: no `name` or
+   `dateRange`, which belong to the whole report.
 4. **Refused?** It names the exact path and the fix. Correct exactly that and preview again. A page
    that failed gets no `previewId` and is never shown to the user as if it were ready.
 5. **Show the figures and STOP.** One question — "Save it and go on to Geo & device?" — nothing else

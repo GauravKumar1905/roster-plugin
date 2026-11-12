@@ -42,9 +42,10 @@ change those yourself.
 ("120 conversions a month, CPA under 40"), set them with `set_report_targets` — no preview or save
 needed, and nothing is re-rendered.
 
-A **Meta Ads report** (`platform: "meta"`) counts one `conversionAction`. To count a different
-one — "use leads, not purchases" — `set_report_conversion_action` with the reportId; it redraws the
-report. Name the new action in conversion titles afterwards.
+A **Meta Ads report** (`platform: "meta"`) counts one `conversionAction`, a **Google Analytics**
+one may count one key event. To count a different one — "use leads, not purchases" —
+`set_report_conversion_action` with the reportId; it redraws the report. Name the new action in
+conversion titles afterwards.
 
 ## 3. Agree the change
 
@@ -54,9 +55,8 @@ when the message had none, ask what should change first. Then load the `roster-r
 campaign, several or the whole account — and on a Meta Ads report it counts the report's own
 conversion action. For a Meta Ads report, read `roster-report-design`'s `meta.md` too; for a Search
 Console report (`platform: "search_console"`, a whole site), `search-console.md`; for a Google
-Analytics report (`platform: "analytics"`, a GA4 property), `google-analytics.md` — and keep the
-report's key event (`conversionAction` in `get_report`) on every call if it has one. Change only what
-they asked for. Everything else stays as it is.
+Analytics report (`platform: "analytics"`, a GA4 property), `google-analytics.md`. Every call counts
+the report's own conversion or key event. Change only what they asked for. Everything else stays as it is.
 
 ## 4. Preview, stop, save — one page at a time
 
@@ -65,8 +65,8 @@ they asked for. Everything else stays as it is.
 1. Take that page's sections from the spec `get_report` returned (sections with that `segment`;
    a section with no `segment` is on Overview), keep every `key`, and change only what they asked.
    A new page starts from nothing.
-2. `preview_report_page` with the `reportId`, the `page` and that page's `sections` — no
-   `accountId`, `campaignIds`, `name` or `dateRange`; a report keeps its own.
+2. `preview_report_page` with the `reportId`, the `page` and that page's `sections` — no `name` or
+   `dateRange`; a report keeps its own.
 3. Show the figures and **stop**. Ask whether it is right. Iterate — each preview gives a new
    `previewId`.
 4. On their yes, `save_report_page` with exactly the same page and sections and the latest
@@ -75,11 +75,10 @@ they asked for. Everything else stays as it is.
 A change touching two pages is two rounds of this, one page at a time, with their yes in between.
 
 **A change to the whole report** — its name or date range, or removing a page entirely: change
-the full spec from `get_report`, `preview_report` with it and the report's `accountId` and
-`campaignIds`, stop for their yes, then `save_report` with the **reportId** and the full spec. Keep
+the full spec from `get_report`, `preview_report` with it and the `reportId`, stop for their yes, then `save_report` with the **reportId** and the full spec. Keep
 every section's `key`.
 
-**Switching to a template's design**: `preview_report` with the `templateId`, then on their yes
+**Switching to a template's design**: `preview_report` with the `templateId` and the `reportId`, then on their yes
 `save_report` with the reportId and the `templateId`.
 
 If a save is refused, fix exactly what it names, provided the fix leaves what they agreed the same.
