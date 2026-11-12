@@ -8,6 +8,22 @@ to run without an entry here.
 **Server needed** marks a release that only works once the matching Roster server is deployed.
 Entries before 0.19.0 were rebuilt from the commit history.
 
+## 0.28.0 — A report's link, or a campaign's, is enough
+
+- **Server needed:** the Roster release where tools work out what a report or a campaign already
+  says, and the minimum from here. The two do not mix: this plugin leaves out inputs an older
+  server needs, and an older plugin passes inputs this server no longer has.
+
+- Reports: `get_catalog`, `preview_metric`, `preview_report`, the page tools and `save_report`
+  take the `reportId` alone; its account, campaigns and conversion come from the report. A Meta
+  report's conversion, or a GA4 report's key event, is set once with `set_report_conversion_action`
+  before designing, and every later call counts it. `get_task`'s `ids` are the report and its client.
+- Templates: designed from `get_catalog` with the template's `platform`, tested with
+  `preview_report` on one of the client's reports, and saved with a `clientId` for one client or
+  none for every client — no `scope`.
+- Campaigns: drafts carry no account id — the campaign's link says which — and a campaign is
+  created from its preview's `previewId` alone.
+
 ## 0.27.0 — Places by name; Google's campaign tools say Google
 
 - **Server needed:** the Roster release that renames Google's campaign tools and resolves places

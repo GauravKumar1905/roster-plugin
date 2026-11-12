@@ -9,16 +9,15 @@ save tools hold the design to it.
 
 Meta has no single conversion. `get_catalog` with the report's `reportId` lists the account's
 `conversionActions` — purchases, leads, registrations, a custom conversion — most frequent first
-(for a template, `get_catalog` with the Meta `accountId` alone). Before designing anything with
-conversions in it, ask the user which one this report counts, by label, or none. Pass its
-`actionType` as `conversionAction` to `get_catalog` (with the `reportId`) and to the Overview's
-`preview_report_page` and `save_report_page`.
+(a template is designed from `get_catalog` with `platform: "meta"`, and counts whichever action
+each report has). Before designing anything with conversions in it, ask the user which one this
+report counts, by label, or none. Set its `actionType` with `set_report_conversion_action` and the
+`reportId`, then call `get_catalog` again: every catalog, preview and save then counts it.
 
 - Then name the action in titles: "Purchases", "Cost per lead" — not "Conversions".
 - No action chosen, or none recorded: the report has no conversions, CPA or ROAS. That is a fine
   reach-and-engagement report, not a problem to work round.
-- Changing it later is its own step: `set_report_conversion_action` with the reportId, which
-  redraws the report.
+- Changing it later is the same call, which redraws a saved report.
 
 ## Meta's structure and words
 
