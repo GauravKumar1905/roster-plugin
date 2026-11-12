@@ -189,15 +189,20 @@ and don't invent any of it:
 
 ## 4. Places, languages and interests
 
-`find_meta_places` with `campaignLink`, the place names exactly as they said them, the country code
-whenever there is one, and the languages. Copy each confirmed match's `place` into the draft
-**unchanged**.
+Put each ad set's places and languages in the draft as they said them — "Mumbai", "Hindi" — with
+`places.country` (the two-letter code) whenever there is one. The preview finds Meta's entries
+itself; never look them up or write them out. A name only goes through when it is plain which place
+it is. Otherwise the preview stops before checking anything else and says why:
 
-- Show each place by its full name ("Mumbai, Maharashtra, India") and ask them to confirm. When a
-  name is both a region and a city ("Delhi"), the result says so — ask which. Never choose yourself.
-- A place that came back as nothing is unresolved: ask how else it's known, or for a nearby city.
+- **`choose`:** the name is both a region and a city ("Delhi"), more than one place has it, or
+  nothing is called exactly that. Show each option by name, with where it is, and ask which they
+  mean. Never choose yourself. Copy the chosen option's `place` (or `language`) **unchanged** in
+  place of the name, at the `path` it gives, and preview again; the other names stay as they are.
+- **`unresolved`:** nothing found. Ask how else it's known, or for a nearby city.
 - Don't include a country and a place inside it in the same ad set; Meta refuses both. Keep the one
   they mean.
+
+When the preview passes, its summary names every place in full; show it to them.
 
 `find_meta_interests` with `campaignLink` for interests they describe. Show the matches with their
 audience size and where Meta files them, and let them choose — "Interior design" the interest isn't
@@ -221,7 +226,7 @@ refused.
     {
       "name": "India, 25–54",
       "budget": { "period": "daily", "amount": 500 },
-      "places": { "include": [ /* places from find_meta_places */ ] },
+      "places": { "include": ["India"], "country": "IN" },
       "ageMin": 25, "ageMax": 54,
       "advantageAudience": false,
       "placements": "automatic",
@@ -348,9 +353,9 @@ They run an agency; they are not developers. In every message:
 
 ## Rules that hold throughout
 
-- **`campaignLink` on every call for the campaign:** `find_meta_places`, `find_meta_interests`,
-  `preview_meta_campaign`, `create_meta_campaign`, `add_campaign_comment`. Its client and ad
-  account are the campaign's; never pick others.
+- **`campaignLink` on every call for the campaign:** `find_meta_interests`, `preview_meta_campaign`,
+  `create_meta_campaign`, `add_campaign_comment`. Its client and ad account are the campaign's;
+  never pick others.
 - **Never create in the message that shows the preview.** Their yes comes in between, every time.
 - **Never answer for them** the special ad categories, Advantage+ audience, or who EU ads are for and
   who pays.
