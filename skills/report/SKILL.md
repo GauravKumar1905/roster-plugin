@@ -4,7 +4,7 @@ description: Build a Google Ads, Meta Ads, Google Search Console or Google Analy
 argument-hint: "[report link]"
 ---
 
-Plugin version: 0.25.0
+Plugin version: 0.26.0
 
 Pass this version as `pluginVersion` to `check_setup`, `list_clients`, `get_task`,
 `list_reports`, `get_report` and `list_templates`. If a result carries a note headed
