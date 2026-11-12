@@ -3,7 +3,7 @@ name: setup
 description: Connect this Claude to your Roster account, set up your reporting folder, and update the Roster plugin. Use for "set up Roster", "update Roster" or "is my Roster plugin up to date".
 ---
 
-Plugin version: 0.27.0
+Plugin version: 0.28.0
 
 Pass this version as `pluginVersion` to `check_setup`, `list_clients`, `get_task`,
 `list_reports`, `get_report` and `list_templates`. If a result carries a note headed

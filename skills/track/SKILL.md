@@ -4,7 +4,7 @@ description: Set up campaign tracking in Roster — each morning Roster checks t
 argument-hint: "[client or tracking link]"
 ---
 
-Plugin version: 0.27.0
+Plugin version: 0.28.0
 
 Pass this version as `pluginVersion` to `check_setup`. If a result carries a note headed
 "ROSTER PLUGIN:", do what it says.
