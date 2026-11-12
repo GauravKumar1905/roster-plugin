@@ -6,7 +6,7 @@ argument-hint: "[report link]"
 
 Plugin version: 0.25.0
 
-Pass this version as `pluginVersion` to `check_setup`, `list_workspaces`, `get_task`,
+Pass this version as `pluginVersion` to `check_setup`, `list_clients`, `get_task`,
 `list_reports`, `get_report` and `list_templates`. If a result carries a note headed
 "ROSTER PLUGIN:", do what it says.
 
@@ -26,7 +26,7 @@ The report page's **Change with Claude** copies a message like this:
 
 The link is the report, and the `Change:` line, when there is one, is what they want changed. Any
 other report link (`/r/rep_…`) or reportId works the same way. Otherwise `list_reports` for the
-client they named — if they named none, ask which one in a line (`list_workspaces` has their
+client they named — if they named none, ask which one in a line (`list_clients` has their
 names) — and ask which report they mean. Do not guess between two that could fit.
 
 ## 2. Read it

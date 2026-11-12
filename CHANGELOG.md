@@ -8,6 +8,17 @@ to run without an entry here.
 **Server needed** marks a release that only works once the matching Roster server is deployed.
 Entries before 0.19.0 were rebuilt from the commit history.
 
+## Unreleased — Clients, not workspaces
+
+- **Server needed:** the Roster release that renames workspaces to clients. The two do not mix:
+  this plugin calls `list_clients`, `create_client` and `clientId`, which an older server doesn't
+  have, and an older plugin calls names this server no longer has.
+
+- Every skill says client wherever it said workspace, as the dashboard does: `list_workspaces` is
+  `list_clients`, `create_workspace` is `create_client`, and every tool takes `clientId` where it
+  took `workspaceId`. Client ids start `cl_`.
+- `template` no longer reads ids from the dashboard's older paste formats.
+
 ## 0.25.0 — What Roster knows about the client
 
 - **Server needed:** `get_client_profile`, `save_client_profile`, `list_documents` and

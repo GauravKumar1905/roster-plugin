@@ -25,7 +25,7 @@ every finding ends in what the agency can do.
 A watch is campaigns the user picked in one ad account of one client. They can also pick them
 themselves in Roster (Tracking → Track campaigns). Ask only what you don't know:
 
-1. **Which client and ad account.** `list_workspaces` if you need to find them. One account per
+1. **Which client and ad account.** `list_clients` if you need to find them. One account per
    watch; a client with Google Ads and Meta gets two.
 2. **Which campaigns to track.** Call `watch_campaigns` with the account and no `campaignIds`: it
    tracks nothing and returns the account's campaigns (`accountCampaigns`, by last-30-day spend).

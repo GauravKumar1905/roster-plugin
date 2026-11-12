@@ -89,7 +89,7 @@ agency wrote, the ad account with its currency and time zone, what Roster can se
 (`readiness`), the draft last checked or what was approved, what came of the yes (`result`), the
 last Check status (`lastCheck`), Roster's open advice (`lookAt`), the team's comments, the client's
 profile and documents, the `ids` for every later call, and `nextSteps`. Follow `nextSteps` in
-order, and don't call other tools to rediscover any of it — not `list_workspaces`, not
+order, and don't call other tools to rediscover any of it — not `list_clients`, not
 `get_account_setup`.
 
 If it returns an error, tell the user what it says and stop: a cancelled campaign —
@@ -231,9 +231,9 @@ Later, the brief's `conversionTracking` lists the actions set up for the campaig
 counted in the 30 days to its date; none at all usually means the tag isn't installed yet.
 
 **Conversion tracking on its own**, with no campaign: ask which client if they haven't said
-(`list_workspaces` has the names) — never pick one — then `get_account_setup` for its Google Ads
+(`list_clients` has the names) — never pick one — then `get_account_setup` for its Google Ads
 accounts and their conversion actions, and the same three steps without `campaignLink`, passing
-`workspaceId` when the account is in more than one client.
+`clientId` when the account is in more than one client.
 
 ## 6. Preview — then stop
 
