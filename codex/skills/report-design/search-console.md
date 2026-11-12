@@ -3,13 +3,13 @@
 Read this when `get_task` says `platform: "search_console"`, or the account id is a site —
 `sc-domain:example.com` or `https://www.example.com/`. Everything in `SKILL.md` still holds where it
 applies; these are the ways a site report differs. `get_catalog` with the report's `reportId` (or,
-for a template, the property as `accountId`) lists only what Search Console reports, in its own
+for a template, `platform: "search_console"`) lists only what Search Console reports, in its own
 words, and the preview and save tools hold the design to it.
 
 ## A site, not campaigns
 
-- **The whole site is the scope.** There are no campaigns: never pass `campaignIds` or a
-  `campaignId`. The report is about one property, and a client has one report per property.
+- **The whole site is the scope.** There are no campaigns: the report is about one property, and a
+  client has one report per property.
 - **Organic search only.** No spend, cost, conversions or ads. A report on how the site does in
   Google's results: clicks, impressions, CTR and average position.
 - **Dates are Pacific Time**, for every site, and Google needs two or three days to finish counting.
