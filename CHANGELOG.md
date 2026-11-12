@@ -8,16 +8,22 @@ to run without an entry here.
 **Server needed** marks a release that only works once the matching Roster server is deployed.
 Entries before 0.19.0 were rebuilt from the commit history.
 
-## Unreleased — Clients, not workspaces
+## 0.26.0 — Clients, not workspaces; campaign tracking; ads from your own files
 
-- **Server needed:** the Roster release that renames workspaces to clients. The two do not mix:
-  this plugin calls `list_clients`, `create_client` and `clientId`, which an older server doesn't
-  have, and an older plugin calls names this server no longer has.
+- **Server needed:** the Roster release that renames workspaces to clients, and the minimum from
+  here. The two do not mix: this plugin calls `list_clients`, `create_client` and `clientId`, which
+  an older server doesn't have, and an older plugin calls names this server no longer has.
 
 - Every skill says client wherever it said workspace, as the dashboard does: `list_workspaces` is
   `list_clients`, `create_workspace` is `create_client`, and every tool takes `clientId` where it
   took `workspaceId`. Client ids start `cl_`.
 - `template` no longer reads ids from the dashboard's older paste formats.
+- New `track` skill, Claude only: set up campaign tracking with the user — client, ad account,
+  the campaigns that matter, budget and target — read back where it stands, explain what Roster
+  found, and draft a note for the client. Where tracking is switched on for the agency.
+- `meta-campaign` asks for the ads' files — a file or folder path, or files uploaded on the
+  campaign's page in Roster — never an https link per ad. It sends them with `add_campaign_media`,
+  checks them with `check_campaign_media`, and names them `roster:med_…` in the draft.
 
 ## 0.25.0 — What Roster knows about the client
 
