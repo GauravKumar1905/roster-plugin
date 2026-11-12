@@ -1,6 +1,6 @@
 ---
 name: track
-description: Set up campaign tracking in Roster — each morning Roster checks the Google Ads or Meta Ads campaigns the user picks to track (delivery, spend against the plan, conversions, rejected ads, results against target, weak ads) and lists what needs them — and read back what it found. Use when the user pastes "Set up campaign tracking in Roster", asks Roster to watch, monitor or keep an eye on a client's campaigns or budget, asks what needs attention today, asks about a Roster tracking finding, or pastes a Roster tracking link (/tracking/wch_…).
+description: Set up campaign tracking in Roster — each morning Roster checks the Google Ads or Meta Ads campaigns the user picks to track (delivery, spend against the plan, conversions, rejected ads, results against target, weak ads, changes by people outside the agency, Meta's Advantage+ enhancements switching on) and lists what needs them — and read back what it found. Use when the user pastes "Set up campaign tracking in Roster", asks Roster to watch, monitor or keep an eye on a client's campaigns or budget, asks what needs attention today, asks about a Roster tracking finding, or pastes a Roster tracking link (/tracking/wch_…).
 argument-hint: "[client or tracking link]"
 ---
 
@@ -73,4 +73,7 @@ the user to send — never send it, and never promise a result.
 `watch_campaigns` with `watchId` changes the budget, target, band or campaigns in place (the
 campaigns are replaced; a watch keeps at least one).
 `dismiss_finding` marks one as not a problem — only when the user says so; it stays quiet for 7
-days unless it gets worse. `stop_watching` stops the morning checks; the history stays.
+days unless it gets worse. A **Changed** finding names the `person` who made the changes: when the
+user says that person is on their team, `dismiss_finding` with `thatsUs: true` — Roster stops
+flagging their changes on every client's watches. Never assume someone is on the team.
+`stop_watching` stops the morning checks; the history stays.
