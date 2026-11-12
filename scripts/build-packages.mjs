@@ -74,11 +74,6 @@ const REWRITES = [
   ],
   [
     "skills/report/SKILL.md",
-    phrase("press Copy for Claude and paste the message here."),
-    "copy the message Roster gives them and paste\nit here.",
-  ],
-  [
-    "skills/report/SKILL.md",
     phrase(
       "Roster shows the report as **Claude is building it · 1 of 3 pages**, and it can't be shared. If they add or drop a page partway, `set_report_pages` with the new list;",
     ),

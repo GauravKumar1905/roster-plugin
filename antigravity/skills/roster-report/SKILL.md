@@ -1,6 +1,6 @@
 ---
 name: roster-report
-description: "Build a Google Ads, Meta Ads, Google Search Console or Google Analytics report asked for in Roster. Use when the user pastes \"Build this Roster report with me\" or \"Carry on building this Roster report with me\", a Roster report link (/r/…), or asks which reports are waiting for a client."
+description: "Build a Google Ads, Meta Ads, Google Search Console or Google Analytics report in Roster — asked for there, or started here. Use when the user pastes \"Build this Roster report with me\" or \"Carry on building this Roster report with me\", a Roster report link (/r/…), asks which reports are waiting for a client, or asks for a new report for a client."
 ---
 
 # Build a report asked for in Roster
@@ -35,10 +35,17 @@ building this Roster report with me", or the link on its own — you have it; go
 Otherwise, `list_reports` for the client they named. If they named none, ask which client in a
 line (`list_clients` has their names) — never pick one yourself. Offer the reports
 whose `status` says they are waiting or being built, and ask which to start. Do not start one on
-your own initiative. If nothing is waiting, tell them how to ask for one: in Roster, pick Google
-Ads report, Meta Ads report, Search Console report or Google Analytics report, choose the ad
-account, site or property, copy the message Roster gives them and paste
-it here.
+your own initiative.
+
+**A new report, here.** If they want a new one rather than one that is waiting, start it here, as
+New report does in Roster. You need three answers from them, never your guesses: the client; which
+of its accounts — `list_clients` lists each client's Google Ads and Meta ad accounts, Search Console
+sites and Google Analytics properties; offer them by name — and, for an ad account, all its
+campaigns or which ones. Take their note, if they gave one, in their words. Say back in one line what
+you will start ("A Meta Ads report for Aranya Living, all campaigns?") and, on their yes,
+`start_report` with `clientId`, `accountId`, any `campaignIds` and the `note`. It returns the report's
+link: go to step 2 with it. An account the client doesn't have yet is added on the client's page in
+Roster; give them the link the refusal names.
 
 ## 2. Read the brief
 

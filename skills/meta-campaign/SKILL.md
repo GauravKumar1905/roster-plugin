@@ -25,7 +25,7 @@ include `get_campaign`, call `check_setup` and say, word for word, whichever pla
 `campaignSetup` sentence isn't "open soon" — the one asking to sign in again, or the one saying
 campaign creation is in early access — or, with no `campaignSetup`, the one above.
 
-Every campaign is asked for in Roster: the agency presses **New campaign**, picks the ad account —
+A campaign is asked for in Roster, or started here (step 1): the agency presses **New campaign**, picks the ad account —
 Roster checks what it can set up there — writes a note for you if it wants, and presses **Copy for
 Claude**. That makes the campaign — its page and link exist before it has a draft — and copies a
 message like this:
@@ -77,9 +77,12 @@ exact campaign you showed them.
   `platform: "meta"` lists every client's, each with its name, client and `status`. Pick the one
   they mean by its name and client; if two could be it, ask which — never guess. Then step 2 with
   its `campaignLink`.
-- **They want a new campaign and pasted no link:** don't draft it here, and never pick a client or
-  an ad account. Ask them to start it in Roster —
-  New campaign, pick the account, then Copy for Claude — and paste the message here.
+- **They want a new campaign and pasted no link:** start it here, as New campaign does in Roster.
+  Ask which client and which of its Meta ad accounts — `list_clients` lists them; offer them by name —
+  and never pick either yourself. Say back in one line what you will start, and on their yes
+  `start_campaign` with `clientId`, `accountId` and their note, in their words, if they gave one. It
+  returns the campaign's link: go to step 2 with it. An account the client doesn't have yet is added
+  on the client's page in Roster; give them the link the refusal names.
 
 ## 2. Read the brief
 
