@@ -211,12 +211,10 @@ inner list is one group: people match **any** interest in a group, and **every**
 
 ## 5. Draft
 
-Its `adAccountId` is `ids.accountId`, the campaign's own ad account: a draft for another account is
-refused.
+It has no ad account: Roster takes the campaign's own from `campaignLink`.
 
 ```json
 {
-  "adAccountId": "act_…",
   "name": "Traffic — Sofas — India",
   "kind": "traffic",
   "specialAdCategories": [],
@@ -295,9 +293,9 @@ again, and the yes asked again, before it can be created.
 ## 7. Create
 
 On their yes — in their reply, never in the message that showed the preview — `create_meta_campaign`
-with that `previewId`, **exactly the same campaign** and `campaignLink`. Anything different is
-refused; preview again instead of editing on the way. The yes freezes the draft on the page as
-What you approved.
+with that `previewId` alone: Roster kept the draft it checked, and creates **exactly that
+campaign**. A change is previewed again, never made on the way. The yes freezes the draft on the
+page as What you approved.
 
 - **Created:** say the sentence its result gives, word for word, then that Meta reviews each ad once
   it is switched on:
@@ -314,7 +312,7 @@ What you approved.
   latest and ask again.
 - **A yes whose answer never came** — "Meta's answer didn't arrive", or a brief that says **Not sure
   it was created**: say it plainly — Roster isn't sure the campaign was created. While the yes still
-  holds, `create_meta_campaign` again with the same `previewId`, campaign and `campaignLink`; once
+  holds, `create_meta_campaign` again with the same `previewId`; once
   the check has run out, preview `draft.campaign` unchanged with `campaignLink`, show them, ask the
   yes again, and create on it. The brief's `nextSteps` say which. Either way Roster picks up what
   Meta made and creates only what's missing — never two.
@@ -353,9 +351,10 @@ They run an agency; they are not developers. In every message:
 
 ## Rules that hold throughout
 
-- **`campaignLink` on every call for the campaign:** `find_meta_interests`, `preview_meta_campaign`,
-  `create_meta_campaign`, `add_campaign_comment`. Its client and ad account are the campaign's;
-  never pick others.
+- **`campaignLink` on every call for the campaign but the create:** `find_meta_interests`,
+  `preview_meta_campaign`, `add_campaign_comment`. Its client and ad account are the campaign's:
+  never put an ad account in a draft, nor pick a client. `create_meta_campaign` takes the
+  `previewId` alone.
 - **Never create in the message that shows the preview.** Their yes comes in between, every time.
 - **Never answer for them** the special ad categories, Advantage+ audience, or who EU ads are for and
   who pays.
