@@ -4,7 +4,7 @@ description: Draft and create a Meta (Facebook and Instagram) ads campaign asked
 argument-hint: "[campaign link]"
 ---
 
-Plugin version: 0.24.0
+Plugin version: 0.25.0
 
 Pass this version as `pluginVersion` to `check_setup`, `get_campaign` and `list_campaigns`. If a
 result carries a note headed "ROSTER PLUGIN:", do what it says.
