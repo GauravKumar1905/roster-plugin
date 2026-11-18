@@ -212,6 +212,12 @@ bugs alive.
 Call `complete_setup`. Always — whether or not the folder was created, and on a re-run too. This is what unlocks the dashboard; skip it and the user is stuck on
 the setup screen with no idea why.
 
+When the Roster folder exists — made in step 2, or already there — pass its full path as
+`folderPath`: Roster's **Open in Claude** buttons start new sessions in it. Get the real path rather
+than writing `~`: `pwd` when the session is already in the folder, otherwise
+`cd ~/Desktop/Roster && pwd` (on Windows, `(Resolve-Path ~/Desktop/Roster).Path`, which follows a
+Desktop kept in OneDrive). Leave `folderPath` out when they declined the folder.
+
 If it fails, say so plainly and try once more. Do not tell them setup is finished until it has
 succeeded.
 

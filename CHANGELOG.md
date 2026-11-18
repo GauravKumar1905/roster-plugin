@@ -8,6 +8,13 @@ to run without an entry here.
 **Server needed** marks a release that only works once the matching Roster server is deployed.
 Entries before 0.19.0 were rebuilt from the commit history.
 
+## 0.29.0 — Open in Claude starts sessions in the Roster folder
+
+- `setup`: `complete_setup` is given the Roster folder's full path as `folderPath`, so Roster's
+  Open in Claude buttons open new Code sessions in it, where the read-only steps are allowed. Safe
+  with an older server, which ignores it; Roster only keeps the path from the release that adds
+  Open in Claude.
+
 ## 0.28.0 — A report's link, or a campaign's, is enough; start one from here
 
 - **Server needed:** the Roster release where tools work out what a report or a campaign already
