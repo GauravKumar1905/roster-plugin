@@ -46,9 +46,20 @@ the user says otherwise. There's no industry standard for it.
 
 ## What needs attention
 
-`list_watches` gives every watch with its Now and This week counts, worst first. `get_watch` gives
-one watch's findings, each with what Roster saw, why it matters and what to do, in the dashboard's
-words — use them. Pass `check: true` only when the user wants it read again now.
+`list_watches` gives every watch with its Now and This week counts and how many of its checks are
+fine, worst first. `get_watch` gives one watch's findings, each with what Roster saw, why it matters
+and what to do, in the dashboard's words — use them. Pass `check: true` only when the user wants it
+read again now.
+
+`get_watch` also gives the watch's **checklist** (`checks`): every check Roster ran this morning —
+account, campaigns, ads, delivery, daily spend, pacing, results against target, sudden changes,
+conversion tracking, weak ads, changes by people outside the agency, and Meta's enhancements — each
+Fine, Needs you or Couldn't judge, with a one-line result in figures, the rule it was judged by and
+its date range. When reading a watch back, lead with the verdict ("12 checked: 11 fine, 1 needs
+you"), then the Needs-you items, then pacing. When the user asks whether something is fine ("is
+delivery OK?"), answer from that check's line and rule, with its figures. **Couldn't judge isn't
+Fine**: say why (`whyNotJudged`: no plan set, too little data, still learning…) and what would let
+Roster judge it.
 
 When explaining a finding:
 
