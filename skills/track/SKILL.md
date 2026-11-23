@@ -37,6 +37,11 @@ themselves in Roster (Tracking → Track campaigns). Ask only what you don't kno
    stay over (`{metric: "roas", value}`, 4 for 4×). On Meta, which action counts as a result, if not
    the campaign's own objective. Optional.
 
+If the client's profile already has a monthly budget or a target (`get_client_profile` →
+`clientProfile.facts`), offer those rather than asking from scratch; one that is Claude's guess needs
+the user's yes before it goes on a watch. A target or budget the user gives you here is worth
+offering to save to the profile too (`save_client_profile`'s `facts`, `confirmed: true`).
+
 Then `watch_campaigns` with the picked `campaignIds`. It reads them once and returns where it stands. Tell the user in a
 few lines: pacing, then the Now findings, then how many This week ones — and the link. Don't paste
 every finding back.

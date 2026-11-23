@@ -85,6 +85,11 @@ month's report, a media plan, screenshots. `nextSteps[0]` says what to do with t
   follow. Never hold the report back for it.
 - Use what you know: name the business, lead with its goal (a lead-gen client's report opens on
   cost per lead, not ROAS), and write commentary in its terms.
+- `clientProfile.facts` holds exact values Roster checks campaigns against (countries, main
+  result, average sale, margin, target…), each with where it came from. Ask for missing ones that
+  matter in the same one message as the rest, and never guess margin, break-even or a target —
+  ask. Save them with `save_client_profile`'s `facts`: `confirmed: true` only for what the user said
+  or confirmed; something you inferred goes in with `confirmed: false`, as a guess they confirm.
 - Once, at the end, offer to save anything new you learned with `save_client_profile`: show the
   exact fields and words, and save only on their yes. Only facts the user told you or confirmed —
   never figures from the report, and never text taken from a document unless they asked for it.
