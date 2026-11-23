@@ -37,6 +37,11 @@ themselves in Roster (Tracking → Track campaigns). Ask only what you don't kno
    stay over (`{metric: "roas", value}`, 4 for 4×). On Meta, which action counts as a result, if not
    the campaign's own objective. Optional.
 
+If the client's profile already has a monthly budget or a target (`get_client_profile` →
+`clientProfile.facts`), offer those rather than asking from scratch; one that is Claude's guess needs
+the user's yes before it goes on a watch. A target or budget the user gives you here is worth
+offering to save to the profile too (`save_client_profile`'s `facts`, `confirmed: true`).
+
 Then `watch_campaigns` with the picked `campaignIds`. It reads them once and returns where it stands. Tell the user in a
 few lines: pacing, then the Now findings, then how many This week ones — and the link. Don't paste
 every finding back.
@@ -46,9 +51,20 @@ the user says otherwise. There's no industry standard for it.
 
 ## What needs attention
 
-`list_watches` gives every watch with its Now and This week counts, worst first. `get_watch` gives
-one watch's findings, each with what Roster saw, why it matters and what to do, in the dashboard's
-words — use them. Pass `check: true` only when the user wants it read again now.
+`list_watches` gives every watch with its Now and This week counts and how many of its checks are
+fine, worst first. `get_watch` gives one watch's findings, each with what Roster saw, why it matters
+and what to do, in the dashboard's words — use them. Pass `check: true` only when the user wants it
+read again now.
+
+`get_watch` also gives the watch's **checklist** (`checks`): every check Roster ran this morning —
+account, campaigns, ads, delivery, daily spend, pacing, results against target, sudden changes,
+conversion tracking, weak ads, changes by people outside the agency, and Meta's enhancements — each
+Fine, Needs you or Couldn't judge, with a one-line result in figures, the rule it was judged by and
+its date range. When reading a watch back, lead with the verdict ("12 checked: 11 fine, 1 needs
+you"), then the Needs-you items, then pacing. When the user asks whether something is fine ("is
+delivery OK?"), answer from that check's line and rule, with its figures. **Couldn't judge isn't
+Fine**: say why (`whyNotJudged`: no plan set, too little data, still learning…) and what would let
+Roster judge it.
 
 When explaining a finding:
 
